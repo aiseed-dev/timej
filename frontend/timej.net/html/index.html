@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="timej.net - オープンデータとAI協働開発による、情報提供アプリの開発。世界時計、伝統野菜データベース、気候データ分析など。">
+    <title>timej.net - オープンデータ × AI協働開発</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css?v=1.0.0" />
+    <meta property="og:title" content="timej.net - オープンデータ × AI協働開発">
+    <meta property="og:description" content="世界時計、伝統野菜DB、気候データなど。AIとオープンデータで社会に貢献する個人開発プロジェクト。">
+    <meta property="og:image" content="https://timej.net/og-image.jpg">
+    <meta property="og:url" content="https://timej.net/">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9FLQ963JXM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-9FLQ963JXM');
+    </script>
+</head>
+
+<body>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="app_icon.svg" alt="timej.netアイコン" class="logo-icon">
+                    timej.net
+                </div>
+                <nav>
+                    <a href="#projects">プロジェクト</a>
+                    <a href="homeserver/">自宅AIサーバー</a>
+                    <a href="dyslexia/">ディスレクシア</a>
+                    <a href="#about">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="container">
+            <p class="hero-tagline">Open Data × AI Development</p>
+            <h1>オープンデータ × AI協働開発</h1>
+            <p class="hero-description">
+                情報は囲い込むものではなく、広く共有するもの.<br>
+                個人開発者が、AIと協働しながら、誰もが使える情報提供アプリを作ります。
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn-hero-primary">プロジェクトを見る</a>
+                <a href="#about" class="btn-hero-secondary">開発者について</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 理念セクション -->
+    <section class="philosophy">
+        <div class="container">
+            <h2 class="section-title">開発理念</h2>
+            <p class="section-subtitle">
+                持続可能な個人開発のために、シンプルで保守しやすいアーキテクチャを重視しています
+            </p>
+
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <div class="philosophy-icon-wrapper">
+                        <span class="philosophy-icon">🌐</span>
+                    </div>
+                    <h3>オープンデータ配信</h3>
+                    <p>情報は囲い込まず、広く共有することで社会に貢献します。公開データベースやオープンソースの活用を重視し、誰もがアクセスできる情報基盤を目指します。</p>
+                </div>
+
+                <div class="philosophy-card">
+                    <div class="philosophy-icon-wrapper">
+                        <span class="philosophy-icon">🤖</span>
+                    </div>
+                    <h3>AI協働開発</h3>
+                    <p>AIは「設計」から「実装」への翻訳パートナー。設計思想に集中し、実装詳細はAIに任せる。10倍の効率化を目指し、一人での複数プロジェクトの運営を可能にします。</p>
+                </div>
+
+                <div class="philosophy-card">
+                    <div class="philosophy-icon-wrapper">
+                        <span class="philosophy-icon">🏗️</span>
+                    </div>
+                    <h3>シンプル設計</h3>
+                    <p>複雑なフレームワークよりも、自己完結型の構造を採用。外部依存を最小限に抑え、保守性と可読性を最優先。長期的な運用を見据えた技術選択をします。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- プロジェクトセクション -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">プロジェクト</h2>
+
+            <!-- 世界時計アプリ -->
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-header">
+                        <div class="project-icon-wrapper">
+                            <span class="project-icon">🌍</span>
+                        </div>
+                        <div class="project-title-area">
+                            <h3 class="project-title">世界時計 - 世界の時間と時差</h3>
+                            <span class="project-status status-released">公開準備中</span>
+                        </div>
+                    </div>
+
+                    <p class="project-description">
+                        ビジネスや観光に、シンプルで使いやすい世界時計アプリ。複数のタイムゾーンを同時表示し、時差計算やリマインダー機能で国際的なコミュニケーションをサポートします。
+                    </p>
+
+                    <ul class="project-features">
+                        <li><strong></strong>複数都市同時表示</strong> — 世界中の時刻を一画面で確認</li>
+                        <li><strong>タイムゾーン対応リマインダー</strong> — 複数都市の時刻を同時通知</li>
+                        <li><strong>時差早見表</strong> — 24時間のビジネスアワーを可視化</li>
+                        <li><strong>マルチプラットフォーム</strong> — iOS、Android、デスクトップ対応</li>
+                        <li><strong>プライバシー重視</strong> — 完全オフライン動作</li>
+                    </ul>
+
+                    <div class="project-links">
+                        <a href="https://www.time-j.net" class="btn btn-primary" target="_blank">
+                            <span class="btn-icon">🌐</span> Webサイト
+                        </a>
+                        <a href="https://app.timej.net" class="btn btn-primary" target="_blank">
+                            <span class="btn-icon">📱</span> アプリサイト
+                        </a>
+                        <a href="https://app.timej.net/privacy/" class="btn btn-secondary" target="_blank">
+                            プライバシーポリシー
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vegitage -->
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-header">
+                        <div class="project-icon-wrapper">
+                            <span class="project-icon">🥬</span>
+                        </div>
+                        <div class="project-title-area">
+                            <h3 class="project-title">Vegitage - 伝統野菜データベース</h3>
+                            <span class="project-status status-development">開発中</span>
+                        </div>
+                    </div>
+
+                    <p class="project-description">
+                        日本各地の伝統野菜を記録・保存するデータベースアプリ。地域の食文化と農業の多様性を守り、次世代に伝えることを目指します。AI（Gemini
+                        Batch処理）による大規模データ処理と、Flutterによるマルチプラットフォーム展開を実現。
+                    </p>
+
+                    <ul class="project-features">
+                        <li><strong>網羅的なデータ</strong> — 全国の伝統野菜情報を収集・整理</li>
+                        <li><strong>多機能検索</strong> — 地域別、季節別の検索・閲覧</li>
+                        <li><strong>詳細情報</strong> — 栽培方法、歴史、特徴を収録</li>
+                        <li><strong>オープンデータ</strong> — 公開を前提とした設計</li>
+                    </ul>
+
+                    <div class="project-links">
+                        <a href="https://aiseed.page/" class="btn btn-primary" target="_blank">
+                            <span class="btn-icon">🚀</span> デモサイト
+                        </a>
+                        <a href="https://github.com/aiseed-dev/vegitage" class="btn btn-secondary" target="_blank">
+                            <span class="btn-icon">💻</span> GitHub
+                        </a>
+                        <a href="https://qiita.com/yniji/items/56a86283ddef245bc35f" class="btn btn-secondary"
+                            target="_blank">
+                            <span class="btn-icon">📝</span> 開発記事
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 畑のある暮らし -->
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-header">
+                        <div class="project-icon-wrapper">
+                            <span class="project-icon">🌱</span>
+                        </div>
+                        <div class="project-title-area">
+                            <h3 class="project-title">aiseed.dev 畑のある暮らし</h3>
+                            <span class="project-status status-active">実践中</span>
+                        </div>
+                    </div>
+
+                    <p class="project-description">
+                        仕事の合間に、土に触れる時間を持ってみませんか。
+                        多様な微生物が生きる健やかな土壌は、腸内環境と同じように、私たちの免疫や心のバランスを整えてくれます。
+                    </p>
+
+                    <p class="project-description">
+                        葉の色や形、風や光のゆらぎを感じながら、環境を理解する感性を取り戻したい。
+                        AIが助けてくれるから、人間は自然との対話に時間を使えます。
+                    </p>
+
+                    <ul class="project-features">
+                        <li><strong>観察と学び</strong> — 植物の姿や変化を観察し、AIを活かしながら自然から学ぶ</li>
+                        <li><strong>風土に合った作物</strong> — アーティチョーク、アボカド等を探索</li>
+                        <li><strong>再生的な土づくり</strong> — 土壌微生物の多様性を尊重</li>
+                        <li><strong>栽培記録アプリ</strong> — 開発中</li>
+                    </ul>
+
+                    <div class="project-links">
+                        <a href="https://aiseed.dev/" class="btn btn-primary" target="_blank">
+                            <span class="btn-icon">🌿</span> プロジェクトサイト
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- 半農半AI -->
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-header">
+                        <div class="project-icon-wrapper">
+                            <span class="project-icon">🧠</span>
+                        </div>
+                        <div class="project-title-area">
+                            <h3 class="project-title">半農半AIプロジェクト - ディスレクシア流の働き方</h3>
+                            <span class="project-status status-active">公開中</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        読み書きが苦手でも、体験を発信できる時代<br>
+                        AIが言語化を代わりにやってくれるから、ディスレクシアの人こそAIを使いこなせる。体験ファーストで、農業や工芸など読み書きなしで学べる領域から始め、AIで言語化して収入につなげる。このサイト自体が、文章を書かずにAIと対話して作った実例です。
+                    </p>
+                    <ul class="project-features">
+                        <li><strong>体験ファースト</strong> — まず読み書きなしで学べる領域で体験を積む</li>
+                        <li><strong>AIで言語化</strong> — 話すだけ、写真を見せるだけで文章化</li>
+                        <li><strong>自然農法という選択肢</strong> — 観察と直感で働く、日本の職場とは別の道</li>
+                        <li><strong>実例</strong> — このサイト自体がディスレクシア流Web制作の実例</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="dyslexia/" class="btn btn-primary">🌐 サイトを見る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 開発者セクション -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About</h2>
+            <div class="about-content">
+                <div class="about-avatar-wrapper">
+                    <div class="about-avatar">👨‍💻</div>
+                </div>
+                <div class="about-text">
+                    <p>
+                        個人開発者として、オープンデータ配信と情報提供アプリの開発に取り組んでいます。
+                        「設計」に集中し、「実装」はAIとの協働で効率化する開発スタイルを確立中で、
+                        一人で複数のプロジェクトを並行して進められるようにしたいと思っています。
+                    </p>
+
+                    <div class="tech-stack">
+                        <h4>Tech Stack</h4>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Flutter</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">PostGIS</span>
+                            <span class="tech-tag">FastAPI</span>
+                        </div>
+                    </div>
+
+                    <div class="dev-env">
+                        <h4>開発環境</h4>
+                        <p>
+                            <a href="homeserver/">ホームサーバー（Intel Core i9-12900）</a> + GCP ハイブリッド構成
+                        </p>
+                    </div>
+
+                    <div class="about-links">
+                        <a href="https://qiita.com/yniji" class="social-link" target="_blank" rel="noopener noreferrer">
+                            <span class="social-icon">📝</span> Qiita
+                        </a>
+                        <a href="https://github.com/aiseed-dev" class="social-link" target="_blank"
+                            rel="noopener noreferrer">
+                            <span class="social-icon">💻</span> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">timej.net</span>
+                    <p>オープンデータ × AI協働開発</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#projects">プロジェクト</a>
+                    <a href="homeserver/">自宅サーバー</a>
+                    <a href="dyslexia/">ディスレクシア</a>
+                    <a href="#about">About</a>
+                    <a href="/privacy">プライバシーポリシー</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScf1__3fN4du4SqSRI9HF69W3YvZRFnYyB9WXO0ack_4hmsRw/viewform?usp=dialog"
+                        target="_blank" rel="noopener noreferrer">お問い合わせ</a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 timej.net. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

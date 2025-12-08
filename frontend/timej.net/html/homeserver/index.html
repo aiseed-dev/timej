@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="OSS AI開発における自宅サーバーの優位性。コスト、プライバシー、自由度の観点から、なぜ自宅サーバーを選ぶのか。">
+    <title>OSS AI × 自宅サーバー | timej.net</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css?v=1.0.0" />
+    <meta property="og:title" content="OSS AI × 自宅サーバー | timej.net">
+    <meta property="og:description" content="APIコストからの解放、データの完全な支配。OSS AI時代における自宅サーバーの可能性。">
+    <meta property="og:image" content="https://timej.net/og-image.jpg">
+    <meta property="og:url" content="https://timej.net/homeserver/">
+    <meta name="twitter:card" content="summary_large_image.jpg">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9FLQ963JXM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-9FLQ963JXM');
+    </script>
+</head>
+
+<body>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo"><a href="../" style="text-decoration: none; color: inherit;">timej.net</a></div>
+                <nav>
+                    <a href="../#projects">プロジェクト</a>
+                    <a href="../homeserver/">自宅サーバー</a>
+                    <a href="../dyslexia/">ディスレクシア</a>
+                    <a href="../#about">このサイトについて</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="hero" style="background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);">
+        <div class="container">
+            <h1>OSS AI × 自宅サーバー<br>開発の自由を取り戻す</h1>
+            <p>
+                APIの従量課金やレート制限に縛られない。<br>
+                自宅サーバーこそが、個人開発者がAIを使い倒すための最強の基盤です。
+            </p>
+        </div>
+    </section>
+
+    <!-- メリットセクション -->
+    <section class="philosophy">
+        <div class="container">
+            <h2 class="section-title">なぜ自宅サーバーなのか？</h2>
+            <p class="section-subtitle">
+                クラウドから「オンプレミス」へ
+            </p>
+
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <h3><span class="philosophy-icon">💰</span> 圧倒的なコストパフォーマンス</h3>
+                    <p>商用LLMのAPI利用料は、実験を繰り返す開発者にとって重い負担となります。自宅サーバーなら、初期投資さえ済ませれば、どれだけ推論を回しても追加コストは電気代のみ。心置きなく試行錯誤できます。
+                    </p>
+                </div>
+
+                <div class="philosophy-card">
+                    <h3><span class="philosophy-icon">🔒</span> データの完全なプライバシー</h3>
+                    <p>ローカルで動作するOSS AIなら、データが外部に送信されることはありません。開発中の未公開データや、個人的な情報を扱う場合でも、漏洩のリスクをゼロにできます。</p>
+                </div>
+
+                <div class="philosophy-card">
+                    <h3><span class="philosophy-icon">⚡</span> 高速なレスポンスと通信量の削減</h3>
+                    <p>大量のデータをインターネット経由で送信するのは非効率です。自宅サーバーなら、LAN内での高速転送により、画像生成やRAG（検索拡張生成）のような重い処理もサクサク動きます。</p>
+                </div>
+
+                <div class="philosophy-card">
+                    <h3><span class="philosophy-icon">🚀</span> 制限のない自由な実験</h3>
+                    <p>「検閲なし」のモデルや、特定のタスクに特化した微調整（Fine-tuning）モデルなど、商用APIでは提供されていない多様なモデルを自由に試すことができます。</p>
+                </div>
+
+                <div class="philosophy-card">
+                    <h3><span class="philosophy-icon">🌐</span> Cloudflareとの連携</h3>
+                    <p>Cloudflare Workers
+                        AIを使えば、自宅サーバーのモデルとクラウドを組み合わせたハイブリッド構成が可能。負荷分散やフォールバック、エッジでの前処理など、柔軟なアーキテクチャを構築できます。</p>
+                </div>
+
+                <div class="philosophy-card">
+                    <h3><span class="philosophy-icon">🎮</span> コンシューマーGPUの活用</h3>
+                    <p>RTX 4090などのハイエンドGPUは、データセンターでは利用できませんが、自宅サーバーなら自由に使えます。コストパフォーマンスに優れたゲーミングGPUで、本格的なAI開発が可能です。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OSSモデル紹介セクション -->
+    <section class="projects" style="background-color: #f7fafc;">
+        <div class="container">
+            <h2 class="section-title"><a href="../oss-models/"
+                    style="color: inherit; text-decoration: none;">活用できる主なOSSモデル</a></h2>
+            <p class="section-subtitle" style="margin-bottom: 20px;">
+                商用モデルに匹敵する性能を持つものから、個性的なモデルまで
+            </p>
+            <div
+                style="max-width: 800px; margin: 0 auto 40px; background: #ebf4ff; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea;">
+                <p style="margin: 0; font-size: 14px; color: #2d3748; line-height: 1.8;">
+                    💡 <strong>適材適所の時代:</strong>
+                    すべてのタスクを超巨大AIで処理するのは非効率です。用途に特化した軽量モデルを使い分けることで、コストと速度を最適化できます。ここで紹介するのはほんの一部で、数千ものOSSモデルが公開されています。
+                </p>
+            </div>
+
+            <div class="philosophy-grid">
+                <div class="philosophy-card" style="background: white;">
+                    <h3>🦙 Llama 3 (Meta)</h3>
+                    <p>オープンソースLLMのデファクトスタンダード。8Bモデルは軽量ながら高性能で、自宅サーバーでの運用に最適です。</p>
+                </div>
+
+                <div class="philosophy-card" style="background: white;">
+                    <h3>💎 Gemma (Google)</h3>
+                    <p>Geminiと同じ技術で作られた軽量モデル。2B/7Bというサイズ展開で、個人のGPUでも軽快に動作します。</p>
+                </div>
+
+                <div class="philosophy-card" style="background: white;">
+                    <h3>🌪️ Mistral / Mixtral</h3>
+                    <p>フランス発の高性能モデル。MoE（Mixture of Experts）技術を採用したMixtralは、効率的かつ強力な推論能力を持ちます。</p>
+                </div>
+
+                <div class="philosophy-card" style="background: white;">
+                    <h3>🧞 Qwen (Alibaba)</h3>
+                    <p>多言語対応に優れたモデル。特に日本語の処理能力が高く、コーディング支援などにも威力を発揮します。</p>
+                </div>
+
+                <div class="philosophy-card" style="background: white;">
+                    <h3>🎭 Nous Hermes</h3>
+                    <p>ロールプレイや創作タスクに特化。キャラクター性を持った対話や、小説執筆支援など、クリエイティブな用途で真価を発揮します。</p>
+                </div>
+
+                <div class="philosophy-card" style="background: white;">
+                    <h3>🧙 WizardLM</h3>
+                    <p>複雑な指示理解に優れたモデル。多段階の推論や、詳細な条件を含むタスクでも正確に応答できる高い理解力が特徴です。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </section>
+
+    <!-- コスト比較セクション -->
+    <section class="philosophy" style="background-color: #f7fafc;">
+        <div class="container">
+            <h2 class="section-title">コスト比較：クラウド vs 自宅サーバー</h2>
+            <p class="section-subtitle">
+                実際の開発シーンでどれだけコストが変わるのか
+            </p>
+
+            <div
+                style="max-width: 800px; margin: 40px auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <h3 style="font-size: 20px; margin-bottom: 20px; color: #2d3748;">シナリオ：毎日100回の推論を実行する場合</h3>
+
+                <div style="margin-bottom: 30px;">
+                    <h4 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">☁️ クラウドAPI（GPT-4o）</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 10px;">💵 1リクエスト約10円 × 100回 = <strong>1,000円/日</strong></li>
+                        <li style="margin-bottom: 10px;">📅 月間コスト: <strong>約30,000円</strong></li>
+                        <li style="margin-bottom: 10px;">📆 年間コスト: <strong>約360,000円</strong></li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h4 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">🏠 自宅サーバー（Llama 3 70B）</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 10px;">💻 初期投資: 約30万円（ハイエンドPC + GPU）</li>
+                        <li style="margin-bottom: 10px;">⚡ 電気代: 約3,000円/月（24時間稼働想定）</li>
+                        <li style="margin-bottom: 10px;">📆 年間コスト: <strong>初年度約33.6万円、2年目以降3.6万円</strong></li>
+                    </ul>
+                </div>
+
+                <div style="background: #ebf4ff; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea;">
+                    <p style="margin: 0; font-weight: 600; color: #2d3748;">
+                        💡 結論：2年目以降は年間32万円以上の節約！<br>
+                        実験的な開発や大量推論を行う場合、自宅サーバーは圧倒的に有利です。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 実用例セクション -->
+    <section class="projects" style="background-color: #fff;">
+        <div class="container">
+            <h2 class="section-title">自宅サーバーの実用例</h2>
+            <p class="section-subtitle" style="margin-bottom: 40px;">
+                実際にどんな開発に使えるのか
+            </p>
+
+            <div class="philosophy-grid">
+                <div class="philosophy-card" style="background: #f7fafc;">
+                    <h3>📝 コード生成・レビュー支援</h3>
+                    <p>GitHub Copilotのような商用サービスに頼らず、Qwen-CoderやCodeLlamaを使って、プライベートなコードベースを学習させた独自のコーディングアシスタントを構築できます。
+                    </p>
+                </div>
+
+                <div class="philosophy-card" style="background: #f7fafc;">
+                    <h3>🔍 RAG（検索拡張生成）システム</h3>
+                    <p>社内文書や技術資料をベクトルDB（Chroma、Qdrant等）に格納し、LLMと組み合わせて高精度な質問応答システムを構築。データは一切外部に出ません。</p>
+                </div>
+
+                <div class="philosophy-card" style="background: #f7fafc;">
+                    <h3>🎨 画像生成・編集</h3>
+                    <p>Stable Diffusion、FLUX等のモデルを使い、商用利用可能な画像を無制限に生成。LoRAによるカスタマイズも自由自在です。</p>
+                </div>
+
+                <div class="philosophy-card" style="background: #f7fafc;">
+                    <h3>🗣️ 音声認識・合成</h3>
+                    <p>WhisperやCoqui TTSを使った音声処理。会議の文字起こしや、多言語対応のナレーション生成など、プライバシーを守りながら実現できます。</p>
+                </div>
+
+                <div class="philosophy-card" style="background: #f7fafc;">
+                    <h3>📊 データ分析・可視化</h3>
+                    <p>大量のログデータやセンサーデータを、LLMを使って自然言語で分析。「先月の異常値を教えて」といった質問に即座に回答するシステムを構築できます。</p>
+                </div>
+
+                <div class="philosophy-card" style="background: #f7fafc;">
+                    <h3>🤖 チャットボット開発</h3>
+                    <p>カスタマーサポートや社内FAQボットを、自社データで学習させたモデルで構築。ユーザーの質問履歴も外部に漏れません。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 始め方セクション -->
+    <section class="philosophy" style="background-color: #f7fafc;">
+        <div class="container">
+            <h2 class="section-title">自宅サーバーの始め方</h2>
+            <p class="section-subtitle">
+                初心者でも安心。ステップバイステップで構築
+            </p>
+
+            <div style="max-width: 900px; margin: 40px auto;">
+                <div
+                    style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h3 style="font-size: 20px; margin-bottom: 15px; color: #2d3748;">
+                        <span
+                            style="background: #667eea; color: white; padding: 5px 15px; border-radius: 20px; margin-right: 10px;">Step
+                            1</span>
+                        ハードウェアの選定
+                    </h3>
+                    <p style="margin-bottom: 15px;">まずは予算と用途に応じたスペックを決めましょう。</p>
+                    <ul class="project-features">
+                        <li><strong>エントリー（10万円台）:</strong> 中古ワークステーション + 小型モデル（Llama 3 8B等）</li>
+                        <li><strong>ミドル（30万円台）:</strong> 新品デスクトップPC + ミドルクラスGPU（RTX 4060 Ti等）</li>
+                        <li><strong>ハイエンド（50万円〜）:</strong> ワークステーション + ハイエンドGPU（RTX 4090等）で大規模モデルも快適</li>
+                    </ul>
+                </div>
+
+                <div
+                    style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h3 style="font-size: 20px; margin-bottom: 15px; color: #2d3748;">
+                        <span
+                            style="background: #667eea; color: white; padding: 5px 15px; border-radius: 20px; margin-right: 10px;">Step
+                            2</span>
+                        OSとソフトウェアのセットアップ
+                    </h3>
+                    <p style="margin-bottom: 15px;">Ubuntu Server 22.04 LTSをインストールし、基本的な環境を整えます。</p>
+                    <ul class="project-features">
+                        <li>Docker & Docker Composeのインストール</li>
+                        <li>Ollamaのセットアップ（LLM推論エンジン）</li>
+                        <li>リモートアクセス設定（SSH、VPN等）</li>
+                    </ul>
+                </div>
+
+                <div
+                    style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                    <h3 style="font-size: 20px; margin-bottom: 15px; color: #2d3748;">
+                        <span
+                            style="background: #667eea; color: white; padding: 5px 15px; border-radius: 20px; margin-right: 10px;">Step
+                            3</span>
+                        モデルのダウンロードと動作確認
+                    </h3>
+                    <p style="margin-bottom: 15px;">Ollamaを使えば、コマンド一発でモデルをダウンロードできます。</p>
+                    <div
+                        style="background: #1a202c; color: #e2e8f0; padding: 20px; border-radius: 8px; font-family: monospace; margin-bottom: 15px;">
+                        <code>ollama pull llama3:8b</code><br>
+                        <code>ollama run llama3:8b</code>
+                    </div>
+                    <p>これだけで、ローカルでLLMとの対話が始まります。</p>
+                </div>
+
+            </div>
+
+            <div
+                style="background: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h3 style="font-size: 20px; margin-bottom: 15px; color: #2d3748;">
+                    <span
+                        style="background: #667eea; color: white; padding: 5px 15px; border-radius: 20px; margin-right: 10px;">Step
+                        4</span>
+                    アプリケーション開発
+                </h3>
+                <p style="margin-bottom: 15px;">PythonやJavaScriptから、REST API経由でLLMを呼び出せます。</p>
+                <ul class="project-features">
+                    <li>Ollama REST API（http://localhost:11434）を使った統合</li>
+                    <li>LangChain、LlamaIndexなどのフレームワークとの連携</li>
+                    <li>Webアプリ、CLI、Slackボット等、自由な形で実装可能</li>
+                </ul>
+            </div>
+
+            <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h3 style="font-size: 20px; margin-bottom: 15px; color: #2d3748;">
+                    <span
+                        style="background: #667eea; color: white; padding: 5px 15px; border-radius: 20px; margin-right: 10px;">Step
+                        5</span>
+                    Cloudflareとの連携（オプション）
+                </h3>
+                <p style="margin-bottom: 15px;">Cloudflare Workers AIを活用することで、自宅サーバーとクラウドのハイブリッド構成を実現できます。</p>
+                <ul class="project-features">
+                    <li><strong>Workers AI:</strong> エッジでの軽量推論とオンプレミスでの重い処理を使い分け</li>
+                    <li><strong>負荷分散:</strong> トラフィックに応じて自宅サーバーとCloudflareを自動切り替え</li>
+                    <li><strong>Tunnel（オプション）:</strong> 固定IP不要で自宅サーバーを安全に公開</li>
+                    <li><strong>無料プラン:</strong> Workers AIもTunnelも無料枠で十分使える</li>
+                </ul>
+                <div
+                    style="background: #ebf4ff; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #667eea;">
+                    <p style="margin: 0; font-size: 14px; color: #2d3748;">
+                        💡 <strong>ユースケース例:</strong> 簡単な質問はWorkers AIで即座に応答し、複雑な推論は自宅サーバーの大規模モデルで処理。コストと速度を両立できます。
+                    </p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- スペック・構成セクション -->
+    <section class="projects" style="background-color: #fff;">
+        <div class="container">
+            <h2 class="section-title">サーバー構成例</h2>
+
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-header">
+                        <span class="project-icon">🖥️</span>
+                        <div>
+                            <h3 class="project-title">
+                                My Home Server
+                                <span class="project-status status-released">稼働中</span>
+                            </h3>
+                        </div>
+                    </div>
+
+                    <p class="project-description">
+                        ハイブリッドな開発環境の中核を担う、高スペック・ワークステーション。
+                        推論APIサーバーとしてだけでなく、バッチ処理やデータベースサーバーとしても機能します。
+                    </p>
+
+                    <div style="margin-top: 30px;">
+                        <h4 style="font-size: 18px; margin-bottom: 15px; color: #2d3748;">Hardware Specs</h4>
+                        <ul class="project-features">
+                            <li><strong>CPU:</strong> Intel Core i9-12900 (16 Cores / 24 Threads)</li>
+                            <li><strong>RAM:</strong> 64GB DDR4 (大規模なモデルのロードに必須)</li>
+                            <li><strong>Storage:</strong> 2TB NVMe SSD (高速なモデル読み込み)</li>
+                            <li><strong>Network:</strong> 2.5GbE LAN (宅内高速転送)</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-top: 30px;">
+                        <h4 style="font-size: 18px; margin-bottom: 15px; color: #2d3748;">Software Stack</h4>
+                        <ul class="project-features">
+                            <li><strong>OS:</strong> Ubuntu Server 22.04 LTS</li>
+                            <li><strong>Container:</strong> Docker & Docker Compose</li>
+                            <li><strong>AI Runtime:</strong> Ollama (LLM Inference), Python</li>
+                            <li><strong>Database:</strong> PostgreSQL + PostGIS</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="../#projects">プロジェクト</a>
+                <a href="../homeserver/">自宅サーバー</a>
+                <a href="../dyslexia/">ディスレクシア</a>
+                <a href="../#about">このサイトについて</a>
+                <a href="../privacy">プライバシーポリシー</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScf1__3fN4du4SqSRI9HF69W3YvZRFnYyB9WXO0ack_4hmsRw/viewform?usp=dialog"
+                    rel="noopener noreferrer">お問い合わせ</a>
+            </div>
+            <div class="copyright">
+                © 2025 timej.net. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

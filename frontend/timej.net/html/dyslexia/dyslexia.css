@@ -1,0 +1,700 @@
+/* ===== ディスレクシアページ専用スタイル ===== */
+
+/* 共感ヒーロー */
+.empathy-hero {
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+    padding: 100px 0 120px;
+}
+
+.empathy-hero h1 {
+    font-size: 2.8rem;
+    line-height: 1.5;
+}
+
+.empathy-hero .hero-description {
+    font-size: 1.2rem;
+    line-height: 2;
+    opacity: 0.95;
+}
+
+/* 苦しみセクション */
+.struggles {
+    padding: 100px 0;
+    background: var(--bg-white);
+}
+
+.struggles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 60px;
+}
+
+.struggle-card {
+    background: var(--bg-light);
+    padding: 36px 32px;
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--text-muted);
+}
+
+.struggle-icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+}
+
+.struggle-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+}
+
+.struggle-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.struggle-card ul li {
+    padding: 8px 0;
+    padding-left: 20px;
+    position: relative;
+    color: var(--text-base);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.struggle-card ul li:last-child {
+    border-bottom: none;
+}
+
+.struggle-card ul li::before {
+    content: '・';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+}
+
+.empathy-message {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: var(--radius-lg);
+}
+
+.empathy-message p {
+    font-size: 1.15rem;
+    line-height: 2;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+/* 転換セクション */
+.turning-point {
+    padding: 100px 0;
+    background: var(--bg-light);
+}
+
+.turning-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.turning-message {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.big-message {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+}
+
+.big-message .highlight {
+    background: linear-gradient(transparent 60%, #fde68a 60%);
+    font-weight: 700;
+}
+
+.strengths-preview {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.strength-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--bg-white);
+    padding: 24px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.strength-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+}
+
+.strength-item .strength-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.strength-item h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.strength-item p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.turning-note {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.9;
+}
+
+/* 新時代セクション */
+.new-era {
+    padding: 100px 0;
+    background: var(--bg-white);
+}
+
+.era-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.era-box {
+    background: var(--bg-light);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+}
+
+.era-box.featured {
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
+    border-color: var(--primary-color);
+}
+
+.era-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.era-box h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+}
+
+.era-box p {
+    color: var(--text-base);
+    line-height: 1.9;
+    margin-bottom: 16px;
+}
+
+.era-box p:last-child {
+    margin-bottom: 0;
+}
+
+/* コンテンツセクション */
+.contents {
+    padding: 100px 0;
+    background: var(--bg-light);
+}
+
+.content-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.content-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background: var(--bg-white);
+    padding: 32px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.content-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.content-card.coming-soon {
+    opacity: 0.7;
+}
+
+.content-card.coming-soon:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border-color);
+}
+
+.content-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.content-info h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+.content-info p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.read-more {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--text-muted);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* 実践セクション */
+.practice {
+    padding: 100px 0;
+    background: var(--bg-white);
+}
+
+.practice-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.practice-intro {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.practice-intro p {
+    font-size: 1.1rem;
+    color: var(--text-base);
+    line-height: 2;
+    margin-bottom: 16px;
+}
+
+.practice-concept {
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    padding: 48px;
+    border-radius: var(--radius-xl);
+    border: 1px solid #a7f3d0;
+}
+
+.practice-concept h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.concept-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.concept-item {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 24px;
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.concept-item h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+.concept-item p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.practice-note {
+    text-align: center;
+    color: var(--text-base);
+    font-size: 0.95rem;
+    line-height: 2;
+    margin: 0;
+}
+
+/* 最終メッセージセクション */
+.final-message {
+    padding: 100px 0;
+    background: var(--gradient);
+}
+
+.message-box {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+}
+
+.message-box h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 32px;
+}
+
+.message-box p {
+    font-size: 1.15rem;
+    line-height: 2;
+    opacity: 0.95;
+    margin-bottom: 24px;
+}
+
+.message-box p:last-child {
+    margin-bottom: 0;
+    font-weight: 600;
+    opacity: 1;
+}
+
+/* 理解セクション */
+.understanding {
+    padding: 100px 0;
+    background: var(--bg-white);
+}
+
+.understanding-box {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.understanding-box h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: 24px;
+}
+
+.understanding-box .lead {
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 2;
+    color: var(--text-base);
+    margin-bottom: 48px;
+}
+
+.definition {
+    background: var(--bg-light);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    margin-bottom: 40px;
+}
+
+.definition h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+}
+
+.definition > p {
+    color: var(--text-base);
+    line-height: 1.9;
+    margin-bottom: 28px;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.characteristics h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+}
+
+.char-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.char-item {
+    background: var(--bg-light);
+    padding: 24px;
+    border-radius: var(--radius-md);
+}
+
+.char-item h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+.char-item ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.char-item ul li {
+    padding: 6px 0;
+    padding-left: 16px;
+    position: relative;
+    color: var(--text-base);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.char-item ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+}
+
+/* 強みグリッド（トップページ用） */
+.strengths-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.strength-card {
+    background: var(--bg-white);
+    padding: 28px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.strength-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+}
+
+.strength-card .strength-icon {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.strength-card h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+.strength-card p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.sub-message {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.9;
+    margin-top: 20px;
+}
+
+.famous-people {
+    text-align: center;
+    padding: 24px;
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.famous-people p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* 詳細リンク */
+.ai-detail-link {
+    margin-top: 48px;
+    text-align: center;
+}
+
+.detail-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 32px;
+    background: var(--bg-light);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+}
+
+.detail-link:hover {
+    background: var(--bg-white);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.link-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.link-text {
+    text-align: left;
+}
+
+.link-text strong {
+    display: block;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+.link-text small {
+    color: var(--text-light);
+    font-size: 0.85rem;
+}
+
+/* レスポンシブ */
+@media (max-width: 1024px) {
+    .struggles-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .strengths-preview {
+        grid-template-columns: 1fr;
+    }
+
+    .strengths-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .char-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .era-content {
+        grid-template-columns: 1fr;
+    }
+
+    .content-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .concept-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .empathy-hero {
+        padding: 60px 0 80px;
+    }
+
+    .empathy-hero h1 {
+        font-size: 2rem;
+    }
+
+    .struggles,
+    .turning-point,
+    .new-era,
+    .contents,
+    .practice,
+    .final-message {
+        padding: 60px 0;
+    }
+
+    .big-message {
+        font-size: 1.3rem;
+    }
+
+    .struggle-card,
+    .era-box,
+    .content-card,
+    .practice-concept {
+        padding: 24px;
+    }
+
+    .message-box h2 {
+        font-size: 1.8rem;
+    }
+
+    .message-box p {
+        font-size: 1rem;
+    }
+}

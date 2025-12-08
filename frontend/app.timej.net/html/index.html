@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="世界時計 - 世界の時間と時差。複数のタイムゾーンを一目で確認、時差計算、リマインダー機能を搭載したシンプルな世界時計アプリ。">
+    <title>世界時計 - 世界の時間と時差 | timej.net</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <meta property="og:title" content="世界時計 - 世界の時間と時差 | timej.net">
+    <meta property="og:description" content="世界中の時間を一目で確認。複数のタイムゾーンを一画面で確認、時差計算、リマインダー機能を搭載したシンプルな世界時計アプリ。">
+    <meta property="og:image" content="https://app.timej.net/favicon.svg">
+    <meta property="og:url" content="https://app.timej.net/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:image" content="https://app.timej.net/favicon.svg">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9FLQ963JXM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-9FLQ963JXM');
+    </script>
+</head>
+
+<body>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="app_icon.svg" alt="世界時計アイコン" class="logo-icon">
+                    世界時計
+                </div>
+                <nav>
+                    <a href="#features">機能</a>
+                    <a href="privacy">プライバシー</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="container">
+            <h1>世界時計<br>世界の時間と時差</h1>
+            <p>世界中の時間を一目で確認。シンプルで使いやすい世界時計アプリ。</p>
+            <div class="store-badges">
+                <!-- リリース後、実際のバッジ画像に差し替え -->
+                <a href="#" class="badge-placeholder">App Store</a>
+                <a href="#" class="badge-placeholder">Google Play</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 外部テスト公開中 -->
+    <section class="testing-announcement">
+        <div class="container">
+            <div class="testing-notice">
+                <h2>🚀 外部テスト公開中</h2>
+                <p>現在、このアプリはApp Store / Google Play Storeでテスト公開中です。</p>
+                <p>AIと作った「世界時計アプリ」を、ぜひ触ってみてください。</p>
+
+                <div class="testing-section">
+                    <h3>📱 iOS（TestFlight）</h3>
+                    <a href="https://testflight.apple.com/join/t1dWPyGc" class="test-button ios-button" target="_blank"
+                        rel="noopener noreferrer">TestFlightで試す</a>
+                </div>
+
+                <div class="testing-section android-section">
+                    <h3>🤖 Android（クローズドテスト）</h3>
+                    <div class="android-steps">
+                        <div class="step">
+                            <span class="step-number">①</span>
+                            <div class="step-content">
+                                <strong>Googleグループに参加</strong>
+                                <a href="https://groups.google.com/g/timej" class="test-link" target="_blank"
+                                    rel="noopener noreferrer">https://groups.google.com/g/timej</a>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">②</span>
+                            <div class="step-content">
+                                <strong>Play Storeからインストール</strong>
+                                <a href="https://play.google.com/store/apps/details?id=net.timej.worldtime"
+                                    class="test-link" target="_blank" rel="noopener noreferrer">Play Storeで開く</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- スクリーンショット -->
+    <section class="screenshots">
+        <div class="container">
+            <h2 class="section-title">スクリーンショット</h2>
+            <div class="carousel-container">
+                <button class="carousel-nav prev" aria-label="前へ">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <div class="screenshot-grid">
+                    <div class="screenshot-item">
+                        <img src="screenshots/01_framed.png" alt="世界時計">
+                        <h3>世界時計</h3>
+                        <p>お気に入りの都市の時刻を一目で確認</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <img src="screenshots/02_framed.png" alt="都市を検索">
+                        <h3>都市を検索</h3>
+                        <p>世界中の都市を日本語・英語で検索</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <img src="screenshots/03_framed.png" alt="詳細なタイムゾーン情報">
+                        <h3>詳細なタイムゾーン情報</h3>
+                        <p>現在時刻、UTC差、サマータイム情報を表示</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <img src="screenshots/04_framed.png" alt="サマータイム対応">
+                        <h3>サマータイム対応</h3>
+                        <p>次のサマータイムはいつ？を解決</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <img src="screenshots/05_framed.png" alt="時差早見表">
+                        <h3>時差早見表</h3>
+                        <p>未来の会議調整も、この一枚で</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <img src="screenshots/06_framed.png" alt="国の詳細情報">
+                        <h3>国の詳細情報</h3>
+                        <p>複雑なタイムゾーンも完全網羅</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <img src="screenshots/07_framed.png" alt="リマインダー機能">
+                        <h3>リマインダー機能</h3>
+                        <p>「現地時間」で通知をセット</p>
+                    </div>
+                    <div class="screenshot-item">
+                        <img src="screenshots/08_framed.png" alt="ダークモード対応">
+                        <h3>ダークモード対応</h3>
+                        <p>目に優しいダークテーマ</p>
+                    </div>
+                </div>
+                <button class="carousel-nav next" aria-label="次へ">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 機能セクション -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">主な機能</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>複数都市の同時表示</h3>
+                    <p>お気に入りの都市を登録して、複数のタイムゾーンを一画面で確認。ビジネスや旅行の予定管理に最適です。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3>時差計算ツール</h3>
+                    <p>異なるタイムゾーン間の時刻を簡単に計算。国際会議やオンラインミーティングの時間調整に便利です。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>タイムゾーン対応リマインダー</h3>
+                    <p>複数の都市の時刻を同時に表示するリマインダー機能。世界中のチームメンバーとの予定管理に役立ちます。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>時差早見表</h3>
+                    <p>24時間の時差を視覚的に表示。ビジネスアワーやサマータイム切り替えも一目で確認できます。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌓</div>
+                    <h3>ダークモード対応</h3>
+                    <p>ライトモードとダークモードに対応。目に優しく、どんな環境でも快適に利用できます。</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>マルチプラットフォーム</h3>
+                    <p>iOS、Android、デスクトップ（Windows、macOS、Linux）で利用可能。どのデバイスでも同じ操作感で使えます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- プライバシー重視 -->
+    <section class="privacy-section">
+        <div class="container">
+            <div class="privacy-box">
+                <div class="privacy-icon">🔒</div>
+                <h2>プライバシー第一の設計</h2>
+                <p>
+                    本アプリは完全にオフラインで動作し、個人情報や利用状況データを外部サーバーに送信することは一切ありません。
+                    すべてのデータは端末内にのみ保存され、広告表示や利用状況の解析も行いません。
+                    安心して世界時計機能をご利用いただけます。
+                </p>
+                <p style="margin-top: 20px;">
+                    <a href="privacy" style="color: #667eea; text-decoration: none; font-weight: 500;">プライバシーポリシーの詳細
+                        →</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="privacy">プライバシーポリシー</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScSvqDfhkN7FHlGTSvtYQ0hf47yv0LUcASNUvY5gWvMD1xhJg/viewform"
+                    target="_blank" rel="noopener noreferrer">お問い合わせ</a>
+            </div>
+            <div class="copyright">
+                © 2025 timej.net. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel navigation
+        document.addEventListener('DOMContentLoaded', function () {
+            const prevButton = document.querySelector('.carousel-nav.prev');
+            const nextButton = document.querySelector('.carousel-nav.next');
+            const screenshotGrid = document.querySelector('.screenshot-grid');
+
+            if (prevButton && nextButton && screenshotGrid) {
+                const scrollAmount = 330; // screenshot width (300px) + gap (30px)
+
+                prevButton.addEventListener('click', function () {
+                    screenshotGrid.scrollBy({
+                        left: -scrollAmount,
+                        behavior: 'smooth'
+                    });
+                });
+
+                nextButton.addEventListener('click', function () {
+                    screenshotGrid.scrollBy({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>
