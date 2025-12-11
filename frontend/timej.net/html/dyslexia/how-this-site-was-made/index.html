@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="このサイトは、ディスレクシアの人がAIと対話しながら作りました。文章を書かずにWebサイトを作る方法。">
     <title>このサイトの作り方 | ディスレクシアと生きる - timej.net</title>
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../style.css?v=1.0.0" />
-    <link rel="stylesheet" href="article.css?v=1.0.0" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../style.css?v=1.0.0" />
+    <link rel="stylesheet" href="../article.css?v=1.0.0" />
+    <link rel="stylesheet" href="../dyslexia.css?v=1.0.0" />
     <meta property="og:title" content="このサイトの作り方 | ディスレクシアと生きる">
     <meta property="og:description" content="文章を書かずにWebサイトを作る。ディスレクシア流の発信方法。">
     <meta property="og:url" content="https://timej.net/dyslexia/how-this-site-was-made.html">
@@ -28,16 +29,21 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="../" class="logo">
-                    <img src="../app_icon.svg" alt="timej.netアイコン" class="logo-icon">
+                <a href="../../" class="logo">
+                    <img src="../../app_icon.svg" alt="timej.netアイコン" class="logo-icon">
                     timej.net
                 </a>
-                <nav>
-                    <a href="./">ディスレクシア</a>
-                    <a href="farming.html">自然農法</a>
-                    <a href="ai-compatibility.html">AIとの相性</a>
-                    <a href="abilities.html">ディスレクシアの能力</a>
-                    <a href="resources.html">海外リソース</a>
+                <button class="hamburger" aria-label="メニュー">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="main-nav">
+                    <a href="../">ディスレクシア</a>
+                    <a href="../farming/">自然農法</a>
+                    <a href="../ai-compatibility/">AIとの相性</a>
+                    <a href="../abilities/">ディスレクシアの能力</a>
+                    <a href="../resources/">海外リソース</a>
                 </nav>
             </div>
         </div>
@@ -47,7 +53,7 @@
     <section class="article-hero" style="background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);">
         <div class="container">
             <div class="breadcrumb">
-                <a href="../">timej.net</a> &gt; <a href="./">ディスレクシアと生きる</a> &gt; このサイトの作り方
+                <a href="../">timej.net</a> &gt; <a href="../">ディスレクシアと生きる</a> &gt; このサイトの作り方
             </div>
             <h1>このサイトの作り方</h1>
             <p class="article-lead">
@@ -309,7 +315,7 @@
                     <li><a href="#photo-video">写真やビデオでも</a></li>
                     <li><a href="#you-can">あなたもできる</a></li>
                 </ul>
-                <a href="./" class="back-link">← トップへ戻る</a>
+                <a href="../" class="back-link">← トップへ戻る</a>
             </aside>
         </div>
     </article>
@@ -318,16 +324,46 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">
-                    <span class="footer-logo">ディスレクシア流の働き方</span>
-                    <p>timej.net</p>
+                <!-- ブランド -->
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <span class="footer-logo">ディスレクシア流の働き方</span>
+                        <p>timej.net</p>
+                    </div>
                 </div>
-                <div class="footer-links">
-                    <a href="./">ディスレクシア</a>
-                    <a href="abilities.html">ディスレクシアの能力</a>
-                    <a href="farming.html">自然農法</a>
-                    <a href="ai-compatibility.html">AIの活用</a>
-                    <a href="../">timej.net</a>
+                
+                <!-- Web全体のメニュー -->
+                <div class="footer-section">
+                    <h4>timej.net</h4>
+                    <div class="footer-links">
+                        <a href="../../">ホーム</a>
+                        <a href="../">ディスレクシア</a>
+                        <a href="../../homeserver/">自宅AIサーバー</a>
+                    </div>
+                </div>
+                
+                <!-- サブディレクトリのメニュー -->
+                <div class="footer-section">
+                    <h4>ディスレクシア</h4>
+                    <div class="footer-links">
+                        <a href="../abilities/">能力</a>
+                        <a href="../ai-compatibility/">AIとの相性</a>
+                        <a href="../farming/">自然農法</a>
+                        <a href="../resources/">海外リソース</a>
+                    </div>
+                </div>
+                
+                <!-- コミュニティ -->
+                <div class="footer-section">
+                    <h4>コミュニティ</h4>
+                    <div class="footer-links">
+                        <a href="https://discord.gg/k8wjSVsG4t" target="_blank" rel="noopener">
+                            💬 Discord
+                        </a>
+                        <a href="https://www.facebook.com/groups/timej" target="_blank" rel="noopener">
+                            👥 Facebook
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="copyright">
@@ -335,6 +371,40 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // ハンバーガーメニューの制御
+        const hamburger = document.querySelector('.hamburger');
+        const mainNav = document.querySelector('.main-nav');
+        const body = document.body;
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            body.classList.toggle('menu-open');
+        });
+
+        // メニューリンククリック時にメニューを閉じる
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            });
+        });
+
+        // オーバーレイクリック時にメニューを閉じる
+        document.addEventListener('click', (e) => {
+            if (body.classList.contains('menu-open') &&
+                !mainNav.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+        });
+    </script>
 
 </body>
 

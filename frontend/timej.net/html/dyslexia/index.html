@@ -33,12 +33,18 @@
                     <img src="../app_icon.svg" alt="timej.netアイコン" class="logo-icon">
                     timej.net
                 </a>
-                <nav>
+                <button class="hamburger" aria-label="メニュー">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="main-nav">
                     <a href="./">ディスレクシア</a>
-                    <a href="farming.html">自然農法</a>
-                    <a href="ai-compatibility.html">AIとの相性</a>
-                    <a href="abilities.html">ディスレクシアの能力</a>
-                    <a href="resources.html">海外リソース</a>
+                    <a href="ai-compatibility/">AIとの相性</a>
+                    <a href="abilities/">ディスレクシアの能力</a>
+                    <a href="farming/">自然農法</a>
+                    <a href="resources/">海外リソース</a>
+                    <a href="how-this-site-was-made">このサイトの作り方</a>
                 </nav>
             </div>
         </div>
@@ -262,7 +268,7 @@
             </div>
 
             <div class="dual-cta-links">
-                <a href="abilities.html" class="cta-link featured">
+                <a href="abilities/" class="cta-link featured">
                     <span class="cta-icon">⚡</span>
                     <span class="cta-content">
                         <strong>ディスレクシアは"超能力"</strong>
@@ -270,7 +276,7 @@
                     </span>
                     <span class="cta-arrow">→</span>
                 </a>
-                <a href="ai-compatibility.html" class="cta-link">
+                <a href="ai-compatibility/" class="cta-link">
                     <span class="cta-icon">🤖</span>
                     <span class="cta-content">
                         <strong>AIとの相性について</strong>
@@ -342,7 +348,7 @@
             <h2 class="section-title">さらに詳しく</h2>
 
             <div class="content-cards">
-                <a href="abilities.html" class="content-card">
+                <a href="abilities/" class="content-card">
                     <div class="content-icon">⚡</div>
                     <div class="content-info">
                         <h3>ディスレクシアの能力</h3>
@@ -351,7 +357,7 @@
                     </div>
                 </a>
 
-                <a href="ai-compatibility.html" class="content-card">
+                <a href="ai-compatibility/" class="content-card">
                     <div class="content-icon">🤖</div>
                     <div class="content-info">
                         <h3>AIが補完してくれること</h3>
@@ -360,7 +366,7 @@
                     </div>
                 </a>
 
-                <a href="resources.html" class="content-card">
+                <a href="resources/" class="content-card">
                     <div class="content-icon">📚</div>
                     <div class="content-info">
                         <h3>海外の文献・リソース</h3>
@@ -369,7 +375,7 @@
                     </div>
                 </a>
 
-                <a href="farming.html" class="content-card">
+                <a href="farming/" class="content-card">
                     <div class="content-icon">🌱</div>
                     <div class="content-info">
                         <h3>自然農法という選択肢</h3>
@@ -378,7 +384,7 @@
                     </div>
                 </a>
 
-                <a href="how-this-site-was-made.html" class="content-card">
+                <a href="how-this-site-was-made/" class="content-card">
                     <div class="content-icon">✨</div>
                     <div class="content-info">
                         <h3>このサイトの作り方</h3>
@@ -398,7 +404,7 @@
             <div class="message-box">
                 <h2>読み書きが苦手でも、大丈夫。</h2>
                 <p>
-                    あなたの脳は壊れているわけではありません。<br>
+                    あなたの脳に問題があるわけではありません。<br>
                     ただ、得意なことと苦手なことのバランスが、多数派と違うだけです。
                 </p>
                 <p>
@@ -416,16 +422,46 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">
-                    <span class="footer-logo">ディスレクシア流の働き方</span>
-                    <p>timej.net</p>
+                <!-- ブランド -->
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <span class="footer-logo">ディスレクシア流の働き方</span>
+                        <p>timej.net</p>
+                    </div>
                 </div>
-                <div class="footer-links">
-                    <a href="./">ディスレクシア</a>
-                    <a href="abilities.html">ディスレクシアの能力</a>
-                    <a href="ai-compatibility.html">AIとの相性</a>
-                    <a href="resources.html">海外の文献</a>
-                    <a href="../">timej.net トップ</a>
+
+                <!-- Web全体のメニュー -->
+                <div class="footer-section">
+                    <h4>timej.net</h4>
+                    <div class="footer-links">
+                        <a href="/">ホーム</a>
+                        <a href="/dyslexia/">ディスレクシア</a>
+                        <a href="/homeserver/">自宅AIサーバー</a>
+                    </div>
+                </div>
+
+                <!-- サブディレクトリのメニュー -->
+                <div class="footer-section">
+                    <h4>ディスレクシア</h4>
+                    <div class="footer-links">
+                        <a href="abilities/">能力</a>
+                        <a href="ai-compatibility/">AIとの相性</a>
+                        <a href="farming/">自然農法</a>
+                        <a href="resources/">海外リソース</a>
+                    </div>
+                </div>
+
+                <!-- コミュニティ -->
+                <div class="footer-section">
+                    <h4>コミュニティ</h4>
+                    <div class="footer-links">
+                        <a href="https://discord.gg/k8wjSVsG4t" target="_blank" rel="noopener">
+                            💬 Discord
+                        </a>
+                        <a href="https://www.facebook.com/groups/timej" target="_blank" rel="noopener">
+                            👥 Facebook
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="copyright">
@@ -433,6 +469,40 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // ハンバーガーメニューの制御
+        const hamburger = document.querySelector('.hamburger');
+        const mainNav = document.querySelector('.main-nav');
+        const body = document.body;
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            body.classList.toggle('menu-open');
+        });
+
+        // メニューリンククリック時にメニューを閉じる
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            });
+        });
+
+        // オーバーレイクリック時にメニューを閉じる
+        document.addEventListener('click', (e) => {
+            if (body.classList.contains('menu-open') &&
+                !mainNav.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+        });
+    </script>
 
 </body>
 

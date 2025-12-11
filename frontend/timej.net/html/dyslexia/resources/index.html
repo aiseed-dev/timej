@@ -6,12 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ディスレクシアの強みに焦点を当てた海外の研究・文献・リソース。障害ではなく、異なる認知スタイルとして捉える世界の動き。">
     <title>海外の文献・リソース | ディスレクシアと生きる - timej.net</title>
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../style.css?v=1.0.0" />
-    <link rel="stylesheet" href="article.css?v=1.0.0" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../style.css?v=1.0.0" />
+    <link rel="stylesheet" href="../article.css?v=1.0.0" />
+    <link rel="stylesheet" href="../dyslexia.css?v=1.0.0" />
     <meta property="og:title" content="海外の文献・リソース | ディスレクシアと生きる">
     <meta property="og:description" content="ディスレクシアの強みに焦点を当てた海外の研究・書籍・団体を紹介。">
     <meta property="og:url" content="https://timej.net/dyslexia/resources.html">
+    <meta property="og:image" content="https://timej.net/dyslexia/images/concept_diagram.png">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://timej.net/dyslexia/images/concept_diagram.png">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9FLQ963JXM"></script>
     <script>
@@ -28,16 +33,21 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="../" class="logo">
-                    <img src="../app_icon.svg" alt="timej.netアイコン" class="logo-icon">
+                <a href="../../" class="logo">
+                    <img src="../../app_icon.svg" alt="timej.netアイコン" class="logo-icon">
                     timej.net
                 </a>
-                <nav>
-                    <a href="./">ディスレクシア</a>
-                    <a href="farming.html">自然農法</a>
-                    <a href="ai-compatibility.html">AIとの相性</a>
-                    <a href="abilities.html">ディスレクシアの能力</a>
-                    <a href="resources.html">海外リソース</a>
+                <button class="hamburger" aria-label="メニュー">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="main-nav">
+                    <a href="../">ディスレクシア</a>
+                    <a href="../farming/">自然農法</a>
+                    <a href="../ai-compatibility/">AIとの相性</a>
+                    <a href="../abilities/">ディスレクシアの能力</a>
+                    <a href="../resources/">海外リソース</a>
                 </nav>
             </div>
         </div>
@@ -47,7 +57,7 @@
     <section class="article-hero">
         <div class="container">
             <div class="breadcrumb">
-                <a href="../">timej.net</a> &gt; <a href="./">ディスレクシアと生きる</a> &gt; 海外の文献・リソース
+                <a href="../">timej.net</a> &gt; <a href="../">ディスレクシアと生きる</a> &gt; 海外の文献・リソース
             </div>
             <h1>海外の文献・リソース</h1>
             <p class="article-lead">
@@ -181,7 +191,7 @@
                         <a href="https://forbesjapan.com/articles/detail/86406" target="_blank" rel="noopener"
                             class="report-link">記事を読む（Forbes Japan）→</a>
                         <p style="margin-top: 10px;">
-                            <a href="abilities.html">→ 当サイトの解説記事「ディスレクシアの能力」もご覧ください</a>
+                            <a href="../abilities/">→ 当サイトの解説記事「ディスレクシアの能力」もご覧ください</a>
                         </p>
                     </div>
                 </section>
@@ -264,7 +274,7 @@
 
                     <div class="cta-box">
                         <p>AIとの相性について詳しくは：</p>
-                        <a href="ai-compatibility.html" class="btn btn-primary">
+                        <a href="../ai-compatibility/" class="btn btn-primary">
                             <span class="btn-icon">→</span> AIに適合した認知スタイル
                         </a>
                     </div>
@@ -296,7 +306,7 @@
                     <li><a href="#linkedin">LinkedInの動き</a></li>
                     <li><a href="#ai-era">AI時代との接続</a></li>
                 </ul>
-                <a href="./" class="back-link">← トップへ戻る</a>
+                <a href="../" class="back-link">← トップへ戻る</a>
             </aside>
         </div>
     </article>
@@ -305,15 +315,46 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">
-                    <span class="footer-logo">ディスレクシア流の働き方</span>
-                    <p>timej.net</p>
+                <!-- ブランド -->
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <span class="footer-logo">ディスレクシア流の働き方</span>
+                        <p>timej.net</p>
+                    </div>
                 </div>
-                <div class="footer-links">
-                    <a href="./">ディスレクシア</a>
-                    <a href="abilities.html">ディスレクシアの能力</a>
-                    <a href="ai-compatibility.html">AIとの相性</a>
-                    <a href="../">timej.net</a>
+
+                <!-- Web全体のメニュー -->
+                <div class="footer-section">
+                    <h4>timej.net</h4>
+                    <div class="footer-links">
+                        <a href="../../">ホーム</a>
+                        <a href="../">ディスレクシア</a>
+                        <a href="../../homeserver/">自宅AIサーバー</a>
+                    </div>
+                </div>
+
+                <!-- サブディレクトリのメニュー -->
+                <div class="footer-section">
+                    <h4>ディスレクシア</h4>
+                    <div class="footer-links">
+                        <a href="../abilities/">能力</a>
+                        <a href="../ai-compatibility/">AIとの相性</a>
+                        <a href="../farming/">自然農法</a>
+                        <a href="../resources/">海外リソース</a>
+                    </div>
+                </div>
+
+                <!-- コミュニティ -->
+                <div class="footer-section">
+                    <h4>コミュニティ</h4>
+                    <div class="footer-links">
+                        <a href="https://discord.gg/k8wjSVsG4t" target="_blank" rel="noopener">
+                            💬 Discord
+                        </a>
+                        <a href="https://www.facebook.com/groups/timej" target="_blank" rel="noopener">
+                            👥 Facebook
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="copyright">
@@ -321,6 +362,40 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // ハンバーガーメニューの制御
+        const hamburger = document.querySelector('.hamburger');
+        const mainNav = document.querySelector('.main-nav');
+        const body = document.body;
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            body.classList.toggle('menu-open');
+        });
+
+        // メニューリンククリック時にメニューを閉じる
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            });
+        });
+
+        // オーバーレイクリック時にメニューを閉じる
+        document.addEventListener('click', (e) => {
+            if (body.classList.contains('menu-open') &&
+                !mainNav.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+        });
+    </script>
 
 </body>
 
