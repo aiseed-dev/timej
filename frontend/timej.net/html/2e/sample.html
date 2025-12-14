@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2E特性 多次元分析ツール</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --card: #ffffff;
+        }
+        body { font-family: "Helvetica Neue", "Hiragino Kaku Gothic ProN", sans-serif; background-color: var(--bg); color: #1e293b; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; background: var(--card); border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow: hidden; }
+
+        header { background: var(--primary); color: white; padding: 30px; text-align: center; }
+        h1 { margin: 0; font-size: 24px; font-weight: 700; }
+        .subtitle { font-size: 14px; opacity: 0.9; margin-top: 5px; }
+
+        .content { padding: 30px; }
+        .note { background-color: #eff6ff; border-left: 4px solid var(--primary); padding: 15px; margin-bottom: 30px; font-size: 0.9em; color: #1e40af; }
+
+        .category-block { margin-bottom: 30px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; }
+        .category-title { font-weight: bold; font-size: 1.1em; margin-bottom: 15px; color: var(--primary); display: flex; align-items: center; }
+        .category-title span { background: #dbeafe; color: var(--primary); padding: 2px 8px; border-radius: 4px; font-size: 0.8em; margin-left: 10px; }
+
+        .question-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed #f1f5f9; }
+        .question-item:last-child { border-bottom: none; }
+        .question-text { font-size: 0.95em; flex: 1; padding-right: 15px; }
+
+        /* スライダースタイル */
+        .range-wrap { width: 140px; text-align: center; }
+        input[type=range] { width: 100%; cursor: pointer; }
+        .range-labels { display: flex; justify-content: space-between; font-size: 0.7em; color: var(--secondary); margin-top: -5px; }
+
+        .btn-analyze { display: block; width: 100%; padding: 18px; background-color: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 20px; }
+        .btn-analyze:hover { background-color: #1d4ed8; }
+
+        /* 結果画面 */
+        #resultSection { display: none; margin-top: 40px; border-top: 2px solid #e2e8f0; padding-top: 30px; }
+        .chart-wrapper { position: relative; height: 400px; width: 100%; margin-bottom: 30px; }
+
+        .analysis-box { background: #fdfaf6; border: 1px solid #fed7aa; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .analysis-title { color: #9a3412; font-weight: bold; margin-bottom: 10px; font-size: 1.2em; }
+
+        .print-btn { background: var(--secondary); margin-top: 10px; font-size: 0.9em; padding: 10px; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; max-width: 100%; }
+            .btn-analyze, .range-wrap, input[type=range] { display: none; }
+            /* 印刷時に回答済みスコアを表示する工夫が必要ですが、今回は簡易化のためチャートメインで印刷 */
+            header { padding: 15px; }
+            .content { padding: 10px; }
+            .category-block { display: none; } /* 質問は隠して結果だけ印刷 */
+            #resultSection { display: block; margin-top: 0; border: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>2E特性 多次元分析ツール</h1>
+        <div class="subtitle">Twice-Exceptional Trait Analysis & Visualization</div>
+    </header>
+
+    <div class="content">
+        <div class="note">
+            <strong>ご利用にあたって：</strong><br>
+            このツールは、2E（二重例外）に見られる「能力の非同期（凹凸）」を5つの軸で可視化します。「まったく当てはまらない（0）」から「非常によく当てはまる（4）」の5段階で評価してください。<br>
+            ※診断行為ではありません。傾向把握の参考資料としてご利用ください。
+        </div>
+
+        <form id="assessmentForm">
+            <div id="questionsContainer"></div>
+
+            <button type="button" class="btn-analyze" onclick="analyze()">分析を実行する</button>
+        </form>
+
+        <div id="resultSection">
+            <h2 style="text-align:center; color:#1e293b;">分析結果レポート</h2>
+
+            <div class="chart-wrapper">
+                <canvas id="radarChart"></canvas>
+            </div>
+
+            <div class="analysis-box">
+                <div class="analysis-title">📊 凹凸（ディスクレパンシー）の判定</div>
+                <div id="textResult"></div>
+            </div>
+
+            <div style="font-size: 0.85em; color: #64748b;">
+                <p><strong>チャートの見方：</strong><br>
+                    上半分（青・紫）が伸びており、下半分（赤・橙）も伸びている場合、典型的な2Eの「高能力と困難の併存」を示唆します。<br>
+                    形がいびつであるほど、本人の内面では「できること」と「できないこと」のギャップによる葛藤が強い可能性があります。</p>
+            </div>
+
+            <button type="button" class="btn-analyze print-btn" onclick="window.print()">この結果を印刷 / PDF保存</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 5つの軸と質問項目
+    const categories = [
+        {
+            id: 'intellect',
+            name: '知的・論理的強み',
+            color: 'rgba(59, 130, 246, 1)', // Blue
+            questions: [
+                "年齢に比べて語彙が豊富で、複雑な概念を理解する。",
+                "興味のある分野に関しては、驚くべき記憶力を発揮する。",
+                "物事の理屈や法則性を見つけるのが得意だ。"
+            ]
+        },
+        {
+            id: 'creative',
+            name: '創造・拡散的思考',
+            color: 'rgba(139, 92, 246, 1)', // Purple
+            questions: [
+                "人とは違うユニークな視点や解決策を思いつく。",
+                "空想にふけったり、物語を作ったりするのが好きだ。",
+                "一つの答えに満足せず「もし〜だったら？」と考える。"
+            ]
+        },
+        {
+            id: 'oe',
+            name: '感受性・過度激動(OE)',
+            color: 'rgba(16, 185, 129, 1)', // Green
+            questions: [
+                "正義感が強く、不公平なことに対して激しく憤る。",
+                "音、匂い、タグの感触などにひどく敏感である。",
+                "感情の起伏が激しく、喜びも悲しみも深く感じる。"
+            ]
+        },
+        {
+            id: 'executive',
+            name: '実行機能の課題',
+            color: 'rgba(249, 115, 22, 1)', // Orange
+            questions: [
+                "忘れ物や紛失が多く、整理整頓が極端に苦手だ。",
+                "単純な反復作業や、興味のない課題に集中し続けるのが苦痛。",
+                "衝動的に発言したり行動したりしてしまい、後で後悔する。"
+            ]
+        },
+        {
+            id: 'social',
+            name: '社会的・適応スキル',
+            color: 'rgba(239, 68, 68, 1)', // Red
+            questions: [
+                "集団の「暗黙のルール」や「その場の空気」を読むのが苦手。",
+                "急な予定変更や、自分の手順を邪魔されるとパニックになる。",
+                "書く作業（書字）が極端に遅い、または雑である。"
+            ]
+        }
+    ];
+
+    // 質問フォームの生成
+    const container = document.getElementById('questionsContainer');
+    categories.forEach((cat, catIndex) => {
+        const div = document.createElement('div');
+        div.className = 'category-block';
+        div.innerHTML = `<div class="category-title">${cat.name} <span>Section ${catIndex + 1}</span></div>`;
+
+        cat.questions.forEach((q, qIndex) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-item';
+            qDiv.innerHTML = `
+                <div class="question-text">${q}</div>
+                <div class="range-wrap">
+                    <input type="range" min="0" max="4" value="0" class="score-input" data-cat="${catIndex}">
+                    <div class="range-labels">
+                        <span>No</span>
+                        <span>Yes</span>
+                    </div>
+                </div>
+            `;
+            div.appendChild(qDiv);
+        });
+        container.appendChild(div);
+    });
+
+    // 分析ロジック
+    let myRadarChart = null;
+
+    function analyze() {
+        const inputs = document.querySelectorAll('.score-input');
+        // カテゴリごとの合計スコアを計算 (各3問 × 4点 = 12点満点)
+        const scores = [0, 0, 0, 0, 0];
+
+        inputs.forEach(input => {
+            const catIndex = input.getAttribute('data-cat');
+            scores[catIndex] += parseInt(input.value);
+        });
+
+        // データの正規化（10点満点換算にして見やすくする）
+        const normalizedScores = scores.map(s => (s / 12) * 10);
+
+        // 結果エリア表示
+        document.getElementById('resultSection').style.display = 'block';
+
+        // 既存チャートがあれば破棄
+        if (myRadarChart) myRadarChart.destroy();
+
+        // チャート描画
+        const ctx = document.getElementById('radarChart').getContext('2d');
+        myRadarChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: categories.map(c => c.name),
+                datasets: [{
+                    label: '特性バランス',
+                    data: normalizedScores,
+                    backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                    borderColor: 'rgba(37, 99, 235, 1)',
+                    pointBackgroundColor: categories.map(c => c.color),
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: categories.map(c => c.color),
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        angleLines: { display: true },
+                        suggestedMin: 0,
+                        suggestedMax: 10,
+                        pointLabels: {
+                            font: { size: 12, weight: 'bold' }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // テキスト分析生成
+        generateTextReport(normalizedScores);
+
+        // 結果までスクロール
+        document.getElementById('resultSection').scrollIntoView({behavior: "smooth"});
+    }
+
+    function generateTextReport(scores) {
+        // scores: 0=知能, 1=創造, 2=OE, 3=実行機能(課題), 4=社会性(課題)
+        const strengthAvg = (scores[0] + scores[1]) / 2;
+        const challengeAvg = (scores[3] + scores[4]) / 2;
+        const gap = Math.abs(strengthAvg - challengeAvg);
+
+        let html = "";
+
+        // 2E判定ロジック（簡易版）
+        if (strengthAvg >= 6 && challengeAvg >= 6) {
+            html += "<p><strong>判定傾向：2E（二重例外）の可能性が高いプロファイル</strong><br>高い知的能力や創造性を示しながら、同時に日常生活や学習面での具体的な困難さも強く出ています。このタイプは「怠けている」と誤解されやすいため、強みを伸ばしつつ、弱みを環境調整でカバーするアプローチが重要です。</p>";
+        } else if (strengthAvg >= 6 && challengeAvg < 4) {
+            html += "<p><strong>判定傾向：ギフテッド・才能重視型</strong><br>突出した能力が見られますが、現時点で大きな困りごとは表面化していないようです。ただし、スコア3（感受性）が高い場合、環境の変化によってストレスを感じやすくなる「隠れ2E」の可能性に留意してください。</p>";
+        } else if (strengthAvg < 4 && challengeAvg >= 6) {
+            html += "<p><strong>判定傾向：支援優先型</strong><br>現在、能力の発揮よりも困りごとの方が生活を圧迫している可能性があります。まずは安心できる環境作りと、具体的な困難さ（不注意や対人面）へのサポートが能力開花の鍵となります。</p>";
+        } else {
+            html += "<p><strong>判定傾向：バランス型 / 特性未分化</strong><br>極端な凹凸は見られません。全体的にスコアが高い場合は「ハイリー・センシティブ（HSC/HSP）」の視点も参考になるかもしれません。</p>";
+        }
+
+        // ギャップに関するコメント
+        if (gap >= 3) {
+            html += `<p style="margin-top:10px; color:#b91c1c;"><strong>⚠️ 大きな非同期（凹凸）が検出されました</strong><br>「できること」と「できないこと」の差（ディスクレパンシー）が大きいです。この差自体が、本人にとって大きなストレスや自己肯定感の低下の原因になりやすいため、WISC等の専門的な検査をお勧めします。</p>`;
+        }
+
+        document.getElementById('textResult').innerHTML = html;
+    }
+</script>
+
+</body>
+</html>
