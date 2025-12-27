@@ -506,6 +506,33 @@ footer {
     line-height: 1.9;
 }
 
+.hero-messages {
+    list-style: none;
+    max-width: 500px;
+    margin: 0 auto 40px;
+    position: relative;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 24px 32px;
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(10px);
+}
+
+.hero-messages li {
+    padding: 8px 0;
+    padding-left: 28px;
+    position: relative;
+    font-size: 1.1rem;
+    opacity: 0.95;
+}
+
+.hero-messages li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+}
+
 .hero-buttons {
     display: flex;
     justify-content: center;
