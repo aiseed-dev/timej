@@ -6,7 +6,7 @@ import '../data/intelligences_data.dart';
 import '../models/intelligence.dart';
 import 'result_screen.dart';
 
-/// クイズ画面
+/// クイズ画面（知性ごとに4問表示）
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
 
@@ -15,71 +15,90 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  int _currentIndex = 0;
-  final Map<int, int> _answers = {};
+  int _currentIntelligenceIndex = 0;
+  final Map<String, List<int>> _answers = {};
 
-  Question get _currentQuestion => questions[_currentIndex];
-  int get _totalQuestions => questions.length;
-  double get _progress => (_currentIndex + 1) / _totalQuestions;
+  Intelligence get _currentIntelligence =>
+      intelligences[_currentIntelligenceIndex];
+
+  List<Question> get _currentQuestions =>
+      questions.where((q) => q.intelligenceId == _currentIntelligence.id).toList();
+
+  int get _totalIntelligences => intelligences.length;
+  double get _progress => (_currentIntelligenceIndex + 1) / _totalIntelligences;
+
+  @override
+  void initState() {
+    super.initState();
+    // 各知性のスコアを初期化
+    for (final intel in intelligences) {
+      _answers[intel.id] = List.filled(4, 2); // デフォルト値2
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final intelligence = getIntelligenceById(_currentQuestion.intelligenceId);
-    final color = AppColors.getIntelligenceColor(_currentQuestion.intelligenceId);
+    final color = AppColors.getIntelligenceColor(_currentIntelligence.id);
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () => _handleBack(),
-        ),
-        title: Text(
-          '${_currentIndex + 1} / $_totalQuestions',
-          style: AppTextStyles.titleMedium,
-        ),
-      ),
       body: SafeArea(
         child: Column(
           children: [
+            // ヘッダー
+            _Header(
+              currentIndex: _currentIntelligenceIndex,
+              total: _totalIntelligences,
+              onBack: _handleBack,
+            ),
+
             // プログレスバー
             _ProgressBar(progress: _progress, color: color),
 
+            // コンテンツ
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   children: [
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 8),
 
-                    // カテゴリ表示
-                    _CategoryBadge(
-                      icon: intelligence.icon,
-                      name: intelligence.name,
+                    // 知性ヘッダー
+                    _IntelligenceHeader(
+                      intelligence: _currentIntelligence,
                       color: color,
                     ),
 
+                    const SizedBox(height: 24),
+
+                    // 4つの質問
+                    ..._currentQuestions.asMap().entries.map((entry) {
+                      final index = entry.key;
+                      final question = entry.value;
+                      return _QuestionItem(
+                        index: index + 1,
+                        question: question.text,
+                        value: _answers[_currentIntelligence.id]![index],
+                        color: color,
+                        onChanged: (value) {
+                          setState(() {
+                            _answers[_currentIntelligence.id]![index] = value;
+                          });
+                        },
+                      );
+                    }),
+
                     const SizedBox(height: 32),
-
-                    // 質問カード
-                    _QuestionCard(
-                      question: _currentQuestion.text,
-                      value: _answers[_currentIndex] ?? 2,
-                      onChanged: (value) {
-                        setState(() {
-                          _answers[_currentIndex] = value;
-                        });
-                      },
-                    ),
-
-                    const SizedBox(height: 40),
 
                     // ナビゲーションボタン
                     _NavigationButtons(
-                      isFirst: _currentIndex == 0,
-                      isLast: _currentIndex == _totalQuestions - 1,
+                      isFirst: _currentIntelligenceIndex == 0,
+                      isLast: _currentIntelligenceIndex == _totalIntelligences - 1,
+                      color: color,
                       onPrevious: _handlePrevious,
                       onNext: _handleNext,
                     ),
+
+                    const SizedBox(height: 24),
                   ],
                 ),
               ),
@@ -91,34 +110,29 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   void _handleBack() {
-    if (_currentIndex > 0) {
-      setState(() => _currentIndex--);
+    if (_currentIntelligenceIndex > 0) {
+      setState(() => _currentIntelligenceIndex--);
     } else {
       Navigator.of(context).pop();
     }
   }
 
   void _handlePrevious() {
-    if (_currentIndex > 0) {
-      setState(() => _currentIndex--);
+    if (_currentIntelligenceIndex > 0) {
+      setState(() => _currentIntelligenceIndex--);
     }
   }
 
   void _handleNext() {
-    // 現在の質問に回答がなければデフォルト値を設定
-    _answers.putIfAbsent(_currentIndex, () => 2);
-
-    if (_currentIndex < _totalQuestions - 1) {
-      setState(() => _currentIndex++);
+    if (_currentIntelligenceIndex < _totalIntelligences - 1) {
+      setState(() => _currentIntelligenceIndex++);
     } else {
       _showResults();
     }
   }
 
   void _showResults() {
-    // スコア計算
     final scores = _calculateScores();
-
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (_) => ResultScreen(scores: scores),
@@ -127,23 +141,53 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   Map<String, double> _calculateScores() {
-    final scoresByIntelligence = <String, List<int>>{};
-
-    // 知性ごとにスコアを集計
-    for (var i = 0; i < questions.length; i++) {
-      final intelligenceId = questions[i].intelligenceId;
-      final score = _answers[i] ?? 2;
-      scoresByIntelligence.putIfAbsent(intelligenceId, () => []).add(score);
-    }
-
-    // 平均を計算して正規化（0-100%）
     final normalizedScores = <String, double>{};
-    for (final entry in scoresByIntelligence.entries) {
-      final average = entry.value.reduce((a, b) => a + b) / entry.value.length;
-      normalizedScores[entry.key] = (average / 4) * 100;
+
+    for (final entry in _answers.entries) {
+      final intelligenceId = entry.key;
+      final scores = entry.value;
+      final total = scores.reduce((a, b) => a + b);
+      // 16点満点を100%に正規化
+      normalizedScores[intelligenceId] = (total / 16) * 100;
     }
 
     return normalizedScores;
+  }
+}
+
+/// ヘッダー
+class _Header extends StatelessWidget {
+  final int currentIndex;
+  final int total;
+  final VoidCallback onBack;
+
+  const _Header({
+    required this.currentIndex,
+    required this.total,
+    required this.onBack,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      child: Row(
+        children: [
+          IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: onBack,
+          ),
+          Expanded(
+            child: Text(
+              '${currentIndex + 1} / $total',
+              style: AppTextStyles.titleMedium,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(width: 48), // バランス用
+        ],
+      ),
+    );
   }
 }
 
@@ -160,21 +204,19 @@ class _ProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 8,
+      height: 6,
       margin: const EdgeInsets.symmetric(horizontal: 24),
       decoration: BoxDecoration(
         color: AppColors.divider,
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(3),
       ),
       child: FractionallySizedBox(
         alignment: Alignment.centerLeft,
         widthFactor: progress,
         child: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [color, color.withOpacity(0.8)],
-            ),
-            borderRadius: BorderRadius.circular(4),
+            color: color,
+            borderRadius: BorderRadius.circular(3),
           ),
         ),
       ),
@@ -182,37 +224,63 @@ class _ProgressBar extends StatelessWidget {
   }
 }
 
-/// カテゴリバッジ
-class _CategoryBadge extends StatelessWidget {
-  final String icon;
-  final String name;
+/// 知性ヘッダー
+class _IntelligenceHeader extends StatelessWidget {
+  final Intelligence intelligence;
   final Color color;
 
-  const _CategoryBadge({
-    required this.icon,
-    required this.name,
+  const _IntelligenceHeader({
+    required this.intelligence,
     required this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(20),
+        gradient: LinearGradient(
+          colors: [color, color.withOpacity(0.8)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Text(icon, style: const TextStyle(fontSize: 20)),
-          const SizedBox(width: 8),
           Text(
-            name,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: color,
+            intelligence.icon,
+            style: const TextStyle(fontSize: 40),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  intelligence.name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  intelligence.englishName,
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.9),
+                    fontSize: 12,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -221,58 +289,89 @@ class _CategoryBadge extends StatelessWidget {
   }
 }
 
-/// 質問カード
-class _QuestionCard extends StatelessWidget {
+/// 質問アイテム
+class _QuestionItem extends StatelessWidget {
+  final int index;
   final String question;
   final int value;
+  final Color color;
   final ValueChanged<int> onChanged;
 
-  const _QuestionCard({
+  const _QuestionItem({
+    required this.index,
     required this.question,
     required this.value,
+    required this.color,
     required this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(24),
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 16,
-            offset: const Offset(0, 4),
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 質問テキスト
-          Text(
-            question,
-            style: AppTextStyles.titleLarge.copyWith(
-              height: 1.6,
-            ),
-            textAlign: TextAlign.center,
+          // 質問番号と質問文
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 28,
+                height: 28,
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Center(
+                  child: Text(
+                    '$index',
+                    style: TextStyle(
+                      color: color,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  question,
+                  style: AppTextStyles.bodyLarge.copyWith(
+                    height: 1.5,
+                  ),
+                ),
+              ),
+            ],
           ),
 
-          const SizedBox(height: 40),
+          const SizedBox(height: 16),
 
           // スライダー
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
-              activeTrackColor: AppColors.primary,
+              activeTrackColor: color,
               inactiveTrackColor: AppColors.divider,
               thumbColor: Colors.white,
-              overlayColor: AppColors.primary.withOpacity(0.1),
+              overlayColor: color.withOpacity(0.1),
               thumbShape: const RoundSliderThumbShape(
-                enabledThumbRadius: 14,
-                elevation: 4,
+                enabledThumbRadius: 12,
+                elevation: 3,
               ),
-              trackHeight: 8,
+              trackHeight: 6,
             ),
             child: Slider(
               value: value.toDouble(),
@@ -283,21 +382,16 @@ class _QuestionCard extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 8),
-
           // ラベル
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '当てはまらない',
-                style: AppTextStyles.label,
-              ),
-              Text(
-                '非常に当てはまる',
-                style: AppTextStyles.label,
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('当てはまらない', style: AppTextStyles.label),
+                Text('非常に当てはまる', style: AppTextStyles.label),
+              ],
+            ),
           ),
         ],
       ),
@@ -309,12 +403,14 @@ class _QuestionCard extends StatelessWidget {
 class _NavigationButtons extends StatelessWidget {
   final bool isFirst;
   final bool isLast;
+  final Color color;
   final VoidCallback onPrevious;
   final VoidCallback onNext;
 
   const _NavigationButtons({
     required this.isFirst,
     required this.isLast,
+    required this.color,
     required this.onPrevious,
     required this.onNext,
   });
@@ -327,7 +423,12 @@ class _NavigationButtons extends StatelessWidget {
           Expanded(
             child: OutlinedButton(
               onPressed: onPrevious,
-              child: const Text('戻る'),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                side: BorderSide(color: color, width: 2),
+                foregroundColor: color,
+              ),
+              child: const Text('前へ'),
             ),
           ),
         if (!isFirst) const SizedBox(width: 16),
@@ -336,11 +437,13 @@ class _NavigationButtons extends StatelessWidget {
           child: Container(
             height: 56,
             decoration: BoxDecoration(
-              gradient: AppColors.primaryGradient,
+              gradient: LinearGradient(
+                colors: [color, color.withOpacity(0.8)],
+              ),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.3),
+                  color: color.withOpacity(0.3),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -351,8 +454,15 @@ class _NavigationButtons extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 shadowColor: Colors.transparent,
+                padding: const EdgeInsets.symmetric(vertical: 16),
               ),
-              child: Text(isLast ? '結果を見る' : '次へ'),
+              child: Text(
+                isLast ? '結果を見る' : '次の知性へ',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
         ),
