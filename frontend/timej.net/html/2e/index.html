@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2E（Twice-Exceptional：二重例外）について。ギフテッドでありながら発達障害を持つ人々の理解と支援。才能発見ツールで自分の強みを見つけよう。">
+    <title>2E（Twice-Exceptional）| timej.net</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css?v=1.0.0" />
+    <link rel="stylesheet" href="../dyslexia/article.css?v=1.0.0" />
+    <meta property="og:title" content="2E（Twice-Exceptional）| timej.net">
+    <meta property="og:description" content="ギフテッドでありながら発達障害を持つ2Eの理解と支援。才能発見ツールで自分の強みを見つけよう。">
+    <meta property="og:url" content="https://timej.net/2e/">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9FLQ963JXM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-9FLQ963JXM');
+    </script>
+    <style>
+        .tools-section {
+            padding: 60px 0;
+            background: var(--bg-light);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .tool-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: var(--transition);
+            text-decoration: none;
+            display: block;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tool-header {
+            padding: 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .tool-header.gradient-gold {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .tool-header.gradient-blue {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        }
+
+        .tool-icon {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .tool-header h3 {
+            font-size: 22px;
+            margin: 0;
+        }
+
+        .tool-body {
+            padding: 25px 30px;
+        }
+
+        .tool-body p {
+            color: var(--text-base);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .tool-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tool-features li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .tool-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .tool-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px;
+            background: #f7fafc;
+            color: var(--primary-color);
+            font-weight: 600;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .info-section {
+            padding: 80px 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .info-card h3 {
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card p {
+            color: var(--text-base);
+            line-height: 1.7;
+        }
+
+        .quote-section {
+            background: var(--gradient);
+            padding: 60px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .quote-section blockquote {
+            font-size: 1.3em;
+            max-width: 700px;
+            margin: 0 auto;
+            font-style: italic;
+            opacity: 0.95;
+        }
+
+        .quote-section cite {
+            display: block;
+            margin-top: 20px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="../" class="logo">
+                    <img src="../app_icon.svg" alt="timej.netアイコン" class="logo-icon">
+                    timej.net
+                </a>
+                <button class="hamburger" aria-label="メニュー">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="main-nav">
+                    <a href="../">ホーム</a>
+                    <a href="./">2E</a>
+                    <a href="../dyslexia/">ディスレクシア</a>
+                    <a href="../dyslexia/abilities/">能力について</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="article-hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="../">timej.net</a> &gt; 2E（Twice-Exceptional）
+            </div>
+            <h1>2E（Twice-Exceptional）<br><span style="font-size: 0.6em; opacity: 0.9;">— ギフテッドと発達障害の共存</span></h1>
+            <p class="article-lead">
+                優れた能力と困難さを同時に持つ人々。<br>
+                その「凹凸」を理解し、強みを活かすために。
+            </p>
+        </div>
+    </section>
+
+    <!-- ツールセクション -->
+    <section class="tools-section">
+        <div class="container">
+            <h2 class="section-title">セルフチェックツール</h2>
+            <p class="section-subtitle">
+                自己理解のためのツールです。診断ではありません。
+            </p>
+
+            <div class="tools-grid">
+                <!-- Spark - 才能発見アプリ -->
+                <a href="../spark/" class="tool-card">
+                    <div class="tool-header gradient-gold">
+                        <span class="tool-icon">✨</span>
+                        <h3>Spark - 才能発見アプリ</h3>
+                    </div>
+                    <div class="tool-body">
+                        <p>
+                            8つの知性領域であなたの強みを可視化するネイティブアプリ。
+                            <strong>あなたの隠れた才能を発見しましょう</strong>。
+                        </p>
+                        <ul class="tool-features">
+                            <li>ガードナーの多重知能理論を参考</li>
+                            <li>32問の質問で8つの知性を測定</li>
+                            <li>レーダーチャートで強みを可視化</li>
+                            <li>iOS / Android 対応（開発中）</li>
+                        </ul>
+                    </div>
+                    <div class="tool-cta">
+                        アプリについて →
+                    </div>
+                </a>
+
+                <!-- 特性分析ツール -->
+                <a href="sample.html" class="tool-card">
+                    <div class="tool-header gradient-blue">
+                        <span class="tool-icon">📊</span>
+                        <h3>2E特性分析ツール</h3>
+                    </div>
+                    <div class="tool-body">
+                        <p>
+                            2Eに見られる「能力の非同期（凹凸）」を5つの軸で可視化。
+                            知的強み、創造性、感受性、実行機能、社会性のバランスを分析します。
+                        </p>
+                        <ul class="tool-features">
+                            <li>5つの軸で特性を測定</li>
+                            <li>レーダーチャートで凹凸を可視化</li>
+                            <li>2E傾向の判定と解説</li>
+                            <li>印刷・PDF保存対応</li>
+                        </ul>
+                    </div>
+                    <div class="tool-cta">
+                        特性を分析する →
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 名言セクション -->
+    <section class="quote-section">
+        <div class="container">
+            <blockquote>
+                "Everybody is a genius. But if you judge a fish by its ability to climb a tree, it will live its whole life believing that it is stupid."
+                <cite>— アルバート・アインシュタイン（とされる言葉）</cite>
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- 2Eについて -->
+    <section class="info-section">
+        <div class="container">
+            <h2 class="section-title">2Eとは</h2>
+            <p class="section-subtitle">
+                Twice-Exceptional（二重例外）— 優れた能力と発達障害を併せ持つ人々
+            </p>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🎯 定義</h3>
+                    <p>
+                        2E（Twice-Exceptional）とは、ギフテッド（知的能力や創造性が高い）でありながら、
+                        ADHD、ASD、ディスレクシアなどの発達障害や学習障害を持つ人々を指します。
+                        「二重例外」という名前は、両方の意味で「例外的」であることに由来します。
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3>⚖️ 凹凸の特徴</h3>
+                    <p>
+                        2Eの人は、ある分野では驚くほど高い能力を発揮しながら、
+                        別の分野では大きな困難を抱えています。
+                        このギャップ（凹凸）が本人の内面で葛藤を生み、
+                        しばしば「怠けている」「やればできるのに」と誤解されます。
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3>🔍 見落とされやすい理由</h3>
+                    <p>
+                        高い能力が困難さを隠し、困難さが才能を隠します。
+                        「普通」に見えてしまうため、適切なサポートを受けられないまま
+                        自己肯定感を失っていくケースが少なくありません。
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <h3>💡 強みベースのアプローチ</h3>
+                    <p>
+                        2Eの人にとって重要なのは、「弱みを直す」ことよりも
+                        「強みを伸ばす」ことです。弱みは環境調整やツールでカバーし、
+                        強みを最大限に活かせる場を見つけることが、
+                        本来の能力を発揮する鍵となります。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 関連コンテンツ -->
+    <section class="tools-section">
+        <div class="container">
+            <h2 class="section-title">関連コンテンツ</h2>
+
+            <div class="tools-grid">
+                <a href="../dyslexia/" class="tool-card">
+                    <div class="tool-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <span class="tool-icon">📖</span>
+                        <h3>ディスレクシア</h3>
+                    </div>
+                    <div class="tool-body">
+                        <p>
+                            読み書きの困難と向き合いながら、AI時代に強みを活かす働き方を探る。
+                            ディスレクシア当事者による、当事者のためのコンテンツ。
+                        </p>
+                    </div>
+                    <div class="tool-cta">
+                        詳しく見る →
+                    </div>
+                </a>
+
+                <a href="../dyslexia/abilities/" class="tool-card">
+                    <div class="tool-header" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        <span class="tool-icon">⚡</span>
+                        <h3>ディスレクシアの能力</h3>
+                    </div>
+                    <div class="tool-body">
+                        <p>
+                            Forbes Japanが「超能力」と呼んだディスレクシア的思考。
+                            パターン認識、大局的問題解決、創造的発想——AI時代に活きる強みとは。
+                        </p>
+                    </div>
+                    <div class="tool-cta">
+                        詳しく見る →
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- ブランド -->
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <span class="footer-logo">timej.net</span>
+                        <p>オープンデータ × AI協働開発</p>
+                    </div>
+                </div>
+
+                <!-- メニュー -->
+                <div class="footer-section">
+                    <h4>timej.net</h4>
+                    <div class="footer-links">
+                        <a href="../">ホーム</a>
+                        <a href="./">2E</a>
+                        <a href="../dyslexia/">ディスレクシア</a>
+                        <a href="../homeserver/">自宅AIサーバー</a>
+                    </div>
+                </div>
+
+                <!-- ツール -->
+                <div class="footer-section">
+                    <h4>ツール</h4>
+                    <div class="footer-links">
+                        <a href="../spark/">Spark - 才能発見</a>
+                        <a href="sample.html">2E特性分析ツール</a>
+                    </div>
+                </div>
+
+                <!-- コミュニティ -->
+                <div class="footer-section">
+                    <h4>コミュニティ</h4>
+                    <div class="footer-links">
+                        <a href="https://discord.gg/k8wjSVsG4t" target="_blank" rel="noopener">
+                            💬 Discord
+                        </a>
+                        <a href="https://www.facebook.com/groups/timej" target="_blank" rel="noopener">
+                            👥 Facebook
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 timej.net. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ハンバーガーメニューの制御
+        const hamburger = document.querySelector('.hamburger');
+        const mainNav = document.querySelector('.main-nav');
+        const body = document.body;
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            body.classList.toggle('menu-open');
+        });
+
+        // メニューリンククリック時にメニューを閉じる
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            });
+        });
+
+        // オーバーレイクリック時にメニューを閉じる
+        document.addEventListener('click', (e) => {
+            if (body.classList.contains('menu-open') &&
+                !mainNav.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
