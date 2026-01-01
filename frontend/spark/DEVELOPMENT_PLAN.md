@@ -79,7 +79,8 @@ lib/
 ├── app.dart                     # MaterialApp設定
 │
 ├── models/                      # データモデル
-│   └── intelligence.dart        # 知性・質問・結果モデル
+│   ├── intelligence.dart        # 知性・質問・結果モデル
+│   └── task_result.dart         # Part2タスク結果モデル
 │
 ├── data/                        # 静的データ
 │   ├── intelligences_data.dart  # 8つの知性データ
@@ -87,8 +88,21 @@ lib/
 │
 ├── screens/                     # 画面
 │   ├── home_screen.dart         # ホーム画面
-│   ├── quiz_screen.dart         # クイズ画面
-│   └── result_screen.dart       # 結果画面
+│   ├── quiz_screen.dart         # Part1クイズ画面
+│   ├── result_screen.dart       # 総合結果画面
+│   └── part2/                   # Part2（作業検査）
+│       ├── part2_intro_screen.dart    # Part2開始画面
+│       ├── part2_flow_screen.dart     # Part2フロー管理
+│       ├── part2_result_screen.dart   # Part2結果画面
+│       └── tasks/                     # 8つのミニタスク
+│           ├── sequence_task.dart     # 数列完成（論理）
+│           ├── memory_task.dart       # 単語記憶（言語）
+│           ├── spatial_task.dart      # 図形回転（空間）
+│           ├── rhythm_task.dart       # リズム（音楽）
+│           ├── reaction_task.dart     # 反応速度（身体）
+│           ├── emotion_task.dart      # 表情認識（対人）
+│           ├── reflection_task.dart   # 状況判断（内省）
+│           └── classify_task.dart     # 分類（博物）
 │
 ├── widgets/                     # 再利用可能なウィジェット（必要に応じて）
 │
@@ -118,22 +132,35 @@ lib/
 - [x] クイズ画面（質問表示、スライダー）
 - [x] 結果画面（バーチャート、TOP3）
 
-### Phase 4: 機能強化 🔄 次のステップ
+### Phase 4: 作業検査（Part2）✅ 完了
+- [x] Part2イントロ画面
+- [x] 数列完成タスク（論理・数学的知性）
+- [x] 単語記憶タスク（言語的知性）
+- [x] 図形回転タスク（空間的知性）
+- [x] リズムタスク（音楽的知性）
+- [x] 反応速度タスク（身体・運動的知性）
+- [x] 表情認識タスク（対人的知性）
+- [x] 状況判断タスク（内省的知性）
+- [x] 分類タスク（博物的知性）
+- [x] Part2結果画面
+- [x] Part2フロー統合
+
+### Phase 5: 機能強化 🔄 次のステップ
 - [ ] レーダーチャート描画（fl_chart）
 - [ ] 結果の保存（SharedPreferences）
 - [ ] アニメーション追加
 
-### Phase 5: メール連携
+### Phase 6: メール連携
 - [ ] メールアドレス入力ダイアログ
 - [ ] サーバーへの結果送信API
 - [ ] 送信確認UI
 
-### Phase 6: サーバー側（別リポジトリ）
+### Phase 7: サーバー側（別リポジトリ）
 - [ ] FastAPI + Agent SDK セットアップ
 - [ ] 分析プロンプト作成
 - [ ] メール送信機能（SendGrid等）
 
-### Phase 7: 仕上げ
+### Phase 8: 仕上げ
 - [ ] アプリアイコン作成
 - [ ] スプラッシュ画面
 - [ ] ストア申請準備

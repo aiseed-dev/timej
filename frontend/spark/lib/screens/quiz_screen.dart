@@ -4,7 +4,7 @@ import '../theme/app_text_styles.dart';
 import '../data/questions_data.dart';
 import '../data/intelligences_data.dart';
 import '../models/intelligence.dart';
-import 'result_screen.dart';
+import 'part2/part2_intro_screen.dart';
 
 /// クイズ画面（知性ごとに4問表示）
 class QuizScreen extends StatefulWidget {
@@ -135,7 +135,7 @@ class _QuizScreenState extends State<QuizScreen> {
     final scores = _calculateScores();
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (_) => ResultScreen(scores: scores),
+        builder: (_) => Part2IntroScreen(part1Scores: scores),
       ),
     );
   }
@@ -457,7 +457,7 @@ class _NavigationButtons extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
               child: Text(
-                isLast ? '結果を見る' : '次の知性へ',
+                isLast ? 'Part 2へ' : '次の知性へ',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
