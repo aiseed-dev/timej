@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Spark - 8つの才能を発見。ガードナーの多重知能理論に基づき、あなたの隠れた強みを可視化するアプリ。">
+    <title>Spark - 8つの才能を発見 | timej.net</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css?v=1.0.0" />
+    <meta property="og:title" content="Spark - 8つの才能を発見">
+    <meta property="og:description" content="ガードナーの多重知能理論に基づき、あなたの隠れた強みを可視化するアプリ。">
+    <meta property="og:url" content="https://timej.net/spark/">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9FLQ963JXM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-9FLQ963JXM');
+    </script>
+    <style>
+        .spark-hero {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+            color: white;
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spark-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .spark-hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .spark-logo {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .spark-hero h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .spark-hero .tagline {
+            font-size: 20px;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .download-btn.coming-soon {
+            opacity: 0.7;
+            cursor: default;
+        }
+
+        .download-btn .icon {
+            font-size: 24px;
+        }
+
+        .download-btn .text {
+            text-align: left;
+        }
+
+        .download-btn .text small {
+            display: block;
+            font-size: 11px;
+            opacity: 0.8;
+            font-weight: normal;
+        }
+
+        /* 特徴セクション */
+        .features-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .features-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .features-intro p {
+            font-size: 18px;
+            color: var(--text-base);
+            line-height: 1.8;
+        }
+
+        /* 8つの知性 */
+        .intelligences-section {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+
+        .intelligence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .intelligence-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        .intelligence-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .intelligence-card.linguistic { border-color: #3b82f6; }
+        .intelligence-card.logical { border-color: #8b5cf6; }
+        .intelligence-card.spatial { border-color: #ec4899; }
+        .intelligence-card.musical { border-color: #f59e0b; }
+        .intelligence-card.bodily { border-color: #10b981; }
+        .intelligence-card.interpersonal { border-color: #f97316; }
+        .intelligence-card.intrapersonal { border-color: #6366f1; }
+        .intelligence-card.naturalistic { border-color: #14b8a6; }
+
+        .intelligence-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .intelligence-card h3 {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .intelligence-card .english {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        .intelligence-card p {
+            font-size: 14px;
+            color: var(--text-base);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .intelligence-card .careers {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* 使い方セクション */
+        .how-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .step-item {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        .step-item h3 {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .step-item p {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* スクリーンショット（準備中） */
+        .screenshots-section {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+
+        .screenshots-placeholder {
+            background: white;
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            border: 2px dashed #e2e8f0;
+        }
+
+        .screenshots-placeholder .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .screenshots-placeholder p {
+            color: var(--text-light);
+        }
+
+        /* CTAセクション */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        /* フッターリンク */
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-nav a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        .footer-nav a:hover {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .spark-hero h1 {
+                font-size: 28px;
+            }
+
+            .spark-hero .tagline {
+                font-size: 16px;
+            }
+
+            .download-btn {
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="../" class="logo">
+                    <img src="../app_icon.svg" alt="timej.netアイコン" class="logo-icon">
+                    timej.net
+                </a>
+                <button class="hamburger" aria-label="メニュー">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="main-nav">
+                    <a href="../">ホーム</a>
+                    <a href="./">Spark</a>
+                    <a href="../dyslexia/">ディスレクシア</a>
+                    <a href="../2e/">2E</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="spark-hero">
+        <div class="container">
+            <div class="spark-logo">✨</div>
+            <h1>Spark</h1>
+            <p class="tagline">8つの才能を発見</p>
+
+            <div class="download-buttons">
+                <a href="#" class="download-btn coming-soon">
+                    <span class="icon">🍎</span>
+                    <span class="text">
+                        <small>Coming Soon</small>
+                        App Store
+                    </span>
+                </a>
+                <a href="#" class="download-btn coming-soon">
+                    <span class="icon">🤖</span>
+                    <span class="text">
+                        <small>Coming Soon</small>
+                        Google Play
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特徴セクション -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">あなたの隠れた才能を発見</h2>
+            <div class="features-intro">
+                <p>
+                    人は誰でも、複数の「知性」を持っています。<br>
+                    学校のテストでは測れない、あなただけの強みがあります。
+                </p>
+                <p style="margin-top: 20px;">
+                    Sparkは、ハワード・ガードナー博士の<strong>多重知能理論</strong>に基づき、<br>
+                    8つの知性領域であなたの才能を可視化します。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8つの知性 -->
+    <section class="intelligences-section">
+        <div class="container">
+            <h2 class="section-title">8つの知性</h2>
+            <p class="section-subtitle">Multiple Intelligences Theory by Howard Gardner</p>
+
+            <div class="intelligence-grid">
+                <div class="intelligence-card linguistic">
+                    <div class="intelligence-icon">📝</div>
+                    <h3>言語的知性</h3>
+                    <div class="english">Linguistic Intelligence</div>
+                    <p>言葉を使って考え、表現する力。読書、執筆、言葉遊びが得意。</p>
+                    <div class="careers">作家、弁護士、教師、ジャーナリスト</div>
+                </div>
+
+                <div class="intelligence-card logical">
+                    <div class="intelligence-icon">🔢</div>
+                    <h3>論理・数学的知性</h3>
+                    <div class="english">Logical-Mathematical</div>
+                    <p>論理的に考え、パターンや法則を見つける力。分析や問題解決が得意。</p>
+                    <div class="careers">エンジニア、科学者、プログラマー</div>
+                </div>
+
+                <div class="intelligence-card spatial">
+                    <div class="intelligence-icon">🎨</div>
+                    <h3>空間的知性</h3>
+                    <div class="english">Spatial-Visual</div>
+                    <p>立体や空間を把握し、視覚的にイメージする力。絵やデザインが得意。</p>
+                    <div class="careers">建築家、デザイナー、アーティスト</div>
+                </div>
+
+                <div class="intelligence-card musical">
+                    <div class="intelligence-icon">🎵</div>
+                    <h3>音楽的知性</h3>
+                    <div class="english">Musical Intelligence</div>
+                    <p>音やリズムを感じ取り、音楽を理解・創造する力。</p>
+                    <div class="careers">音楽家、作曲家、DJ、音響エンジニア</div>
+                </div>
+
+                <div class="intelligence-card bodily">
+                    <div class="intelligence-icon">⚽</div>
+                    <h3>身体・運動的知性</h3>
+                    <div class="english">Bodily-Kinesthetic</div>
+                    <p>体を使って表現したり、手先を器用に使う力。</p>
+                    <div class="careers">アスリート、ダンサー、職人、外科医</div>
+                </div>
+
+                <div class="intelligence-card interpersonal">
+                    <div class="intelligence-icon">🤝</div>
+                    <h3>対人的知性</h3>
+                    <div class="english">Interpersonal</div>
+                    <p>他者の気持ちを理解し、人と協力する力。リーダーシップが得意。</p>
+                    <div class="careers">教師、カウンセラー、営業、マネージャー</div>
+                </div>
+
+                <div class="intelligence-card intrapersonal">
+                    <div class="intelligence-icon">🧘</div>
+                    <h3>内省的知性</h3>
+                    <div class="english">Intrapersonal</div>
+                    <p>自分自身を深く理解する力。自己分析や独自の価値観を持つ。</p>
+                    <div class="careers">哲学者、起業家、心理学者</div>
+                </div>
+
+                <div class="intelligence-card naturalistic">
+                    <div class="intelligence-icon">🌿</div>
+                    <h3>博物的知性</h3>
+                    <div class="english">Naturalistic</div>
+                    <p>自然界のパターンを認識し、分類する力。動植物への深い興味。</p>
+                    <div class="careers">生物学者、獣医、農家、環境活動家</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 使い方 -->
+    <section class="how-section">
+        <div class="container">
+            <h2 class="section-title">使い方</h2>
+
+            <div class="steps-grid">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <h3>質問に答える</h3>
+                    <p>32問の質問に直感で回答。考えすぎず、感じたままに答えてください。</p>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <h3>結果を確認</h3>
+                    <p>レーダーチャートで8つの知性バランスを可視化。あなたの強みが一目でわかります。</p>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <h3>才能を活かす</h3>
+                    <p>TOP3の強みと、それを活かすヒントを確認。自分らしい道を見つけましょう。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- スクリーンショット -->
+    <section class="screenshots-section">
+        <div class="container">
+            <h2 class="section-title">スクリーンショット</h2>
+
+            <div class="screenshots-placeholder">
+                <div class="icon">📱</div>
+                <p>アプリ開発中です。もうしばらくお待ちください。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>あなたの才能を発見しよう</h2>
+            <p>Sparkは現在開発中です。リリース時にお知らせを受け取りたい方は、<br>Discordコミュニティにご参加ください。</p>
+            <a href="https://discord.gg/k8wjSVsG4t" class="download-btn" target="_blank" rel="noopener">
+                <span class="icon">💬</span>
+                <span class="text">Discord に参加</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">Spark</span>
+                    <p>8つの才能を発見</p>
+                </div>
+                <div class="footer-links">
+                    <a href="../">timej.net</a>
+                    <a href="./">Spark</a>
+                    <a href="privacy/">プライバシーポリシー</a>
+                    <a href="../2e/">2E</a>
+                    <a href="../dyslexia/">ディスレクシア</a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 timej.net. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ハンバーガーメニューの制御
+        const hamburger = document.querySelector('.hamburger');
+        const mainNav = document.querySelector('.main-nav');
+        const body = document.body;
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            body.classList.toggle('menu-open');
+        });
+
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (body.classList.contains('menu-open') &&
+                !mainNav.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
