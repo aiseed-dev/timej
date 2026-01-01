@@ -114,8 +114,7 @@ class _RadarChartPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(20),
@@ -128,7 +127,7 @@ class _RadarChartPlaceholder extends StatelessWidget {
         ],
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           // 簡易的なバー表示
           ...intelligences.map((intel) {
@@ -136,32 +135,45 @@ class _RadarChartPlaceholder extends StatelessWidget {
             final color = AppColors.getIntelligenceColor(intel.id);
 
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
+              padding: const EdgeInsets.symmetric(vertical: 6),
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 24,
-                    child: Text(intel.icon, style: const TextStyle(fontSize: 16)),
-                  ),
-                  const SizedBox(width: 8),
+                  Text(intel.icon, style: const TextStyle(fontSize: 20)),
+                  const SizedBox(width: 12),
                   Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(4),
-                      child: LinearProgressIndicator(
-                        value: score / 100,
-                        backgroundColor: AppColors.divider,
-                        valueColor: AlwaysStoppedAnimation<Color>(color),
-                        minHeight: 12,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  SizedBox(
-                    width: 40,
-                    child: Text(
-                      '${score.round()}%',
-                      style: AppTextStyles.label,
-                      textAlign: TextAlign.right,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              intel.name,
+                              style: AppTextStyles.label.copyWith(
+                                color: AppColors.textPrimary,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Text(
+                              '${score.round()}%',
+                              style: AppTextStyles.label.copyWith(
+                                color: color,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: LinearProgressIndicator(
+                            value: score / 100,
+                            backgroundColor: AppColors.divider,
+                            valueColor: AlwaysStoppedAnimation<Color>(color),
+                            minHeight: 8,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
