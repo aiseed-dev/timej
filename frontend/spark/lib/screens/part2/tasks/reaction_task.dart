@@ -9,10 +9,7 @@ import '../../../models/task_result.dart';
 class ReactionTask extends StatefulWidget {
   final void Function(TaskResult result) onComplete;
 
-  const ReactionTask({
-    super.key,
-    required this.onComplete,
-  });
+  const ReactionTask({super.key, required this.onComplete});
 
   @override
   State<ReactionTask> createState() => _ReactionTaskState();
@@ -21,7 +18,8 @@ class ReactionTask extends StatefulWidget {
 class _ReactionTaskState extends State<ReactionTask> {
   _TaskPhase _phase = _TaskPhase.instruction;
   int _currentRound = 0;
-  final int _totalRounds = 10;
+  final int _totalRounds = 10; // 本番ラウンド数
+  final int _practiceRounds = 1; // 練習ラウンド数
   final List<int> _reactionTimes = [];
   DateTime? _targetShowTime;
   Offset _targetPosition = Offset.zero;
@@ -29,6 +27,12 @@ class _ReactionTaskState extends State<ReactionTask> {
   Timer? _showTimer;
   late DateTime _startTime;
   bool _tooEarly = false;
+
+  // 練習中かどうか
+  bool get _isPractice => _currentRound < _practiceRounds;
+
+  // 本番のラウンド番号（練習を除く）
+  int get _actualRoundNumber => _currentRound - _practiceRounds;
 
   @override
   void dispose() {
@@ -46,9 +50,7 @@ class _ReactionTaskState extends State<ReactionTask> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: SafeArea(
-        child: _buildContent(),
-      ),
+      body: SafeArea(child: _buildContent()),
     );
   }
 
@@ -105,7 +107,9 @@ class _ReactionTaskState extends State<ReactionTask> {
                 Expanded(
                   child: Text(
                     '注意：円が出る前にタップするとやり直しになります',
-                    style: AppTextStyles.label.copyWith(color: AppColors.warning),
+                    style: AppTextStyles.label.copyWith(
+                      color: AppColors.warning,
+                    ),
                   ),
                 ),
               ],
@@ -117,7 +121,9 @@ class _ReactionTaskState extends State<ReactionTask> {
             height: 56,
             child: ElevatedButton(
               onPressed: _startTest,
-              style: ElevatedButton.styleFrom(backgroundColor: AppColors.bodily),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.bodily,
+              ),
               child: const Text('スタート'),
             ),
           ),
@@ -137,7 +143,13 @@ class _ReactionTaskState extends State<ReactionTask> {
             borderRadius: BorderRadius.circular(14),
           ),
           child: Center(
-            child: Text(number, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            child: Text(
+              number,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 12),
@@ -150,46 +162,96 @@ class _ReactionTaskState extends State<ReactionTask> {
     return GestureDetector(
       onTap: _onTooEarlyTap,
       child: Container(
-        color: _tooEarly ? AppColors.error.withOpacity(0.2) : AppColors.background,
+        color: _tooEarly
+            ? AppColors.error.withOpacity(0.2)
+            : AppColors.background,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                '${_currentRound + 1} / $_totalRounds',
-                style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
-              ),
+              // 練習表示または進捗表示
+              if (_isPractice)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  margin: const EdgeInsets.only(bottom: 8),
+                  decoration: BoxDecoration(
+                    color: AppColors.warning.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text('🎯', style: TextStyle(fontSize: 16)),
+                      const SizedBox(width: 8),
+                      Text(
+                        '練習ラウンド',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.warning,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              else
+                Text(
+                  '${_actualRoundNumber + 1} / $_totalRounds',
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
+                ),
               const SizedBox(height: 40),
               if (_tooEarly) ...[
                 const Text('⚠️', style: TextStyle(fontSize: 64)),
                 const SizedBox(height: 16),
                 Text(
                   '早すぎました！',
-                  style: AppTextStyles.titleLarge.copyWith(color: AppColors.error),
+                  style: AppTextStyles.titleLarge.copyWith(
+                    color: AppColors.error,
+                  ),
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  '円が出てからタップしてください',
-                  style: AppTextStyles.bodyMedium,
-                ),
+                Text('円が出てからタップしてください', style: AppTextStyles.bodyMedium),
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: _retryRound,
-                  style: ElevatedButton.styleFrom(backgroundColor: AppColors.bodily),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.bodily,
+                  ),
                   child: const Text('もう一度'),
                 ),
               ] else ...[
                 const Text('👀', style: TextStyle(fontSize: 64)),
                 const SizedBox(height: 16),
-                Text(
-                  '待ってください...',
-                  style: AppTextStyles.titleLarge,
-                ),
+                Text('待ってください...', style: AppTextStyles.titleLarge),
                 const SizedBox(height: 8),
                 Text(
                   '緑の円が出たらタップ！',
-                  style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
                 ),
+                if (_isPractice) ...[
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    margin: const EdgeInsets.symmetric(horizontal: 24),
+                    decoration: BoxDecoration(
+                      color: AppColors.warning.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      'これは練習です（スコアには含まれません）',
+                      style: AppTextStyles.label.copyWith(
+                        color: AppColors.warning,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
               ],
             ],
           ),
@@ -204,7 +266,7 @@ class _ReactionTaskState extends State<ReactionTask> {
         return GestureDetector(
           onTapDown: (details) => _onTargetTap(details.globalPosition),
           child: Container(
-            color: AppColors.bodily.withOpacity(0.1),
+            color: AppColors.background, // 背景色を変えない（ヒントを与えない）
             child: Stack(
               children: [
                 Positioned(
@@ -225,7 +287,11 @@ class _ReactionTaskState extends State<ReactionTask> {
                       ],
                     ),
                     child: const Center(
-                      child: Icon(Icons.touch_app, color: Colors.white, size: 36),
+                      child: Icon(
+                        Icons.touch_app,
+                        color: Colors.white,
+                        size: 36,
+                      ),
                     ),
                   ),
                 ),
@@ -235,10 +301,40 @@ class _ReactionTaskState extends State<ReactionTask> {
                   left: 0,
                   right: 0,
                   child: Center(
-                    child: Text(
-                      '${_currentRound + 1} / $_totalRounds',
-                      style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
-                    ),
+                    child: _isPractice
+                        ? Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.warning.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text(
+                                  '🎯',
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '練習',
+                                  style: AppTextStyles.bodyMedium.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.warning,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Text(
+                            '${_actualRoundNumber + 1} / $_totalRounds',
+                            style: AppTextStyles.bodyMedium.copyWith(
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
                   ),
                 ),
               ],
@@ -265,7 +361,11 @@ class _ReactionTaskState extends State<ReactionTask> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            score >= 80 ? '⚡' : score >= 50 ? '👍' : '💪',
+            score >= 80
+                ? '⚡'
+                : score >= 50
+                ? '👍'
+                : '💪',
             style: const TextStyle(fontSize: 64),
           ),
           const SizedBox(height: 24),
@@ -306,7 +406,9 @@ class _ReactionTaskState extends State<ReactionTask> {
             height: 56,
             child: ElevatedButton(
               onPressed: _complete,
-              style: ElevatedButton.styleFrom(backgroundColor: AppColors.bodily),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.bodily,
+              ),
               child: const Text('次へ'),
             ),
           ),
@@ -318,7 +420,10 @@ class _ReactionTaskState extends State<ReactionTask> {
   Widget _buildStatColumn(String label, String value) {
     return Column(
       children: [
-        Text(label, style: AppTextStyles.label.copyWith(color: AppColors.textSecondary)),
+        Text(
+          label,
+          style: AppTextStyles.label.copyWith(color: AppColors.textSecondary),
+        ),
         const SizedBox(height: 4),
         Text(value, style: AppTextStyles.titleMedium),
       ],
@@ -354,7 +459,13 @@ class _ReactionTaskState extends State<ReactionTask> {
     return Column(
       children: [
         Text(time, style: AppTextStyles.label.copyWith(fontSize: 11)),
-        Text(score, style: AppTextStyles.label.copyWith(fontSize: 11, color: AppColors.bodily)),
+        Text(
+          score,
+          style: AppTextStyles.label.copyWith(
+            fontSize: 11,
+            color: AppColors.bodily,
+          ),
+        ),
       ],
     );
   }
@@ -412,12 +523,18 @@ class _ReactionTaskState extends State<ReactionTask> {
   void _onTargetTap(Offset tapPosition) {
     if (_targetShowTime == null) return;
 
-    final reactionTime = DateTime.now().difference(_targetShowTime!).inMilliseconds;
-    _reactionTimes.add(reactionTime);
+    final reactionTime = DateTime.now()
+        .difference(_targetShowTime!)
+        .inMilliseconds;
+
+    // 練習ラウンドはスコアに含めない
+    if (!_isPractice) {
+      _reactionTimes.add(reactionTime);
+    }
 
     _currentRound++;
 
-    if (_currentRound < _totalRounds) {
+    if (_currentRound < _practiceRounds + _totalRounds) {
       _scheduleNextTarget();
     } else {
       setState(() => _phase = _TaskPhase.result);
@@ -431,14 +548,16 @@ class _ReactionTaskState extends State<ReactionTask> {
         : _reactionTimes.reduce((a, b) => a + b) ~/ _reactionTimes.length;
     final score = _calculateScore(avgTime);
 
-    widget.onComplete(TaskResult(
-      taskId: 'reaction',
-      taskName: '反応速度',
-      score: score,
-      correctCount: _reactionTimes.length,
-      totalCount: _totalRounds,
-      duration: duration,
-    ));
+    widget.onComplete(
+      TaskResult(
+        taskId: 'reaction',
+        taskName: '反応速度',
+        score: score,
+        correctCount: _reactionTimes.length,
+        totalCount: _totalRounds,
+        duration: duration,
+      ),
+    );
   }
 }
 

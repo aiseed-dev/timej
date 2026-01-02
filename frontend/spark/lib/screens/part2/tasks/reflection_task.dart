@@ -8,10 +8,7 @@ import '../../../models/task_result.dart';
 class ReflectionTask extends StatefulWidget {
   final void Function(TaskResult result) onComplete;
 
-  const ReflectionTask({
-    super.key,
-    required this.onComplete,
-  });
+  const ReflectionTask({super.key, required this.onComplete});
 
   @override
   State<ReflectionTask> createState() => _ReflectionTaskState();
@@ -22,13 +19,24 @@ class _ReflectionTaskState extends State<ReflectionTask> {
   final Map<int, String> _answers = {};
   late DateTime _startTime;
 
-  // 状況と感情の選択肢
+  // 練習問題かどうか
+  bool get _isPractice => _currentQuestion == 0;
+
+  // 本番の問題数（練習問題を除く）
+  int get _actualQuestionCount => _allQuestions.length - 1;
+
+  // 現在の本番問題番号（練習問題を除く）
+  int get _actualQuestionNumber => _currentQuestion - 1;
+
+  // 状況と感情の選択肢（最初の1問は練習問題）
   final List<_SituationQuestion> _questions = [
+    // 練習問題
     _SituationQuestion(
       situation: '友人が約束の時間に30分遅れてきた',
       category: 'frustration',
       options: ['イライラする', '心配になる', '気にしない', '悲しくなる'],
     ),
+    // 本番問題
     _SituationQuestion(
       situation: '自分の意見が会議で採用された',
       category: 'achievement',
@@ -86,7 +94,10 @@ class _ReflectionTaskState extends State<ReflectionTask> {
     _startTime = DateTime.now();
   }
 
-  List<_SituationQuestion> get _allQuestions => [..._questions, ..._consistencyQuestions];
+  List<_SituationQuestion> get _allQuestions => [
+    ..._questions,
+    ..._consistencyQuestions,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -123,26 +134,79 @@ class _ReflectionTaskState extends State<ReflectionTask> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            if (_isPractice)
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.warning.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('🎯', style: TextStyle(fontSize: 14)),
+                    const SizedBox(width: 4),
+                    Text(
+                      '練習問題',
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.warning,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            else
+              Text(
+                '質問 ${_actualQuestionNumber + 1} / $_actualQuestionCount',
+                style: AppTextStyles.bodyMedium.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             Text(
-              '質問 ${_currentQuestion + 1} / ${_allQuestions.length}',
-              style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600),
-            ),
-            Text(
-              '回答済み: ${_answers.length}',
-              style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
+              '回答済み: ${_answers.entries.where((e) => e.key > 0).length}',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.textSecondary,
+              ),
             ),
           ],
         ),
         const SizedBox(height: 8),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: LinearProgressIndicator(
-            value: (_currentQuestion + 1) / _allQuestions.length,
-            backgroundColor: AppColors.divider,
-            valueColor: const AlwaysStoppedAnimation<Color>(AppColors.intrapersonal),
-            minHeight: 8,
+        if (_isPractice)
+          Container(
+            height: 8,
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.warning,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        else
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: (_actualQuestionNumber + 1) / _actualQuestionCount,
+              backgroundColor: AppColors.divider,
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                AppColors.intrapersonal,
+              ),
+              minHeight: 8,
+            ),
           ),
-        ),
       ],
     );
   }
@@ -152,6 +216,27 @@ class _ReflectionTaskState extends State<ReflectionTask> {
 
     return Column(
       children: [
+        // 練習表示
+        if (_isPractice)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 12),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: AppColors.warning.withOpacity(0.3)),
+            ),
+            child: Text(
+              '🎯 これは練習です（スコアには含まれません）',
+              style: AppTextStyles.label.copyWith(
+                color: AppColors.warning,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+
         // 説明
         Container(
           padding: const EdgeInsets.all(16),
@@ -220,10 +305,14 @@ class _ReflectionTaskState extends State<ReflectionTask> {
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: isSelected ? AppColors.intrapersonal : AppColors.surface,
+                      color: isSelected
+                          ? AppColors.intrapersonal
+                          : AppColors.surface,
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
-                        color: isSelected ? AppColors.intrapersonal : AppColors.divider,
+                        color: isSelected
+                            ? AppColors.intrapersonal
+                            : AppColors.divider,
                         width: isSelected ? 2 : 1,
                       ),
                     ),
@@ -232,7 +321,9 @@ class _ReflectionTaskState extends State<ReflectionTask> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: isSelected ? Colors.white : AppColors.textPrimary,
+                        color: isSelected
+                            ? Colors.white
+                            : AppColors.textPrimary,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -248,9 +339,19 @@ class _ReflectionTaskState extends State<ReflectionTask> {
           width: double.infinity,
           height: 56,
           child: ElevatedButton(
-            onPressed: _answers.containsKey(_currentQuestion) ? _nextQuestion : null,
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.intrapersonal),
-            child: Text(_currentQuestion < _allQuestions.length - 1 ? '次へ' : '結果を見る'),
+            onPressed: _answers.containsKey(_currentQuestion)
+                ? _nextQuestion
+                : null,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.intrapersonal,
+            ),
+            child: Text(
+              _isPractice
+                  ? '本番へ進む'
+                  : (_currentQuestion < _allQuestions.length - 1
+                        ? '次へ'
+                        : '結果を見る'),
+            ),
           ),
         ),
       ],
@@ -271,7 +372,9 @@ class _ReflectionTaskState extends State<ReflectionTask> {
         const SizedBox(height: 16),
         Text(
           '${totalScore.round()}%',
-          style: AppTextStyles.displayLarge.copyWith(color: AppColors.intrapersonal),
+          style: AppTextStyles.displayLarge.copyWith(
+            color: AppColors.intrapersonal,
+          ),
         ),
         const SizedBox(height: 32),
 
@@ -312,7 +415,9 @@ class _ReflectionTaskState extends State<ReflectionTask> {
           height: 56,
           child: ElevatedButton(
             onPressed: _complete,
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.intrapersonal),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.intrapersonal,
+            ),
             child: const Text('次へ'),
           ),
         ),
@@ -357,25 +462,27 @@ class _ReflectionTaskState extends State<ReflectionTask> {
 
   double _calculateConsistencyScore() {
     // 一貫性チェック：同じカテゴリの質問に対する回答の類似性
+    // 練習問題(index 0)は除外し、本番問題のindexを調整
     int consistentPairs = 0;
     int totalPairs = 0;
 
-    // frustrationカテゴリの一貫性
-    if (_answers.containsKey(0) && _answers.containsKey(8)) {
+    // frustrationカテゴリの一貫性（本番1問目とconsistency 1問目）
+    // 練習問題がindex 0なので、本番1問目はindex 1、consistency質問は_questions.lengthから始まる
+    if (_answers.containsKey(1) && _answers.containsKey(_questions.length)) {
       totalPairs++;
-      final first = _answers[0]!;
-      final second = _answers[8]!;
-      // 同じ系統の回答かチェック
+      final first = _answers[1]!;
+      final second = _answers[_questions.length]!;
       if (_isSimilarResponse(first, second)) {
         consistentPairs++;
       }
     }
 
-    // achievementカテゴリの一貫性
-    if (_answers.containsKey(1) && _answers.containsKey(9)) {
+    // achievementカテゴリの一貫性（本番2問目とconsistency 2問目）
+    if (_answers.containsKey(2) &&
+        _answers.containsKey(_questions.length + 1)) {
       totalPairs++;
-      final first = _answers[1]!;
-      final second = _answers[9]!;
+      final first = _answers[2]!;
+      final second = _answers[_questions.length + 1]!;
       if (_isSimilarResponse(first, second)) {
         consistentPairs++;
       }
@@ -387,27 +494,65 @@ class _ReflectionTaskState extends State<ReflectionTask> {
 
   bool _isSimilarResponse(String first, String second) {
     // 類似の感情グループ
-    final negativeEmotions = ['イライラする', '悲しくなる', '傷つく', '怒りを感じる', 'ストレスを感じる', '困惑する', '緊張する', '不安を感じる', '自分を責める', '後悔する'];
+    final negativeEmotions = [
+      'イライラする',
+      '悲しくなる',
+      '傷つく',
+      '怒りを感じる',
+      'ストレスを感じる',
+      '困惑する',
+      '緊張する',
+      '不安を感じる',
+      '自分を責める',
+      '後悔する',
+    ];
     final neutralEmotions = ['気にしない', '特に何も感じない', '仕方ないと思う', '無視する', '忘れようとする'];
-    final positiveEmotions = ['嬉しい', '楽しい', 'ワクワクする', '自由を感じる', '落ち着く', '学びとして捉える', '改善の機会と捉える'];
-    final adaptiveEmotions = ['心配になる', '柔軟に対応できる', '人に相談したい', '慎重に考える', '直感で決める', '集中できる'];
+    final positiveEmotions = [
+      '嬉しい',
+      '楽しい',
+      'ワクワクする',
+      '自由を感じる',
+      '落ち着く',
+      '学びとして捉える',
+      '改善の機会と捉える',
+    ];
+    final adaptiveEmotions = [
+      '心配になる',
+      '柔軟に対応できる',
+      '人に相談したい',
+      '慎重に考える',
+      '直感で決める',
+      '集中できる',
+    ];
 
     bool inSameGroup(String emotion, List<String> group) {
       return group.any((e) => emotion.contains(e) || e.contains(emotion));
     }
 
-    if (inSameGroup(first, negativeEmotions) && inSameGroup(second, negativeEmotions)) return true;
-    if (inSameGroup(first, neutralEmotions) && inSameGroup(second, neutralEmotions)) return true;
-    if (inSameGroup(first, positiveEmotions) && inSameGroup(second, positiveEmotions)) return true;
-    if (inSameGroup(first, adaptiveEmotions) && inSameGroup(second, adaptiveEmotions)) return true;
+    if (inSameGroup(first, negativeEmotions) &&
+        inSameGroup(second, negativeEmotions))
+      return true;
+    if (inSameGroup(first, neutralEmotions) &&
+        inSameGroup(second, neutralEmotions))
+      return true;
+    if (inSameGroup(first, positiveEmotions) &&
+        inSameGroup(second, positiveEmotions))
+      return true;
+    if (inSameGroup(first, adaptiveEmotions) &&
+        inSameGroup(second, adaptiveEmotions))
+      return true;
 
     return false;
   }
 
   double _calculateResponsePatternScore() {
-    // 回答の多様性（極端に同じ回答ばかりでないか）
+    // 回答の多様性（練習問題を除く）
+    final actualAnswers = Map.fromEntries(
+      _answers.entries.where((e) => e.key > 0),
+    );
+
     final answerCounts = <String, int>{};
-    for (final answer in _answers.values) {
+    for (final answer in actualAnswers.values) {
       answerCounts[answer] = (answerCounts[answer] ?? 0) + 1;
     }
 
@@ -415,10 +560,10 @@ class _ReflectionTaskState extends State<ReflectionTask> {
 
     // 最も多い回答の割合
     final maxCount = answerCounts.values.reduce((a, b) => a > b ? a : b);
-    final diversity = 1 - (maxCount / _answers.length);
+    final diversity = 1 - (maxCount / actualAnswers.length);
 
-    // 全質問に回答したかどうか
-    final completeness = _answers.length / _allQuestions.length;
+    // 全質問に回答したかどうか（練習問題を除く）
+    final completeness = actualAnswers.length / _actualQuestionCount;
 
     return (diversity * 0.5 + completeness * 0.5) * 100;
   }
@@ -441,14 +586,16 @@ class _ReflectionTaskState extends State<ReflectionTask> {
     final responsePatternScore = _calculateResponsePatternScore();
     final totalScore = (consistencyScore + responsePatternScore) / 2;
 
-    widget.onComplete(TaskResult(
-      taskId: 'reflection',
-      taskName: '状況判断',
-      score: totalScore,
-      correctCount: _answers.length,
-      totalCount: _allQuestions.length,
-      duration: duration,
-    ));
+    widget.onComplete(
+      TaskResult(
+        taskId: 'reflection',
+        taskName: '状況判断',
+        score: totalScore,
+        correctCount: _answers.entries.where((e) => e.key > 0).length,
+        totalCount: _actualQuestionCount,
+        duration: duration,
+      ),
+    );
   }
 }
 

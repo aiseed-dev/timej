@@ -7,10 +7,7 @@ import '../../../models/task_result.dart';
 class ClassifyTask extends StatefulWidget {
   final void Function(TaskResult result) onComplete;
 
-  const ClassifyTask({
-    super.key,
-    required this.onComplete,
-  });
+  const ClassifyTask({super.key, required this.onComplete});
 
   @override
   State<ClassifyTask> createState() => _ClassifyTaskState();
@@ -23,14 +20,25 @@ class _ClassifyTaskState extends State<ClassifyTask> {
   String? _selectedCategory;
   late DateTime _startTime;
 
-  // 分類問題データ
+  // 練習問題かどうか
+  bool get _isPractice => _currentQuestion == 0;
+
+  // 本番の問題数（練習問題を除く）
+  int get _actualQuestionCount => _questions.length - 1;
+
+  // 現在の本番問題番号（練習問題を除く）
+  int get _actualQuestionNumber => _currentQuestion - 1;
+
+  // 分類問題データ（最初の1問は練習問題）
   final List<_ClassifyQuestion> _questions = [
+    // 練習問題
     _ClassifyQuestion(
       item: '🐋 クジラ',
       correctCategory: '哺乳類',
       options: ['魚類', '哺乳類', '爬虫類', '両生類'],
       hint: '水中に住んでいますが、肺で呼吸します',
     ),
+    // 本番問題
     _ClassifyQuestion(
       item: '🦇 コウモリ',
       correctCategory: '哺乳類',
@@ -103,7 +111,10 @@ class _ClassifyTaskState extends State<ClassifyTask> {
   void initState() {
     super.initState();
     _startTime = DateTime.now();
-    _questions.shuffle(); // 順序をランダム化
+    // 練習問題（最初の1問）を除いてシャッフル
+    final practiceQuestion = _questions.removeAt(0);
+    _questions.shuffle();
+    _questions.insert(0, practiceQuestion);
   }
 
   @override
@@ -124,7 +135,9 @@ class _ClassifyTaskState extends State<ClassifyTask> {
               _buildProgress(),
               const SizedBox(height: 24),
               Expanded(
-                child: _showingResult ? _buildResultFeedback() : _buildQuestion(),
+                child: _showingResult
+                    ? _buildResultFeedback()
+                    : _buildQuestion(),
               ),
             ],
           ),
@@ -139,32 +152,89 @@ class _ClassifyTaskState extends State<ClassifyTask> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '問題 ${_currentQuestion + 1} / ${_questions.length}',
-              style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600),
-            ),
+            if (_isPractice)
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.warning.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('🎯', style: TextStyle(fontSize: 14)),
+                    const SizedBox(width: 4),
+                    Text(
+                      '練習問題',
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.warning,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            else
+              Text(
+                '問題 ${_actualQuestionNumber + 1} / $_actualQuestionCount',
+                style: AppTextStyles.bodyMedium.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             Row(
               children: [
-                const Icon(Icons.check_circle, color: AppColors.success, size: 18),
+                const Icon(
+                  Icons.check_circle,
+                  color: AppColors.success,
+                  size: 18,
+                ),
                 const SizedBox(width: 4),
                 Text(
                   '$_correctCount正解',
-                  style: AppTextStyles.bodyMedium.copyWith(color: AppColors.success),
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.success,
+                  ),
                 ),
               ],
             ),
           ],
         ),
         const SizedBox(height: 8),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: LinearProgressIndicator(
-            value: (_currentQuestion + 1) / _questions.length,
-            backgroundColor: AppColors.divider,
-            valueColor: const AlwaysStoppedAnimation<Color>(AppColors.naturalistic),
-            minHeight: 8,
+        if (_isPractice)
+          Container(
+            height: 8,
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.warning,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        else
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: (_actualQuestionNumber + 1) / _actualQuestionCount,
+              backgroundColor: AppColors.divider,
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                AppColors.naturalistic,
+              ),
+              minHeight: 8,
+            ),
           ),
-        ),
       ],
     );
   }
@@ -174,6 +244,27 @@ class _ClassifyTaskState extends State<ClassifyTask> {
 
     return Column(
       children: [
+        // 練習表示
+        if (_isPractice)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 12),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: AppColors.warning.withOpacity(0.3)),
+            ),
+            child: Text(
+              '🎯 これは練習です（スコアには含まれません）',
+              style: AppTextStyles.label.copyWith(
+                color: AppColors.warning,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+
         // 説明
         Container(
           padding: const EdgeInsets.all(16),
@@ -186,10 +277,7 @@ class _ClassifyTaskState extends State<ClassifyTask> {
               const Text('🌿', style: TextStyle(fontSize: 24)),
               const SizedBox(width: 12),
               Expanded(
-                child: Text(
-                  'これは何の仲間でしょうか？',
-                  style: AppTextStyles.bodyMedium,
-                ),
+                child: Text('これは何の仲間でしょうか？', style: AppTextStyles.bodyMedium),
               ),
             ],
           ),
@@ -247,10 +335,14 @@ class _ClassifyTaskState extends State<ClassifyTask> {
                 onTap: () => _selectCategory(option),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: isSelected ? AppColors.naturalistic : AppColors.surface,
+                    color: isSelected
+                        ? AppColors.naturalistic
+                        : AppColors.surface,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: isSelected ? AppColors.naturalistic : AppColors.divider,
+                      color: isSelected
+                          ? AppColors.naturalistic
+                          : AppColors.divider,
                       width: isSelected ? 3 : 1,
                     ),
                   ),
@@ -260,7 +352,9 @@ class _ClassifyTaskState extends State<ClassifyTask> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: isSelected ? Colors.white : AppColors.textPrimary,
+                        color: isSelected
+                            ? Colors.white
+                            : AppColors.textPrimary,
                       ),
                     ),
                   ),
@@ -278,7 +372,9 @@ class _ClassifyTaskState extends State<ClassifyTask> {
           height: 56,
           child: ElevatedButton(
             onPressed: _selectedCategory != null ? _submitAnswer : null,
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.naturalistic),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.naturalistic,
+            ),
             child: const Text('決定'),
           ),
         ),
@@ -293,12 +389,25 @@ class _ClassifyTaskState extends State<ClassifyTask> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        if (_isPractice)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              '練習問題の結果',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.warning,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
         Text(question.item.split(' ')[0], style: const TextStyle(fontSize: 48)),
         const SizedBox(height: 16),
-        Text(
-          isCorrect ? '⭕' : '❌',
-          style: const TextStyle(fontSize: 64),
-        ),
+        Text(isCorrect ? '⭕' : '❌', style: const TextStyle(fontSize: 64)),
         const SizedBox(height: 16),
         Text(
           isCorrect ? '正解！' : '不正解',
@@ -320,13 +429,13 @@ class _ClassifyTaskState extends State<ClassifyTask> {
           ),
           child: Row(
             children: [
-              const Icon(Icons.lightbulb_outline, color: AppColors.naturalistic),
+              const Icon(
+                Icons.lightbulb_outline,
+                color: AppColors.naturalistic,
+              ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  question.hint,
-                  style: AppTextStyles.bodyMedium,
-                ),
+                child: Text(question.hint, style: AppTextStyles.bodyMedium),
               ),
             ],
           ),
@@ -337,8 +446,14 @@ class _ClassifyTaskState extends State<ClassifyTask> {
           height: 56,
           child: ElevatedButton(
             onPressed: _nextQuestion,
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.naturalistic),
-            child: Text(_currentQuestion < _questions.length - 1 ? '次へ' : '結果を見る'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.naturalistic,
+            ),
+            child: Text(
+              _isPractice
+                  ? '本番へ進む'
+                  : (_currentQuestion < _questions.length - 1 ? '次へ' : '結果を見る'),
+            ),
           ),
         ),
       ],
@@ -351,7 +466,8 @@ class _ClassifyTaskState extends State<ClassifyTask> {
 
   void _submitAnswer() {
     final question = _questions[_currentQuestion];
-    if (_selectedCategory == question.correctCategory) {
+    // 練習問題はスコアに含めない
+    if (!_isPractice && _selectedCategory == question.correctCategory) {
       _correctCount++;
     }
     setState(() => _showingResult = true);
@@ -366,16 +482,18 @@ class _ClassifyTaskState extends State<ClassifyTask> {
       });
     } else {
       final duration = DateTime.now().difference(_startTime);
-      final score = (_correctCount / _questions.length) * 100;
+      final score = (_correctCount / _actualQuestionCount) * 100;
 
-      widget.onComplete(TaskResult(
-        taskId: 'classify',
-        taskName: '分類',
-        score: score,
-        correctCount: _correctCount,
-        totalCount: _questions.length,
-        duration: duration,
-      ));
+      widget.onComplete(
+        TaskResult(
+          taskId: 'classify',
+          taskName: '分類',
+          score: score,
+          correctCount: _correctCount,
+          totalCount: _actualQuestionCount,
+          duration: duration,
+        ),
+      );
     }
   }
 }

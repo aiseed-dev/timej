@@ -9,10 +9,7 @@ import '../../../models/task_result.dart';
 class RhythmTask extends StatefulWidget {
   final void Function(TaskResult result) onComplete;
 
-  const RhythmTask({
-    super.key,
-    required this.onComplete,
-  });
+  const RhythmTask({super.key, required this.onComplete});
 
   @override
   State<RhythmTask> createState() => _RhythmTaskState();
@@ -29,39 +26,48 @@ class _RhythmTaskState extends State<RhythmTask> {
   Timer? _playTimer;
   bool _isPlaying = false;
 
-  // リズムパターン（間隔をミリ秒で表現）
+  // 練習パターンかどうか
+  bool get _isPractice => _currentPattern == 0;
+
+  // 本番のパターン番号（練習を除く）
+  int get _actualPatternNumber => _currentPattern - 1;
+
+  // 本番のパターン数（練習を除く）
+  int get _actualPatternCount => _patterns.length - 1;
+
+  // リズムパターン（間隔をミリ秒で表現）- 最初の1つは練習
   final List<_RhythmPattern> _patterns = [
-    // パターン1: 等間隔 ●●●●
+    // 練習パターン: 等間隔 ●●●●
     _RhythmPattern(
-      name: 'パターン1',
+      name: '練習パターン',
       beats: [0, 400, 800, 1200],
       display: '● ● ● ●',
       difficulty: 1,
     ),
-    // パターン2: タタ・タタ ●●・●●
+    // パターン1: タタ・タタ ●●・●●
     _RhythmPattern(
-      name: 'パターン2',
+      name: 'パターン1',
       beats: [0, 200, 600, 800],
       display: '●● ・ ●●',
       difficulty: 2,
     ),
-    // パターン3: タ・タタ・タ ●・●●・●
+    // パターン2: タ・タタ・タ ●・●●・●
     _RhythmPattern(
-      name: 'パターン3',
+      name: 'パターン2',
       beats: [0, 400, 600, 1000],
       display: '● ・ ●● ・ ●',
       difficulty: 2,
     ),
-    // パターン4: タタタ・タ ●●●・●
+    // パターン3: タタタ・タ ●●●・●
     _RhythmPattern(
-      name: 'パターン4',
+      name: 'パターン3',
       beats: [0, 200, 400, 800],
       display: '●●● ・ ●',
       difficulty: 3,
     ),
-    // パターン5: 複雑なリズム
+    // パターン4: 複雑なリズム
     _RhythmPattern(
-      name: 'パターン5',
+      name: 'パターン4',
       beats: [0, 300, 450, 750, 1050],
       display: '●●・●・●●',
       difficulty: 3,
@@ -157,7 +163,13 @@ class _RhythmTaskState extends State<RhythmTask> {
             borderRadius: BorderRadius.circular(14),
           ),
           child: Center(
-            child: Text(number, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            child: Text(
+              number,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 12),
@@ -172,10 +184,36 @@ class _RhythmTaskState extends State<RhythmTask> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          '${_currentPattern + 1} / ${_patterns.length}',
-          style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
-        ),
+        // 練習表示または進捗表示
+        if (_isPractice)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text('🎯', style: TextStyle(fontSize: 16)),
+                const SizedBox(width: 8),
+                Text(
+                  '練習パターン',
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.warning,
+                  ),
+                ),
+              ],
+            ),
+          )
+        else
+          Text(
+            '${_actualPatternNumber + 1} / $_actualPatternCount',
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: AppColors.textSecondary,
+            ),
+          ),
         const SizedBox(height: 40),
 
         // ビジュアルインジケーター
@@ -190,15 +228,19 @@ class _RhythmTaskState extends State<RhythmTask> {
                 width: isActive ? 50 : 40,
                 height: isActive ? 50 : 40,
                 decoration: BoxDecoration(
-                  color: isActive ? AppColors.musical : AppColors.musical.withOpacity(0.3),
+                  color: isActive
+                      ? AppColors.musical
+                      : AppColors.musical.withOpacity(0.3),
                   shape: BoxShape.circle,
-                  boxShadow: isActive ? [
-                    BoxShadow(
-                      color: AppColors.musical.withOpacity(0.5),
-                      blurRadius: 16,
-                      spreadRadius: 4,
-                    ),
-                  ] : null,
+                  boxShadow: isActive
+                      ? [
+                          BoxShadow(
+                            color: AppColors.musical.withOpacity(0.5),
+                            blurRadius: 16,
+                            spreadRadius: 4,
+                          ),
+                        ]
+                      : null,
                 ),
               ),
             );
@@ -214,10 +256,23 @@ class _RhythmTaskState extends State<RhythmTask> {
 
         const SizedBox(height: 16),
 
-        Text(
-          pattern.display,
-          style: AppTextStyles.headline,
-        ),
+        Text(pattern.display, style: AppTextStyles.headline),
+
+        if (_isPractice) ...[
+          const SizedBox(height: 24),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              'これは練習です（スコアには含まれません）',
+              style: AppTextStyles.label.copyWith(color: AppColors.warning),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
       ],
     );
   }
@@ -227,25 +282,56 @@ class _RhythmTaskState extends State<RhythmTask> {
 
     return Column(
       children: [
-        Text(
-          '${_currentPattern + 1} / ${_patterns.length}',
-          style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
-        ),
+        // 練習表示または進捗表示
+        if (_isPractice)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text('🎯', style: TextStyle(fontSize: 16)),
+                const SizedBox(width: 8),
+                Text(
+                  '練習パターン',
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.warning,
+                  ),
+                ),
+              ],
+            ),
+          )
+        else
+          Text(
+            '${_actualPatternNumber + 1} / $_actualPatternCount',
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: AppColors.textSecondary,
+            ),
+          ),
         const SizedBox(height: 16),
 
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: AppColors.musical.withOpacity(0.1),
+            color: _isPractice
+                ? AppColors.warning.withOpacity(0.1)
+                : AppColors.musical.withOpacity(0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
             children: [
-              const Text('🎵', style: TextStyle(fontSize: 24)),
+              Text(
+                _isPractice ? '🎯' : '🎵',
+                style: const TextStyle(fontSize: 24),
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  '同じリズムでタップしてください',
+                  _isPractice ? '練習：同じリズムでタップしてください' : '同じリズムでタップしてください',
                   style: AppTextStyles.bodyMedium,
                 ),
               ),
@@ -300,7 +386,9 @@ class _RhythmTaskState extends State<RhythmTask> {
                 const SizedBox(height: 8),
                 Text(
                   'タップ',
-                  style: AppTextStyles.titleMedium.copyWith(color: Colors.white),
+                  style: AppTextStyles.titleMedium.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
@@ -328,10 +416,23 @@ class _RhythmTaskState extends State<RhythmTask> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          isGood ? '🎉' : '💪',
-          style: const TextStyle(fontSize: 64),
-        ),
+        if (_isPractice)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              '練習パターンの結果',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.warning,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        Text(isGood ? '🎉' : '💪', style: const TextStyle(fontSize: 64)),
         const SizedBox(height: 24),
         Text(
           isGood ? 'よくできました！' : 'もう少し！',
@@ -362,7 +463,9 @@ class _RhythmTaskState extends State<RhythmTask> {
               Text('あなたのタップ', style: AppTextStyles.label),
               const SizedBox(height: 8),
               Text(
-                _userTaps.length == pattern.beats.length ? pattern.display : '● × ${_userTaps.length}',
+                _userTaps.length == pattern.beats.length
+                    ? pattern.display
+                    : '● × ${_userTaps.length}',
                 style: AppTextStyles.bodyMedium,
               ),
             ],
@@ -377,7 +480,11 @@ class _RhythmTaskState extends State<RhythmTask> {
           child: ElevatedButton(
             onPressed: _nextPattern,
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.musical),
-            child: Text(_currentPattern < _patterns.length - 1 ? '次へ' : '結果を見る'),
+            child: Text(
+              _isPractice
+                  ? '本番へ進む'
+                  : (_currentPattern < _patterns.length - 1 ? '次へ' : '結果を見る'),
+            ),
           ),
         ),
       ],
@@ -385,13 +492,17 @@ class _RhythmTaskState extends State<RhythmTask> {
   }
 
   Widget _buildResult() {
-    final score = (_correctCount / _patterns.length) * 100;
+    final score = (_correctCount / _actualPatternCount) * 100;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          score >= 80 ? '🎼' : score >= 50 ? '🎵' : '🎶',
+          score >= 80
+              ? '🎼'
+              : score >= 50
+              ? '🎵'
+              : '🎶',
           style: const TextStyle(fontSize: 64),
         ),
         const SizedBox(height: 24),
@@ -403,7 +514,7 @@ class _RhythmTaskState extends State<RhythmTask> {
         ),
         const SizedBox(height: 8),
         Text(
-          '$_correctCount / ${_patterns.length} パターン成功',
+          '$_correctCount / $_actualPatternCount パターン成功',
           style: AppTextStyles.bodyMedium,
         ),
         const SizedBox(height: 32),
@@ -510,7 +621,8 @@ class _RhythmTaskState extends State<RhythmTask> {
     // 必要なタップ数に達したら評価
     if (_userTaps.length >= pattern.beats.length) {
       final score = _calculatePatternScore();
-      if (score >= 60) {
+      // 練習パターンはスコアに含めない
+      if (!_isPractice && score >= 60) {
         _correctCount++;
       }
 
@@ -561,16 +673,18 @@ class _RhythmTaskState extends State<RhythmTask> {
 
   void _complete() {
     final duration = DateTime.now().difference(_startTime);
-    final score = (_correctCount / _patterns.length) * 100;
+    final score = (_correctCount / _actualPatternCount) * 100;
 
-    widget.onComplete(TaskResult(
-      taskId: 'rhythm',
-      taskName: 'リズム',
-      score: score,
-      correctCount: _correctCount,
-      totalCount: _patterns.length,
-      duration: duration,
-    ));
+    widget.onComplete(
+      TaskResult(
+        taskId: 'rhythm',
+        taskName: 'リズム',
+        score: score,
+        correctCount: _correctCount,
+        totalCount: _actualPatternCount,
+        duration: duration,
+      ),
+    );
   }
 }
 

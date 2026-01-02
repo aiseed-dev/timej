@@ -7,10 +7,7 @@ import '../../../models/task_result.dart';
 class EmotionTask extends StatefulWidget {
   final void Function(TaskResult result) onComplete;
 
-  const EmotionTask({
-    super.key,
-    required this.onComplete,
-  });
+  const EmotionTask({super.key, required this.onComplete});
 
   @override
   State<EmotionTask> createState() => _EmotionTaskState();
@@ -23,13 +20,24 @@ class _EmotionTaskState extends State<EmotionTask> {
   String? _selectedAnswer;
   late DateTime _startTime;
 
-  // 表情問題データ
+  // 練習問題かどうか
+  bool get _isPractice => _currentQuestion == 0;
+
+  // 本番の問題数（練習問題を除く）
+  int get _actualQuestionCount => _questions.length - 1;
+
+  // 現在の本番問題番号（練習問題を除く）
+  int get _actualQuestionNumber => _currentQuestion - 1;
+
+  // 表情問題データ（最初の1問は練習問題）
   final List<_EmotionQuestion> _questions = [
+    // 練習問題
     _EmotionQuestion(
       emoji: '😊',
       correctAnswer: '喜び',
       options: ['喜び', '驚き', '悲しみ', '怒り'],
     ),
+    // 本番問題
     _EmotionQuestion(
       emoji: '😢',
       correctAnswer: '悲しみ',
@@ -91,7 +99,9 @@ class _EmotionTaskState extends State<EmotionTask> {
               _buildProgress(),
               const SizedBox(height: 24),
               Expanded(
-                child: _showingResult ? _buildResultFeedback() : _buildQuestion(),
+                child: _showingResult
+                    ? _buildResultFeedback()
+                    : _buildQuestion(),
               ),
             ],
           ),
@@ -106,32 +116,89 @@ class _EmotionTaskState extends State<EmotionTask> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '問題 ${_currentQuestion + 1} / ${_questions.length}',
-              style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600),
-            ),
+            if (_isPractice)
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.warning.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('🎯', style: TextStyle(fontSize: 14)),
+                    const SizedBox(width: 4),
+                    Text(
+                      '練習問題',
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.warning,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            else
+              Text(
+                '問題 ${_actualQuestionNumber + 1} / $_actualQuestionCount',
+                style: AppTextStyles.bodyMedium.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             Row(
               children: [
-                const Icon(Icons.check_circle, color: AppColors.success, size: 18),
+                const Icon(
+                  Icons.check_circle,
+                  color: AppColors.success,
+                  size: 18,
+                ),
                 const SizedBox(width: 4),
                 Text(
                   '$_correctCount正解',
-                  style: AppTextStyles.bodyMedium.copyWith(color: AppColors.success),
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.success,
+                  ),
                 ),
               ],
             ),
           ],
         ),
         const SizedBox(height: 8),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: LinearProgressIndicator(
-            value: (_currentQuestion + 1) / _questions.length,
-            backgroundColor: AppColors.divider,
-            valueColor: const AlwaysStoppedAnimation<Color>(AppColors.interpersonal),
-            minHeight: 8,
+        if (_isPractice)
+          Container(
+            height: 8,
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.warning,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        else
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: (_actualQuestionNumber + 1) / _actualQuestionCount,
+              backgroundColor: AppColors.divider,
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                AppColors.interpersonal,
+              ),
+              minHeight: 8,
+            ),
           ),
-        ),
       ],
     );
   }
@@ -141,6 +208,27 @@ class _EmotionTaskState extends State<EmotionTask> {
 
     return Column(
       children: [
+        // 練習表示
+        if (_isPractice)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 12),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: AppColors.warning.withOpacity(0.3)),
+            ),
+            child: Text(
+              '🎯 これは練習です（スコアには含まれません）',
+              style: AppTextStyles.label.copyWith(
+                color: AppColors.warning,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+
         // 説明
         Container(
           padding: const EdgeInsets.all(16),
@@ -178,10 +266,7 @@ class _EmotionTaskState extends State<EmotionTask> {
               ),
             ],
           ),
-          child: Text(
-            question.emoji,
-            style: const TextStyle(fontSize: 96),
-          ),
+          child: Text(question.emoji, style: const TextStyle(fontSize: 96)),
         ),
 
         const SizedBox(height: 40),
@@ -204,10 +289,14 @@ class _EmotionTaskState extends State<EmotionTask> {
                 onTap: () => _selectAnswer(option),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: isSelected ? AppColors.interpersonal : AppColors.surface,
+                    color: isSelected
+                        ? AppColors.interpersonal
+                        : AppColors.surface,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: isSelected ? AppColors.interpersonal : AppColors.divider,
+                      color: isSelected
+                          ? AppColors.interpersonal
+                          : AppColors.divider,
                       width: isSelected ? 3 : 1,
                     ),
                   ),
@@ -217,7 +306,9 @@ class _EmotionTaskState extends State<EmotionTask> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: isSelected ? Colors.white : AppColors.textPrimary,
+                        color: isSelected
+                            ? Colors.white
+                            : AppColors.textPrimary,
                       ),
                     ),
                   ),
@@ -235,7 +326,9 @@ class _EmotionTaskState extends State<EmotionTask> {
           height: 56,
           child: ElevatedButton(
             onPressed: _selectedAnswer != null ? _submitAnswer : null,
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.interpersonal),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.interpersonal,
+            ),
             child: const Text('決定'),
           ),
         ),
@@ -250,12 +343,25 @@ class _EmotionTaskState extends State<EmotionTask> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        if (_isPractice)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              '練習問題の結果',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.warning,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
         Text(question.emoji, style: const TextStyle(fontSize: 64)),
         const SizedBox(height: 16),
-        Text(
-          isCorrect ? '⭕' : '❌',
-          style: const TextStyle(fontSize: 64),
-        ),
+        Text(isCorrect ? '⭕' : '❌', style: const TextStyle(fontSize: 64)),
         const SizedBox(height: 16),
         Text(
           isCorrect ? '正解！' : '不正解',
@@ -264,18 +370,21 @@ class _EmotionTaskState extends State<EmotionTask> {
           ),
         ),
         const SizedBox(height: 16),
-        Text(
-          '正解: ${question.correctAnswer}',
-          style: AppTextStyles.titleMedium,
-        ),
+        Text('正解: ${question.correctAnswer}', style: AppTextStyles.titleMedium),
         const Spacer(),
         SizedBox(
           width: double.infinity,
           height: 56,
           child: ElevatedButton(
             onPressed: _nextQuestion,
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.interpersonal),
-            child: Text(_currentQuestion < _questions.length - 1 ? '次へ' : '結果を見る'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.interpersonal,
+            ),
+            child: Text(
+              _isPractice
+                  ? '本番へ進む'
+                  : (_currentQuestion < _questions.length - 1 ? '次へ' : '結果を見る'),
+            ),
           ),
         ),
       ],
@@ -288,7 +397,8 @@ class _EmotionTaskState extends State<EmotionTask> {
 
   void _submitAnswer() {
     final question = _questions[_currentQuestion];
-    if (_selectedAnswer == question.correctAnswer) {
+    // 練習問題はスコアに含めない
+    if (!_isPractice && _selectedAnswer == question.correctAnswer) {
       _correctCount++;
     }
     setState(() => _showingResult = true);
@@ -303,16 +413,18 @@ class _EmotionTaskState extends State<EmotionTask> {
       });
     } else {
       final duration = DateTime.now().difference(_startTime);
-      final score = (_correctCount / _questions.length) * 100;
+      final score = (_correctCount / _actualQuestionCount) * 100;
 
-      widget.onComplete(TaskResult(
-        taskId: 'emotion',
-        taskName: '表情認識',
-        score: score,
-        correctCount: _correctCount,
-        totalCount: _questions.length,
-        duration: duration,
-      ));
+      widget.onComplete(
+        TaskResult(
+          taskId: 'emotion',
+          taskName: '表情認識',
+          score: score,
+          correctCount: _correctCount,
+          totalCount: _actualQuestionCount,
+          duration: duration,
+        ),
+      );
     }
   }
 }

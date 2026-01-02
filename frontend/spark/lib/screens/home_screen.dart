@@ -3,6 +3,8 @@ import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
 import '../data/intelligences_data.dart';
 import 'quiz_screen.dart';
+import 'part2/part2_intro_screen.dart';
+import 'part3/part3_intro_screen.dart';
 
 /// ホーム画面
 class HomeScreen extends StatelessWidget {
@@ -23,17 +25,39 @@ class HomeScreen extends StatelessWidget {
 
               const SizedBox(height: 40),
 
-              // 説明カード
-              const _DescriptionCard(),
-
-              const SizedBox(height: 32),
-
-              // CTAボタン
-              _StartButton(
-                onPressed: () => _navigateToQuiz(context),
+              // 3つのパート
+              _buildPartCard(
+                context,
+                icon: '📝',
+                title: 'Part 1: 自己診断',
+                description: '32問の質問に答えて、8つの知性を可視化',
+                color: AppColors.primary,
+                onTap: () => _navigateToPart1(context),
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
+
+              _buildPartCard(
+                context,
+                icon: '🎯',
+                title: 'Part 2: 作業検査',
+                description: '8つのミニタスクで能力を測定',
+                color: AppColors.secondary,
+                onTap: () => _navigateToPart2(context),
+              ),
+
+              const SizedBox(height: 16),
+
+              _buildPartCard(
+                context,
+                icon: '💬',
+                title: 'Part 3: 対話で発見',
+                description: '自然な会話から強みを見つける',
+                color: AppColors.interpersonal,
+                onTap: () => _navigateToPart3(context),
+              ),
+
+              const SizedBox(height: 32),
 
               // 8つの知性について
               TextButton(
@@ -55,9 +79,92 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void _navigateToQuiz(BuildContext context) {
+  Widget _buildPartCard(
+    BuildContext context, {
+    required String icon,
+    required String title,
+    required String description,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: color.withOpacity(0.3), width: 2),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.1),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Text(icon, style: const TextStyle(fontSize: 28)),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: AppTextStyles.titleMedium.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: color,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    description,
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right, color: color),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _navigateToPart1(BuildContext context) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const QuizScreen()));
+  }
+
+  void _navigateToPart2(BuildContext context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const QuizScreen()),
+      MaterialPageRoute(
+        builder: (_) => const Part2IntroScreen(part1Scores: {}),
+      ),
+    );
+  }
+
+  void _navigateToPart3(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => const Part3IntroScreen(previousScores: {}),
+      ),
     );
   }
 
@@ -94,21 +201,13 @@ class _HeaderSection extends StatelessWidget {
               ),
             ],
           ),
-          child: const Center(
-            child: Text(
-              '✨',
-              style: TextStyle(fontSize: 48),
-            ),
-          ),
+          child: const Center(child: Text('✨', style: TextStyle(fontSize: 48))),
         ),
 
         const SizedBox(height: 24),
 
         // タイトル
-        const Text(
-          'Spark',
-          style: AppTextStyles.displayLarge,
-        ),
+        const Text('Spark', style: AppTextStyles.displayLarge),
 
         const SizedBox(height: 8),
 
@@ -120,93 +219,6 @@ class _HeaderSection extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-/// 説明カード
-class _DescriptionCard extends StatelessWidget {
-  const _DescriptionCard();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Text(
-            '誰もが複数の「知性」を持っています',
-            style: AppTextStyles.titleMedium.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            '学校のテストでは測れない、あなただけの強みを見つけましょう。\n\n32問の質問に答えるだけで、8つの知性領域であなたの才能を可視化します。',
-            style: AppTextStyles.bodyMedium,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// スタートボタン
-class _StartButton extends StatelessWidget {
-  final VoidCallback onPressed;
-
-  const _StartButton({required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 60,
-      decoration: BoxDecoration(
-        gradient: AppColors.primaryGradient,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withOpacity(0.4),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('✨', style: TextStyle(fontSize: 20)),
-            SizedBox(width: 8),
-            Text(
-              '診断を始める',
-              style: AppTextStyles.buttonLarge,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -243,10 +255,7 @@ class _IntelligencesBottomSheet extends StatelessWidget {
               // タイトル
               Padding(
                 padding: const EdgeInsets.all(24),
-                child: Text(
-                  '8つの知性',
-                  style: AppTextStyles.headline,
-                ),
+                child: Text('8つの知性', style: AppTextStyles.headline),
               ),
 
               // リスト
@@ -285,9 +294,7 @@ class _IntelligenceListItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: color, width: 4),
-        ),
+        border: Border(left: BorderSide(color: color, width: 4)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.03),
@@ -299,10 +306,7 @@ class _IntelligenceListItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            intelligence.icon,
-            style: const TextStyle(fontSize: 28),
-          ),
+          Text(intelligence.icon, style: const TextStyle(fontSize: 28)),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -315,10 +319,7 @@ class _IntelligenceListItem extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  intelligence.description,
-                  style: AppTextStyles.bodyMedium,
-                ),
+                Text(intelligence.description, style: AppTextStyles.bodyMedium),
               ],
             ),
           ),

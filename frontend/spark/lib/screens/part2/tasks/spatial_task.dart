@@ -8,10 +8,7 @@ import '../../../models/task_result.dart';
 class SpatialTask extends StatefulWidget {
   final void Function(TaskResult result) onComplete;
 
-  const SpatialTask({
-    super.key,
-    required this.onComplete,
-  });
+  const SpatialTask({super.key, required this.onComplete});
 
   @override
   State<SpatialTask> createState() => _SpatialTaskState();
@@ -24,13 +21,55 @@ class _SpatialTaskState extends State<SpatialTask> {
   int? _selectedAnswer;
   late DateTime _startTime;
 
-  // 問題データ
+  // 練習問題かどうか
+  bool get _isPractice => _currentQuestion == 0;
+
+  // 本番の問題数（練習問題を除く）
+  int get _actualQuestionCount => _questions.length - 1;
+
+  // 現在の本番問題番号（練習問題を除く）
+  int get _actualQuestionNumber => _currentQuestion - 1;
+
+  // 問題データ（最初の1問は練習問題）
   final List<_SpatialQuestion> _questions = [
-    _SpatialQuestion(shape: _ShapeType.L, rotations: [0, 90, 180, 270], correctIndex: 1),
-    _SpatialQuestion(shape: _ShapeType.T, rotations: [0, 90, 180, 270], correctIndex: 2),
-    _SpatialQuestion(shape: _ShapeType.arrow, rotations: [0, 90, 180, 270], correctIndex: 0),
-    _SpatialQuestion(shape: _ShapeType.plus, rotations: [0, 45, 90, 135], correctIndex: 2),
-    _SpatialQuestion(shape: _ShapeType.house, rotations: [0, 90, 180, 270], correctIndex: 3),
+    // 練習問題
+    _SpatialQuestion(
+      shape: _ShapeType.L,
+      rotations: [0, 90, 180, 270],
+      correctIndex: 1,
+      direction: '時計回りに90°',
+    ),
+    // 本番問題
+    _SpatialQuestion(
+      shape: _ShapeType.T,
+      rotations: [0, 90, 180, 270],
+      correctIndex: 2,
+      direction: '時計回りに180°',
+    ),
+    _SpatialQuestion(
+      shape: _ShapeType.arrow,
+      rotations: [0, 90, 180, 270],
+      correctIndex: 3,
+      direction: '反時計回りに90°',
+    ),
+    _SpatialQuestion(
+      shape: _ShapeType.house,
+      rotations: [0, 90, 180, 270],
+      correctIndex: 1,
+      direction: '時計回りに90°',
+    ),
+    _SpatialQuestion(
+      shape: _ShapeType.T,
+      rotations: [0, 90, 180, 270],
+      correctIndex: 3,
+      direction: '反時計回りに90°',
+    ),
+    _SpatialQuestion(
+      shape: _ShapeType.arrow,
+      rotations: [0, 90, 180, 270],
+      correctIndex: 2,
+      direction: '時計回りに180°',
+    ),
   ];
 
   @override
@@ -57,7 +96,9 @@ class _SpatialTaskState extends State<SpatialTask> {
               _buildProgress(),
               const SizedBox(height: 24),
               Expanded(
-                child: _showingResult ? _buildResultFeedback() : _buildQuestion(),
+                child: _showingResult
+                    ? _buildResultFeedback()
+                    : _buildQuestion(),
               ),
             ],
           ),
@@ -72,42 +113,119 @@ class _SpatialTaskState extends State<SpatialTask> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '問題 ${_currentQuestion + 1} / ${_questions.length}',
-              style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600),
-            ),
+            if (_isPractice)
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.warning.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('🎯', style: TextStyle(fontSize: 14)),
+                    const SizedBox(width: 4),
+                    Text(
+                      '練習問題',
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.warning,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            else
+              Text(
+                '問題 ${_actualQuestionNumber + 1} / $_actualQuestionCount',
+                style: AppTextStyles.bodyMedium.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             Row(
               children: [
-                const Icon(Icons.check_circle, color: AppColors.success, size: 18),
+                const Icon(
+                  Icons.check_circle,
+                  color: AppColors.success,
+                  size: 18,
+                ),
                 const SizedBox(width: 4),
                 Text(
                   '$_correctCount正解',
-                  style: AppTextStyles.bodyMedium.copyWith(color: AppColors.success),
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.success,
+                  ),
                 ),
               ],
             ),
           ],
         ),
         const SizedBox(height: 8),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: LinearProgressIndicator(
-            value: (_currentQuestion + 1) / _questions.length,
-            backgroundColor: AppColors.divider,
-            valueColor: const AlwaysStoppedAnimation<Color>(AppColors.spatial),
-            minHeight: 8,
+        if (_isPractice)
+          Container(
+            height: 8,
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.warning,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        else
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: (_actualQuestionNumber + 1) / _actualQuestionCount,
+              backgroundColor: AppColors.divider,
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                AppColors.spatial,
+              ),
+              minHeight: 8,
+            ),
           ),
-        ),
       ],
     );
   }
 
   Widget _buildQuestion() {
     final question = _questions[_currentQuestion];
-    final targetRotation = question.rotations[question.correctIndex];
 
     return Column(
       children: [
+        // 練習表示
+        if (_isPractice)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 12),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: AppColors.warning.withOpacity(0.3)),
+            ),
+            child: Text(
+              '🎯 これは練習です（スコアには含まれません）',
+              style: AppTextStyles.label.copyWith(
+                color: AppColors.warning,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+
         // 説明
         Container(
           padding: const EdgeInsets.all(16),
@@ -121,7 +239,7 @@ class _SpatialTaskState extends State<SpatialTask> {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  '左の図形を ${targetRotation}° 回転させると、どれになりますか？',
+                  '左の図形を ${question.direction} 回転させると、どれになりますか？',
                   style: AppTextStyles.bodyMedium,
                 ),
               ),
@@ -138,17 +256,16 @@ class _SpatialTaskState extends State<SpatialTask> {
             color: AppColors.surface,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                blurRadius: 12,
-              ),
+              BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 12),
             ],
           ),
           child: Column(
             children: [
               Text(
                 '基準図形',
-                style: AppTextStyles.label.copyWith(color: AppColors.textSecondary),
+                style: AppTextStyles.label.copyWith(
+                  color: AppColors.textSecondary,
+                ),
               ),
               const SizedBox(height: 12),
               SizedBox(
@@ -175,14 +292,14 @@ class _SpatialTaskState extends State<SpatialTask> {
             itemCount: 4,
             itemBuilder: (context, index) {
               final isSelected = _selectedAnswer == index;
-              // シャッフルされた回転角度
-              final displayRotation = (index * 90) % 360;
 
               return GestureDetector(
                 onTap: () => _selectAnswer(index),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: isSelected ? AppColors.spatial.withOpacity(0.1) : AppColors.surface,
+                    color: isSelected
+                        ? AppColors.spatial.withOpacity(0.1)
+                        : AppColors.surface,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
                       color: isSelected ? AppColors.spatial : AppColors.divider,
@@ -195,7 +312,9 @@ class _SpatialTaskState extends State<SpatialTask> {
                       Text(
                         '${String.fromCharCode(65 + index)}',
                         style: AppTextStyles.label.copyWith(
-                          color: isSelected ? AppColors.spatial : AppColors.textSecondary,
+                          color: isSelected
+                              ? AppColors.spatial
+                              : AppColors.textSecondary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -207,7 +326,9 @@ class _SpatialTaskState extends State<SpatialTask> {
                           painter: _ShapePainter(
                             question.shape,
                             question.rotations[index].toDouble(),
-                            isSelected ? AppColors.spatial : AppColors.textPrimary,
+                            isSelected
+                                ? AppColors.spatial
+                                : AppColors.textPrimary,
                           ),
                         ),
                       ),
@@ -242,10 +363,23 @@ class _SpatialTaskState extends State<SpatialTask> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          isCorrect ? '⭕' : '❌',
-          style: const TextStyle(fontSize: 80),
-        ),
+        if (_isPractice)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              '練習問題の結果',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.warning,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        Text(isCorrect ? '⭕' : '❌', style: const TextStyle(fontSize: 80)),
         const SizedBox(height: 24),
         Text(
           isCorrect ? '正解！' : '不正解',
@@ -265,7 +399,11 @@ class _SpatialTaskState extends State<SpatialTask> {
           child: ElevatedButton(
             onPressed: _nextQuestion,
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.spatial),
-            child: Text(_currentQuestion < _questions.length - 1 ? '次へ' : '結果を見る'),
+            child: Text(
+              _isPractice
+                  ? '本番へ進む'
+                  : (_currentQuestion < _questions.length - 1 ? '次へ' : '結果を見る'),
+            ),
           ),
         ),
       ],
@@ -278,7 +416,8 @@ class _SpatialTaskState extends State<SpatialTask> {
 
   void _submitAnswer() {
     final question = _questions[_currentQuestion];
-    if (_selectedAnswer == question.correctIndex) {
+    // 練習問題はスコアに含めない
+    if (!_isPractice && _selectedAnswer == question.correctIndex) {
       _correctCount++;
     }
     setState(() => _showingResult = true);
@@ -293,16 +432,18 @@ class _SpatialTaskState extends State<SpatialTask> {
       });
     } else {
       final duration = DateTime.now().difference(_startTime);
-      final score = (_correctCount / _questions.length) * 100;
+      final score = (_correctCount / _actualQuestionCount) * 100;
 
-      widget.onComplete(TaskResult(
-        taskId: 'spatial',
-        taskName: '図形回転',
-        score: score,
-        correctCount: _correctCount,
-        totalCount: _questions.length,
-        duration: duration,
-      ));
+      widget.onComplete(
+        TaskResult(
+          taskId: 'spatial',
+          taskName: '図形回転',
+          score: score,
+          correctCount: _correctCount,
+          totalCount: _actualQuestionCount,
+          duration: duration,
+        ),
+      );
     }
   }
 }
@@ -313,11 +454,13 @@ class _SpatialQuestion {
   final _ShapeType shape;
   final List<int> rotations;
   final int correctIndex;
+  final String direction;
 
   const _SpatialQuestion({
     required this.shape,
     required this.rotations,
     required this.correctIndex,
+    required this.direction,
   });
 }
 
@@ -372,7 +515,9 @@ class _ShapePainter extends CustomPainter {
         path.lineTo(unit * 0.8, unit * 2);
         path.close();
         // 四角い本体
-        path.addRect(Rect.fromLTWH(unit * 1.2, unit * 2, unit * 1.6, unit * 1.5));
+        path.addRect(
+          Rect.fromLTWH(unit * 1.2, unit * 2, unit * 1.6, unit * 1.5),
+        );
         break;
     }
 
