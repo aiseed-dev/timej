@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>重要概念#2-4: 画面遷移の基本（Routing） - Navigatorのpush/pop - AI x Flutter Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flutter Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/ai-x-flutter/cookbook">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. キッチンの準備</summary><ul>
+<li><a href="../01_the_kitchen/01_setting_up_flutter.html">#1-1 Flutter開発環境の準備（キッチンのセットアップ）</a></li>
+<li><a href="../01_the_kitchen/02_ai_development_tools.html">#1-2 AI開発ツールの導入</a></li>
+<li><a href="../01_the_kitchen/03_creating_first_app.html">#1-3 最初のFlutterアプリ作成とプロジェクト探検</a></li>
+<li><a href="../01_the_kitchen/04_ios_development_setup.html">#1-4 iOS開発の準備とセットアップ</a></li>
+<li><a href="../01_the_kitchen/05_project_identity_and_assets.html">#1-5 アプリのIDとアセットの準備</a></li>
+<li><a href="../01_the_kitchen/06_managing_project_with_github.html">#1-6 自分のFlutterプロジェクトをGitHubで管理する</a></li>
+<li><a href="../01_the_kitchen/07_authenticating_with_github_cli.html">#1-7 GitHub CLIでPCを認証する</a></li>
+</ul></details>
+<details open><summary>2. Flutterの重要概念</summary><ul>
+<li><a href="../02_core_concepts/00_introduction.html">導入：Flutterアプリの「骨格」を理解する</a></li>
+<li><a href="../02_core_concepts/01_what_is_a_widget.html">#2-1 Flutterの心臓部「ウィジェット（Widget）」とは何か？</a></li>
+<li><a href="../02_core_concepts/02_state_management_basics.html">#2-2 状態管理の基礎</a></li>
+<li><a href="../02_core_concepts/03_async_programming.html">#2-3 非同期プログラミング（Futureとasync/await）</a></li>
+<li class="current"><a href="../02_core_concepts/04_introduction_to_routing.html">#2-4 画面遷移の基本（Routing） - Navigatorのpush/pop</a></li>
+<li><a href="../02_core_concepts/05_understanding_build_context.html">#2-5 BuildContextとは何か？ - ウィジェットの「現在地」</a></li>
+<li><a href="../02_core_concepts/06_learning_through_game_development.html">#2-6 ゲーム開発で学ぶFlutterの基本的な考え方</a></li>
+</ul></details>
+<details><summary>3. 料理のプロセス</summary><ul>
+<li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
+<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
+<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
+<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
+<li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
+</ul></details>
+<details><summary>4. 秘伝のソース</summary><ul>
+<li><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
+<li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
+<li><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
+</ul></details>
+<details><summary>5. シェフの特別料理</summary><ul>
+<li><a href="../05_chefs_specials/00_introduction.html">はじめに: 非開発者でもアプリが作れる時代</a></li>
+<li><a href="../05_chefs_specials/01_building_chat_app_with_gemini.html">#5-1 AIチャットアプリを作る - Claude API / Gemini API連携</a></li>
+<li><a href="../05_chefs_specials/02_building_image_recognition_app.html">#5-2 画像認識カメラアプリを作る - ML Kit / TFLite活用</a></li>
+<li><a href="../05_chefs_specials/03_building_realtime_app.html">#5-3 リアルタイム共有メモアプリを作る - Supabase Realtime</a></li>
+<li><a href="../05_chefs_specials/04_responsive_design_basics.html">#5-4 レスポンシブデザインの基礎 - あらゆる画面サイズに対応する</a></li>
+<li><a href="../05_chefs_specials/05_building_desktop_app.html">#5-5 デスクトップアプリを作る - Windows / macOS / Linux対応</a></li>
+<li><a href="../05_chefs_specials/06_building_web_app.html">#5-6 Webアプリを作る - ブラウザで動くFlutterアプリ</a></li>
+<li><a href="../05_chefs_specials/07_handling_text_size_changes.html">#5-7 テキストサイズ変更への対応 - ダッシュボードとアクセシビリティ</a></li>
+</ul></details>
+<details><summary>6. 他のシェフとの協業</summary><ul>
+<li><a href="../06_collaboration/01_fork_and_clone.html">#6-1 他の人のリポジトリをFork & Cloneする</a></li>
+<li><a href="../06_collaboration/02_push_and_pull_request.html">#6-2 変更をPushし、Pull Requestで本家に貢献する</a></li>
+<li><a href="../06_collaboration/03_resolving_merge_conflicts.html">#6-3 マージコンフリクト（競合）を解決する</a></li>
+<li><a href="../06_collaboration/04_what_is_byoa_development.html">#6-4 BYOA開発とは - 自分たちで課題を解決する新しい形</a></li>
+<li><a href="../06_collaboration/05_byoa_case_study_childcare_app.html">#6-5 【事例研究】育児・発達支援アプリをBYOAで開発する</a></li>
+<li><a href="../06_collaboration/06_byoa_case_study_dev_tools.html">#6-6 チャットだけで自分用のWebアプリを作る</a></li>
+<li><a href="../06_collaboration/07_evolve_with_collaboration.html">#6-7 コラボレーションでアプリを進化させる</a></li>
+<li><a href="../06_collaboration/08_mcp_fundamentals.html">#6-8 MCP（Model Context Protocol）でClaudeを拡張する</a></li>
+<li><a href="../06_collaboration/09_mcp_practical_applications.html">#6-9 実践的なMCP活用でBYOAアプリを進化させる</a></li>
+</ul></details>
+<details><summary>7. 救急箱</summary><ul>
+<li><a href="../07_troubleshooting/01_fix_gradle_metadata_error.html">#7-1 Could not read workspace metadata エラーを解決する</a></li>
+<li><a href="../07_troubleshooting/02_advanced_build_troubleshooting.html">#7-2 Flutterビルドエラー上級編</a></li>
+<li><a href="../07_troubleshooting/03_understanding_null_safety_errors.html">#7-3 Null check operator used on a null valueエラーを理解し、解決する</a></li>
+<li><a href="../07_troubleshooting/04_ai_development_troubleshooting.html">#7-4 AIとの開発で起こる典型的なトラブルと対処法</a></li>
+</ul></details>
+<details><summary>8. BFFとサーバーサイドDart</summary><ul>
+<li><a href="../08_backend_for_frontend_with_ai/01_why_dart_for_backend.html">#8-1 なぜDartでバックエンドを作るのか？ (BFFの概念)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/02_choosing_backend_framework.html">#8-2 Dartバックエンドフレームワークの選定</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/03_building_simple_api_with_dart_frog.html">#8-3 AIと作るシンプルなREST API (Dart Frog編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/04_sharing_code_between_flutter_and_backend.html">#8-4 FlutterアプリとDartバックエンドでコードを共有する</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/05_full_stack_development_with_serverpod.html">#8-5 AIと創るフルスタック認証 (Serverpod編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/06_realtime_communication_with_websockets.html">#8-6 AIと実装するリアルタイム通信 (WebSocket編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
+</ul></details>
+<details><summary>9. 設計とプロトタイピング</summary><ul>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="2-4-routing-navigatorpushpop">重要概念#2-4: 画面遷移の基本（Routing） - Navigatorのpush/pop</h1>
+<p>ほとんどのアプリは、複数の画面で構成されています。ユーザーがある画面から別の画面に移動する、このプロセスを「<strong>画面遷移</strong>」または「<strong>ルーティング（Routing）</strong>」と呼びます。</p>
+<p>Flutterでは、この画面遷移を<strong><code>Navigator</code></strong>ウィジェットが管理しています。このドキュメントでは、<code>Navigator</code>の最も基本的な操作である<code>push</code>と<code>pop</code>を、<strong>カードの山（スタック</strong>）に例えて解説します。</p>
+<h2 id="1-navigator">1. <code>Navigator</code>とは「画面を管理するスタック」</h2>
+<p><code>Navigator</code>を理解する最も簡単な方法は、トランプのカードの山（スタック）を想像することです。</p>
+<ul>
+<li><strong>画面（<code>Route</code></strong>） → 1枚1枚の<strong>カード</strong></li>
+<li><strong><code>Navigator</code></strong> → カードを重ねて管理する<strong>山（スタック</strong>）</li>
+</ul>
+<p>ユーザーが今見ている画面は、常にスタックの一番上にあるカードです。</p>
+<p><img alt="Navigatorのスタック構造" src="https://docs.flutter.dev/assets/images/docs/ui/navigation/navigator-stack.png" />
+<em>(Image credit: flutter.dev)</em></p>
+<h2 id="2-push">2. <code>push</code>：新しい画面を上に重ねる</h2>
+<p><code>push</code>は、新しい画面に移動する際の最も基本的な操作です。これは、<strong>スタックの上に新しいカードを重ねる</strong>行為に相当します。</p>
+<ul>
+<li><strong>動作:</strong> 現在の画面（一番上のカード）の上に、新しい画面（新しいカード）を置きます。</li>
+<li><strong>結果:</strong> ユーザーには、新しく置かれた一番上の画面が見えるようになります。古い画面は、その下に隠れて存在し続けています。</li>
+</ul>
+<h3 id="_1">コード例</h3>
+<p><code>ElevatedButton</code>を押すと、<code>SecondScreen</code>という新しい画面に遷移する例です。</p>
+<pre><code class="language-dart">ElevatedButton(
+  child: const Text('次の画面へ'),
+  onPressed: () {
+    // Navigator.pushは、画面遷移を実行するお決まりの書き方
+    Navigator.push(
+      context, // 現在の画面の場所を教えるための情報
+      MaterialPageRoute(
+        builder: (context) =&gt; const SecondScreen(), // 次に表示したい画面ウィジェット
+      ),
+    );
+  },
+)
+</code></pre>
+<p><code>MaterialPageRoute</code>は、プラットフォーム（Android/iOS）に合わせた標準的な画面遷移アニメーション（下からスライドインなど）を提供してくれる便利なクラスです。</p>
+<h2 id="3-pop">3. <code>pop</code>：一番上の画面を取り除く</h2>
+<p><code>pop</code>は、現在の画面を閉じて、前の画面に戻る際の操作です。これは、<strong>スタックの一番上にあるカードを取り除く</strong>行為に相当します。</p>
+<ul>
+<li><strong>動作:</strong> 現在の画面（一番上のカード）をスタックから取り除きます。</li>
+<li><strong>結果:</strong> 一つ下の階層にあったカードが一番上になり、ユーザーにはその画面が見えるようになります。</li>
+</ul>
+<h3 id="_2">コード例</h3>
+<p><code>SecondScreen</code>に配置された「戻る」ボタンを押すと、元の画面に戻る例です。</p>
+<pre><code class="language-dart">// SecondScreenの中のボタン
+ElevatedButton(
+  child: const Text('前の画面に戻る'),
+  onPressed: () {
+    // Navigator.popは、現在の画面を閉じるためのお決まりの書き方
+    Navigator.pop(context);
+  },
+)
+</code></pre>
+<p><strong>ヒント:</strong> <code>Scaffold</code>ウィジェットと<code>AppBar</code>を一緒に使うと、<code>AppBar</code>の左側に自動的に「戻る」ボタンが表示されます。このボタンは、内部で<code>Navigator.pop(context)</code>を呼び出してくれているため、自分で戻るボタンを実装する必要がない場合も多くあります。</p>
+<h2 id="4">4. 画面間でデータをやり取りする</h2>
+<p><code>push</code>と<code>pop</code>は、単に画面を移動するだけでなく、<strong>データを渡したり、結果を受け取ったりする</strong>こともできます。</p>
+<h3 id="a">A. 次の画面へデータを渡す</h3>
+<p>新しい画面のコンストラクタに引数を渡すだけです。</p>
+<pre><code class="language-dart">// 最初の画面
+Navigator.push(
+  context,
+  MaterialPageRoute(
+    // SecondScreenに、ID '123' を渡す
+    builder: (context) =&gt; const SecondScreen(memoId: '123'),
+  ),
+);
+
+// SecondScreen側
+class SecondScreen extends StatelessWidget {
+  final String memoId;
+  const SecondScreen({super.key, required this.memoId});
+  // ...
+}
+</code></pre>
+<h3 id="b">B. 前の画面へ結果を返す</h3>
+<p><code>pop</code>の第2引数に、返したいデータを指定します。そして、<code>push</code>する側は、<code>Future</code>としてその結果を<code>await</code>で待つことができます。</p>
+<pre><code class="language-dart">// 最初の画面側
+Future&lt;void&gt; _navigateToSecondScreen() async {
+  // SecondScreenから返ってくる結果を待つ
+  final result = await Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =&gt; const SecondScreen()),
+  );
+
+  // resultには '成功！' という文字列が入る
+  if (result != null) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('結果: $result')),
+    );
+  }
+}
+
+// SecondScreen側
+ElevatedButton(
+  child: const Text('操作を完了して戻る'),
+  onPressed: () {
+    // 前の画面に '成功！' という文字列を返す
+    Navigator.pop(context, '成功！');
+  },
+)
+</code></pre>
+<blockquote>
+<p><strong>🤖 AI活用プロンプト</strong></p>
+<p>画面遷移のコードがうまく書けない時は、AIに手伝ってもらいましょう。
+```
+あなたはFlutterの画面遷移のエキスパートです。</p>
+<p><code>ProductListScreen</code>から<code>ProductDetailScreen</code>へ画面遷移するコードを書いてください。</p>
+<p><strong>要件:</strong>
+- <code>ProductListScreen</code>のリスト項目をタップした時に遷移する。
+- 遷移時に、タップされた商品のID（<code>productId</code>という<code>String</code>）を<code>ProductDetailScreen</code>に渡したい。
+- <code>ProductDetailScreen</code>は、AppBarに戻るボタンを自動で表示するようにしてください。</p>
+<p>それぞれの画面の基本的なウィジェットコードを提示してください。
+```</p>
+</blockquote>
+<p><code>Navigator</code>の<code>push</code>と<code>pop</code>は、Flutterアプリの骨格を作る上で最も基本的な操作です。このカードスタックのイメージを掴めば、ユーザーをアプリ内の様々な場所に自由に案内できるようになります。</p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

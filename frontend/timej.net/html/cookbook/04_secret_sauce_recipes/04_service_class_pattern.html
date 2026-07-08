@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レシピ#4-4: Serviceクラスパターン - ビジネスロジックの分離 - AI x Flutter Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flutter Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/ai-x-flutter/cookbook">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. キッチンの準備</summary><ul>
+<li><a href="../01_the_kitchen/01_setting_up_flutter.html">#1-1 Flutter開発環境の準備（キッチンのセットアップ）</a></li>
+<li><a href="../01_the_kitchen/02_ai_development_tools.html">#1-2 AI開発ツールの導入</a></li>
+<li><a href="../01_the_kitchen/03_creating_first_app.html">#1-3 最初のFlutterアプリ作成とプロジェクト探検</a></li>
+<li><a href="../01_the_kitchen/04_ios_development_setup.html">#1-4 iOS開発の準備とセットアップ</a></li>
+<li><a href="../01_the_kitchen/05_project_identity_and_assets.html">#1-5 アプリのIDとアセットの準備</a></li>
+<li><a href="../01_the_kitchen/06_managing_project_with_github.html">#1-6 自分のFlutterプロジェクトをGitHubで管理する</a></li>
+<li><a href="../01_the_kitchen/07_authenticating_with_github_cli.html">#1-7 GitHub CLIでPCを認証する</a></li>
+</ul></details>
+<details><summary>2. Flutterの重要概念</summary><ul>
+<li><a href="../02_core_concepts/00_introduction.html">導入：Flutterアプリの「骨格」を理解する</a></li>
+<li><a href="../02_core_concepts/01_what_is_a_widget.html">#2-1 Flutterの心臓部「ウィジェット（Widget）」とは何か？</a></li>
+<li><a href="../02_core_concepts/02_state_management_basics.html">#2-2 状態管理の基礎</a></li>
+<li><a href="../02_core_concepts/03_async_programming.html">#2-3 非同期プログラミング（Futureとasync/await）</a></li>
+<li><a href="../02_core_concepts/04_introduction_to_routing.html">#2-4 画面遷移の基本（Routing） - Navigatorのpush/pop</a></li>
+<li><a href="../02_core_concepts/05_understanding_build_context.html">#2-5 BuildContextとは何か？ - ウィジェットの「現在地」</a></li>
+<li><a href="../02_core_concepts/06_learning_through_game_development.html">#2-6 ゲーム開発で学ぶFlutterの基本的な考え方</a></li>
+</ul></details>
+<details><summary>3. 料理のプロセス</summary><ul>
+<li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
+<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
+<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
+<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
+<li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
+</ul></details>
+<details open><summary>4. 秘伝のソース</summary><ul>
+<li><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
+<li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
+<li class="current"><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
+</ul></details>
+<details><summary>5. シェフの特別料理</summary><ul>
+<li><a href="../05_chefs_specials/00_introduction.html">はじめに: 非開発者でもアプリが作れる時代</a></li>
+<li><a href="../05_chefs_specials/01_building_chat_app_with_gemini.html">#5-1 AIチャットアプリを作る - Claude API / Gemini API連携</a></li>
+<li><a href="../05_chefs_specials/02_building_image_recognition_app.html">#5-2 画像認識カメラアプリを作る - ML Kit / TFLite活用</a></li>
+<li><a href="../05_chefs_specials/03_building_realtime_app.html">#5-3 リアルタイム共有メモアプリを作る - Supabase Realtime</a></li>
+<li><a href="../05_chefs_specials/04_responsive_design_basics.html">#5-4 レスポンシブデザインの基礎 - あらゆる画面サイズに対応する</a></li>
+<li><a href="../05_chefs_specials/05_building_desktop_app.html">#5-5 デスクトップアプリを作る - Windows / macOS / Linux対応</a></li>
+<li><a href="../05_chefs_specials/06_building_web_app.html">#5-6 Webアプリを作る - ブラウザで動くFlutterアプリ</a></li>
+<li><a href="../05_chefs_specials/07_handling_text_size_changes.html">#5-7 テキストサイズ変更への対応 - ダッシュボードとアクセシビリティ</a></li>
+</ul></details>
+<details><summary>6. 他のシェフとの協業</summary><ul>
+<li><a href="../06_collaboration/01_fork_and_clone.html">#6-1 他の人のリポジトリをFork & Cloneする</a></li>
+<li><a href="../06_collaboration/02_push_and_pull_request.html">#6-2 変更をPushし、Pull Requestで本家に貢献する</a></li>
+<li><a href="../06_collaboration/03_resolving_merge_conflicts.html">#6-3 マージコンフリクト（競合）を解決する</a></li>
+<li><a href="../06_collaboration/04_what_is_byoa_development.html">#6-4 BYOA開発とは - 自分たちで課題を解決する新しい形</a></li>
+<li><a href="../06_collaboration/05_byoa_case_study_childcare_app.html">#6-5 【事例研究】育児・発達支援アプリをBYOAで開発する</a></li>
+<li><a href="../06_collaboration/06_byoa_case_study_dev_tools.html">#6-6 チャットだけで自分用のWebアプリを作る</a></li>
+<li><a href="../06_collaboration/07_evolve_with_collaboration.html">#6-7 コラボレーションでアプリを進化させる</a></li>
+<li><a href="../06_collaboration/08_mcp_fundamentals.html">#6-8 MCP（Model Context Protocol）でClaudeを拡張する</a></li>
+<li><a href="../06_collaboration/09_mcp_practical_applications.html">#6-9 実践的なMCP活用でBYOAアプリを進化させる</a></li>
+</ul></details>
+<details><summary>7. 救急箱</summary><ul>
+<li><a href="../07_troubleshooting/01_fix_gradle_metadata_error.html">#7-1 Could not read workspace metadata エラーを解決する</a></li>
+<li><a href="../07_troubleshooting/02_advanced_build_troubleshooting.html">#7-2 Flutterビルドエラー上級編</a></li>
+<li><a href="../07_troubleshooting/03_understanding_null_safety_errors.html">#7-3 Null check operator used on a null valueエラーを理解し、解決する</a></li>
+<li><a href="../07_troubleshooting/04_ai_development_troubleshooting.html">#7-4 AIとの開発で起こる典型的なトラブルと対処法</a></li>
+</ul></details>
+<details><summary>8. BFFとサーバーサイドDart</summary><ul>
+<li><a href="../08_backend_for_frontend_with_ai/01_why_dart_for_backend.html">#8-1 なぜDartでバックエンドを作るのか？ (BFFの概念)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/02_choosing_backend_framework.html">#8-2 Dartバックエンドフレームワークの選定</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/03_building_simple_api_with_dart_frog.html">#8-3 AIと作るシンプルなREST API (Dart Frog編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/04_sharing_code_between_flutter_and_backend.html">#8-4 FlutterアプリとDartバックエンドでコードを共有する</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/05_full_stack_development_with_serverpod.html">#8-5 AIと創るフルスタック認証 (Serverpod編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/06_realtime_communication_with_websockets.html">#8-6 AIと実装するリアルタイム通信 (WebSocket編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
+</ul></details>
+<details><summary>9. 設計とプロトタイピング</summary><ul>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="4-4-service-">レシピ#4-4: Serviceクラスパターン - ビジネスロジックの分離</h1>
+<h2 id="_1">はじめに</h2>
+<p>前のレシピで、自己完結型Widgetパターンを学びました。これはUI層の状態管理に最適です。</p>
+<p>しかし、アプリが成長すると以下のような疑問が出てきます：</p>
+<ul>
+<li>API呼び出しのコードをWidgetに書くべき？</li>
+<li>データベース操作はどこに書く？</li>
+<li>設定の保存・読み込みは？</li>
+<li>複数の画面で共有するロジックは？</li>
+</ul>
+<p>答えは<strong>Serviceクラス</strong>です。</p>
+<h2 id="service">Serviceクラスとは？</h2>
+<p><strong>Serviceクラス</strong>は、ビジネスロジックを担当するクラスです：</p>
+<ul>
+<li>API通信</li>
+<li>データベース操作</li>
+<li>設定の保存・読み込み</li>
+<li>認証処理</li>
+<li>データ変換</li>
+</ul>
+<p><strong>特徴:</strong>
+- Widgetから分離
+- シングルトンパターン（通常）
+- 状態を持たない（または最小限）</p>
+<h2 id="service_1">基本的な例: 設定Service</h2>
+<pre><code class="language-dart">class SettingsService {
+  // シングルトンパターン
+  static final SettingsService instance = SettingsService._internal();
+  SettingsService._internal();
+  factory SettingsService() =&gt; instance;
+
+  // 設定の状態
+  ThemeMode _themeMode = ThemeMode.system;
+  String _language = 'ja';
+
+  // Getter
+  ThemeMode get themeMode =&gt; _themeMode;
+  String get language =&gt; _language;
+
+  // 初期化（アプリ起動時に1度だけ呼ぶ）
+  Future&lt;void&gt; initialize() async {
+    final prefs = await SharedPreferences.getInstance();
+    _themeMode = ThemeMode.values.byName(
+      prefs.getString('theme_mode') ?? 'system',
+    );
+    _language = prefs.getString('language') ?? 'ja';
+  }
+
+  // テーマ変更
+  Future&lt;void&gt; setThemeMode(ThemeMode mode) async {
+    _themeMode = mode;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('theme_mode', mode.name);
+  }
+
+  // 言語変更
+  Future&lt;void&gt; setLanguage(String lang) async {
+    _language = lang;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('language', lang);
+  }
+}
+</code></pre>
+<h3 id="_2">使い方</h3>
+<pre><code class="language-dart">// アプリ起動時
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SettingsService.instance.initialize();
+  runApp(MyApp());
+}
+
+// Widgetから使用
+class SettingsScreen extends StatefulWidget {
+  @override
+  State&lt;SettingsScreen&gt; createState() =&gt; _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State&lt;SettingsScreen&gt; {
+  final _settings = SettingsService.instance;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        ListTile(
+          title: const Text('テーマ'),
+          subtitle: Text(_settings.themeMode.name),
+          onTap: () async {
+            // テーマ変更
+            await _settings.setThemeMode(ThemeMode.dark);
+            setState(() {}); // UI更新
+          },
+        ),
+      ],
+    );
+  }
+}
+</code></pre>
+<h2 id="api-service">実践例: API Service</h2>
+<pre><code class="language-dart">class NewsApiService {
+  static final NewsApiService instance = NewsApiService._internal();
+  NewsApiService._internal();
+  factory NewsApiService() =&gt; instance;
+
+  final String _baseUrl = 'https://api.example.com';
+  final _http = http.Client();
+
+  // ニュース一覧取得
+  Future&lt;List&lt;NewsArticle&gt;&gt; getArticles({
+    int page = 1,
+    int limit = 20,
+  }) async {
+    try {
+      final response = await _http.get(
+        Uri.parse('$_baseUrl/news?page=$page&amp;limit=$limit'),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body) as List;
+        return data.map((json) =&gt; NewsArticle.fromJson(json)).toList();
+      } else {
+        throw ApiException('Failed to fetch articles: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw ApiException('Network error: $e');
+    }
+  }
+
+  // 記事詳細取得
+  Future&lt;NewsArticle&gt; getArticleById(String id) async {
+    try {
+      final response = await _http.get(
+        Uri.parse('$_baseUrl/news/$id'),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return NewsArticle.fromJson(data);
+      } else {
+        throw ApiException('Article not found');
+      }
+    } catch (e) {
+      throw ApiException('Network error: $e');
+    }
+  }
+
+  // リソース解放（アプリ終了時）
+  void dispose() {
+    _http.close();
+  }
+}
+
+// カスタム例外
+class ApiException implements Exception {
+  final String message;
+  ApiException(this.message);
+
+  @override
+  String toString() =&gt; message;
+}
+
+// データモデル
+class NewsArticle {
+  final String id;
+  final String title;
+  final String content;
+  final DateTime publishedAt;
+
+  NewsArticle({
+    required this.id,
+    required this.title,
+    required this.content,
+    required this.publishedAt,
+  });
+
+  factory NewsArticle.fromJson(Map&lt;String, dynamic&gt; json) {
+    return NewsArticle(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      content: json['content'] as String,
+      publishedAt: DateTime.parse(json['published_at'] as String),
+    );
+  }
+}
+</code></pre>
+<h3 id="widget">Widgetから使用</h3>
+<pre><code class="language-dart">class NewsListWidget extends StatefulWidget {
+  @override
+  State&lt;NewsListWidget&gt; createState() =&gt; _NewsListWidgetState();
+}
+
+class _NewsListWidgetState extends State&lt;NewsListWidget&gt; {
+  final _api = NewsApiService.instance;
+  List&lt;NewsArticle&gt; _articles = [];
+  bool _isLoading = false;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadArticles();
+  }
+
+  Future&lt;void&gt; _loadArticles() async {
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
+
+    try {
+      final articles = await _api.getArticles();
+      if (mounted) {
+        setState(() {
+          _articles = articles;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _error = e.toString();
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (_error != null) {
+      return Center(child: Text('エラー: $_error'));
+    }
+
+    return ListView.builder(
+      itemCount: _articles.length,
+      itemBuilder: (context, index) {
+        final article = _articles[index];
+        return ListTile(
+          title: Text(article.title),
+          subtitle: Text(
+            DateFormat('yyyy/MM/dd').format(article.publishedAt),
+          ),
+        );
+      },
+    );
+  }
+}
+</code></pre>
+<h2 id="service_2">データベースService</h2>
+<pre><code class="language-dart">class DatabaseService {
+  static final DatabaseService instance = DatabaseService._internal();
+  DatabaseService._internal();
+  factory DatabaseService() =&gt; instance;
+
+  Database? _database;
+
+  Future&lt;Database&gt; get database async {
+    if (_database != null) return _database!;
+    _database = await _initDatabase();
+    return _database!;
+  }
+
+  Future&lt;Database&gt; _initDatabase() async {
+    final path = await getDatabasesPath();
+    final dbPath = join(path, 'app_database.db');
+
+    return await openDatabase(
+      dbPath,
+      version: 1,
+      onCreate: (db, version) async {
+        await db.execute('''
+          CREATE TABLE todos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            is_completed INTEGER NOT NULL DEFAULT 0,
+            created_at TEXT NOT NULL
+          )
+        ''');
+      },
+    );
+  }
+
+  // TODO追加
+  Future&lt;int&gt; insertTodo(String title) async {
+    final db = await database;
+    return await db.insert('todos', {
+      'title': title,
+      'is_completed': 0,
+      'created_at': DateTime.now().toIso8601String(),
+    });
+  }
+
+  // TODO一覧取得
+  Future&lt;List&lt;Todo&gt;&gt; getTodos() async {
+    final db = await database;
+    final maps = await db.query(
+      'todos',
+      orderBy: 'created_at DESC',
+    );
+    return maps.map((map) =&gt; Todo.fromMap(map)).toList();
+  }
+
+  // TODO更新
+  Future&lt;void&gt; updateTodo(int id, {String? title, bool? isCompleted}) async {
+    final db = await database;
+    final data = &lt;String, dynamic&gt;{};
+    if (title != null) data['title'] = title;
+    if (isCompleted != null) data['is_completed'] = isCompleted ? 1 : 0;
+
+    await db.update(
+      'todos',
+      data,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  // TODO削除
+  Future&lt;void&gt; deleteTodo(int id) async {
+    final db = await database;
+    await db.delete(
+      'todos',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+}
+
+// TODOモデル
+class Todo {
+  final int id;
+  final String title;
+  final bool isCompleted;
+  final DateTime createdAt;
+
+  Todo({
+    required this.id,
+    required this.title,
+    required this.isCompleted,
+    required this.createdAt,
+  });
+
+  factory Todo.fromMap(Map&lt;String, dynamic&gt; map) {
+    return Todo(
+      id: map['id'] as int,
+      title: map['title'] as String,
+      isCompleted: (map['is_completed'] as int) == 1,
+      createdAt: DateTime.parse(map['created_at'] as String),
+    );
+  }
+}
+</code></pre>
+<h2 id="_3">パターンのベストプラクティス</h2>
+<h3 id="1">1. シングルトンパターンを使う</h3>
+<pre><code class="language-dart">class MyService {
+  // ✅ シングルトンパターン
+  static final MyService instance = MyService._internal();
+  MyService._internal();
+  factory MyService() =&gt; instance;
+
+  // メソッド
+}
+
+// 使用
+final service = MyService.instance;
+</code></pre>
+<h3 id="2">2. 責任を明確に分割</h3>
+<pre><code class="language-dart">// ✅ 良い例: 責任ごとに分割
+class ApiService { }      // API通信のみ
+class DatabaseService { } // DB操作のみ
+class SettingsService { } // 設定のみ
+
+// ❌ 悪い例: 全部入り
+class AppService {
+  // API、DB、設定、認証...全部
+}
+</code></pre>
+<h3 id="3">3. エラーハンドリングを統一</h3>
+<pre><code class="language-dart">class ApiService {
+  Future&lt;T&gt; _request&lt;T&gt;(
+    Future&lt;http.Response&gt; Function() request,
+    T Function(Map&lt;String, dynamic&gt;) fromJson,
+  ) async {
+    try {
+      final response = await request();
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return fromJson(data);
+      } else {
+        throw ApiException('HTTP ${response.statusCode}');
+      }
+    } on SocketException {
+      throw ApiException('ネットワークエラー');
+    } catch (e) {
+      throw ApiException('予期しないエラー: $e');
+    }
+  }
+}
+</code></pre>
+<h3 id="4">4. 依存関係を注入可能に（テスト用）</h3>
+<pre><code class="language-dart">class NewsService {
+  final http.Client httpClient;
+
+  NewsService({
+    http.Client? httpClient,
+  }) : httpClient = httpClient ?? http.Client();
+
+  // メソッド
+}
+
+// テスト時
+final mockClient = MockClient();
+final service = NewsService(httpClient: mockClient);
+</code></pre>
+<h2 id="cursor">Cursorでの活用</h2>
+<h3 id="_4">プロンプト例</h3>
+<pre><code>以下の要件でServiceクラスを作成してください:
+
+要件:
+- 天気情報を取得するAPIサービス
+- エンドポイント: https://api.weather.com/v1/weather
+- 都市名で検索
+- 7日間の予報を取得
+
+構成:
+- WeatherApiService クラス
+- シングルトンパターン
+- エラーハンドリング付き
+- Weatherモデルクラス
+
+注意:
+- Riverpodなどは使わない
+- シンプルな構造
+- テスト可能な設計
+</code></pre>
+<h2 id="_5">まとめ</h2>
+<p>Serviceクラスパターン：</p>
+<h3 id="_6">役割</h3>
+<ul>
+<li>API通信</li>
+<li>データベース操作</li>
+<li>設定管理</li>
+<li>認証処理</li>
+<li>ビジネスロジック</li>
+</ul>
+<h3 id="_7">基本原則</h3>
+<ol>
+<li>✅ シングルトンパターン</li>
+<li>✅ 責任を明確に分割</li>
+<li>✅ Widgetから分離</li>
+<li>✅ エラーハンドリング統一</li>
+</ol>
+<h3 id="widget_1">Widgetとの関係</h3>
+<pre><code>Widget (UI)
+  ↓ 使用
+Service (ビジネスロジック)
+  ↓ 使用
+API / Database / SharedPreferences
+</code></pre>
+<h3 id="_8">利点</h3>
+<ul>
+<li>コードが整理される</li>
+<li>テストが容易</li>
+<li>再利用可能</li>
+<li>デバッグしやすい</li>
+<li>AIが理解しやすい</li>
+</ul>
+<p>次のレシピでは、CursorとClaudeを使って実際にアプリを作ります。</p>
+<p>➡️ <strong>次のレシピへ:</strong> <a href="./05_building_simple_app.html"><code>05_building_simple_app.md</code></a></p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

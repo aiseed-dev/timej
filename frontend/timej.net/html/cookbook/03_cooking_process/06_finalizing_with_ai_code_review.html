@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レシピ#3-6: Cursor + Claudeによる最終コードレビューと品質向上 - AI x Flutter Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flutter Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/ai-x-flutter/cookbook">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. キッチンの準備</summary><ul>
+<li><a href="../01_the_kitchen/01_setting_up_flutter.html">#1-1 Flutter開発環境の準備（キッチンのセットアップ）</a></li>
+<li><a href="../01_the_kitchen/02_ai_development_tools.html">#1-2 AI開発ツールの導入</a></li>
+<li><a href="../01_the_kitchen/03_creating_first_app.html">#1-3 最初のFlutterアプリ作成とプロジェクト探検</a></li>
+<li><a href="../01_the_kitchen/04_ios_development_setup.html">#1-4 iOS開発の準備とセットアップ</a></li>
+<li><a href="../01_the_kitchen/05_project_identity_and_assets.html">#1-5 アプリのIDとアセットの準備</a></li>
+<li><a href="../01_the_kitchen/06_managing_project_with_github.html">#1-6 自分のFlutterプロジェクトをGitHubで管理する</a></li>
+<li><a href="../01_the_kitchen/07_authenticating_with_github_cli.html">#1-7 GitHub CLIでPCを認証する</a></li>
+</ul></details>
+<details><summary>2. Flutterの重要概念</summary><ul>
+<li><a href="../02_core_concepts/00_introduction.html">導入：Flutterアプリの「骨格」を理解する</a></li>
+<li><a href="../02_core_concepts/01_what_is_a_widget.html">#2-1 Flutterの心臓部「ウィジェット（Widget）」とは何か？</a></li>
+<li><a href="../02_core_concepts/02_state_management_basics.html">#2-2 状態管理の基礎</a></li>
+<li><a href="../02_core_concepts/03_async_programming.html">#2-3 非同期プログラミング（Futureとasync/await）</a></li>
+<li><a href="../02_core_concepts/04_introduction_to_routing.html">#2-4 画面遷移の基本（Routing） - Navigatorのpush/pop</a></li>
+<li><a href="../02_core_concepts/05_understanding_build_context.html">#2-5 BuildContextとは何か？ - ウィジェットの「現在地」</a></li>
+<li><a href="../02_core_concepts/06_learning_through_game_development.html">#2-6 ゲーム開発で学ぶFlutterの基本的な考え方</a></li>
+</ul></details>
+<details open><summary>3. 料理のプロセス</summary><ul>
+<li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
+<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
+<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
+<li class="current"><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
+<li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
+</ul></details>
+<details><summary>4. 秘伝のソース</summary><ul>
+<li><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
+<li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
+<li><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
+</ul></details>
+<details><summary>5. シェフの特別料理</summary><ul>
+<li><a href="../05_chefs_specials/00_introduction.html">はじめに: 非開発者でもアプリが作れる時代</a></li>
+<li><a href="../05_chefs_specials/01_building_chat_app_with_gemini.html">#5-1 AIチャットアプリを作る - Claude API / Gemini API連携</a></li>
+<li><a href="../05_chefs_specials/02_building_image_recognition_app.html">#5-2 画像認識カメラアプリを作る - ML Kit / TFLite活用</a></li>
+<li><a href="../05_chefs_specials/03_building_realtime_app.html">#5-3 リアルタイム共有メモアプリを作る - Supabase Realtime</a></li>
+<li><a href="../05_chefs_specials/04_responsive_design_basics.html">#5-4 レスポンシブデザインの基礎 - あらゆる画面サイズに対応する</a></li>
+<li><a href="../05_chefs_specials/05_building_desktop_app.html">#5-5 デスクトップアプリを作る - Windows / macOS / Linux対応</a></li>
+<li><a href="../05_chefs_specials/06_building_web_app.html">#5-6 Webアプリを作る - ブラウザで動くFlutterアプリ</a></li>
+<li><a href="../05_chefs_specials/07_handling_text_size_changes.html">#5-7 テキストサイズ変更への対応 - ダッシュボードとアクセシビリティ</a></li>
+</ul></details>
+<details><summary>6. 他のシェフとの協業</summary><ul>
+<li><a href="../06_collaboration/01_fork_and_clone.html">#6-1 他の人のリポジトリをFork & Cloneする</a></li>
+<li><a href="../06_collaboration/02_push_and_pull_request.html">#6-2 変更をPushし、Pull Requestで本家に貢献する</a></li>
+<li><a href="../06_collaboration/03_resolving_merge_conflicts.html">#6-3 マージコンフリクト（競合）を解決する</a></li>
+<li><a href="../06_collaboration/04_what_is_byoa_development.html">#6-4 BYOA開発とは - 自分たちで課題を解決する新しい形</a></li>
+<li><a href="../06_collaboration/05_byoa_case_study_childcare_app.html">#6-5 【事例研究】育児・発達支援アプリをBYOAで開発する</a></li>
+<li><a href="../06_collaboration/06_byoa_case_study_dev_tools.html">#6-6 チャットだけで自分用のWebアプリを作る</a></li>
+<li><a href="../06_collaboration/07_evolve_with_collaboration.html">#6-7 コラボレーションでアプリを進化させる</a></li>
+<li><a href="../06_collaboration/08_mcp_fundamentals.html">#6-8 MCP（Model Context Protocol）でClaudeを拡張する</a></li>
+<li><a href="../06_collaboration/09_mcp_practical_applications.html">#6-9 実践的なMCP活用でBYOAアプリを進化させる</a></li>
+</ul></details>
+<details><summary>7. 救急箱</summary><ul>
+<li><a href="../07_troubleshooting/01_fix_gradle_metadata_error.html">#7-1 Could not read workspace metadata エラーを解決する</a></li>
+<li><a href="../07_troubleshooting/02_advanced_build_troubleshooting.html">#7-2 Flutterビルドエラー上級編</a></li>
+<li><a href="../07_troubleshooting/03_understanding_null_safety_errors.html">#7-3 Null check operator used on a null valueエラーを理解し、解決する</a></li>
+<li><a href="../07_troubleshooting/04_ai_development_troubleshooting.html">#7-4 AIとの開発で起こる典型的なトラブルと対処法</a></li>
+</ul></details>
+<details><summary>8. BFFとサーバーサイドDart</summary><ul>
+<li><a href="../08_backend_for_frontend_with_ai/01_why_dart_for_backend.html">#8-1 なぜDartでバックエンドを作るのか？ (BFFの概念)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/02_choosing_backend_framework.html">#8-2 Dartバックエンドフレームワークの選定</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/03_building_simple_api_with_dart_frog.html">#8-3 AIと作るシンプルなREST API (Dart Frog編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/04_sharing_code_between_flutter_and_backend.html">#8-4 FlutterアプリとDartバックエンドでコードを共有する</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/05_full_stack_development_with_serverpod.html">#8-5 AIと創るフルスタック認証 (Serverpod編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/06_realtime_communication_with_websockets.html">#8-6 AIと実装するリアルタイム通信 (WebSocket編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
+</ul></details>
+<details><summary>9. 設計とプロトタイピング</summary><ul>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="3-6-cursor-claude">レシピ#3-6: Cursor + Claudeによる最終コードレビューと品質向上</h1>
+<p>おめでとうございます！あなたのアプリは、UI、ロジック、データ保存といった主要な機能を備え、完成に近づいています。しかし、料理が完成しても、キッチンが散らかったままではプロの仕事とは言えません。</p>
+<p>このレシピでは、開発の最終段階として、<strong>Cursor + Claude</strong>を「厳格なコードレビュワー」兼「親切なテクニカルライター」として活用し、アプリケーション全体の品質を向上させる方法を学びます。</p>
+<hr />
+<h2 id="1">1. コードの「健康診断」：静的解析とフォーマット</h2>
+<p>まず、コードがFlutterの作法に沿ってきれいに書かれているか、基本的な健康診断を行います。</p>
+<ol>
+<li>
+<p><strong>コードフォーマッターの実行:</strong>
+    一貫したコーディングスタイルは、可読性を高める第一歩です。ターミナルで以下のコマンドを実行し、プロジェクト全体のコードを自動で整形します。
+    <code>bash
+    dart format .</code></p>
+</li>
+<li>
+<p><strong>静的解析の実行:</strong>
+    <code>flutter analyze</code>は、コードをスキャンし、潜在的なバグや非効率な書き方を指摘してくれる、優秀な「自動診断ツール」です。
+    <code>bash
+    flutter analyze</code>
+    もし、何らかの警告（<code>info</code>, <code>warning</code>）が表示されたら、その内容を<strong>Cursor + Claude</strong>に尋ねてみましょう。</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>💬 Cursor活用プロンプト (静的解析エラーの解説)</strong></p>
+<p><code>flutter analyze</code>を実行したら、以下の警告が表示されました。</p>
+<p><code>info: prefer_const_constructors</code></p>
+<p>この警告は何を意味していますか？また、どうすれば修正できますか？初心者にでも分かるように説明してください。</p>
+</blockquote>
+<hr />
+<h2 id="2-cursor-claude">2. Cursor + Claudeによるリファクタリング提案</h2>
+<p>コードは動きますが、もっと効率的で、もっと読みやすい書き方があるかもしれません。<strong>Cursor + Claude</strong>にコード全体をレビューさせ、改善点を提案してもらいましょう。</p>
+<h3 id="_1">例：巨大なウィジェットの分割</h3>
+<p>開発が進むと、特定のウィジェット（特に画面全体を表すウィジェット）が肥大化しがちです。</p>
+<blockquote>
+<p><strong>💬 Cursor活用プロンプト (リファクタリング依頼)</strong></p>
+<p>あなたは、クリーンで保守性の高いFlutterコードを書くエキスパートです。</p>
+<p>私の<code>home_screen.dart</code>のコードは、1つの<code>build</code>メソッドの中にロジックが集中し、長くなってしまいました。</p>
+<p>【<strong>レビューしてほしいコード</strong>】
+@screens/home_screen.dart を参照してください。
+（Claude Codeの場合は「<code>home_screen.dart</code>を読んでレビューして」と依頼し、直接ファイルを読ませます）</p>
+<p>このコードをリファクタリングするための具体的な改善案を3つ提案してください。
+例えば、UI部品を別の<code>StatelessWidget</code>に切り出す、ロジックをServiceクラスに移動するなど、可読性と再利用性を高める観点でお願いします。</p>
+</blockquote>
+<hr />
+<h2 id="3-cursor-claude">3. Cursor + Claudeによるテストコードの自動生成</h2>
+<p>手動での動作確認は重要ですが、アプリが大きくなるにつれて限界がきます。ユニットテストは、コードの各部品が正しく動作することを自動で保証してくれるセーフティネットです。</p>
+<h3 id="_2">例：ロジック部分のユニットテスト作成</h3>
+<p>状態管理を担う<code>MemoService</code>のロジックが、意図通りに動くかをテストしてみましょう。</p>
+<blockquote>
+<p><strong>💬 Cursor活用プロンプト (テストコード生成)</strong></p>
+<p>あなたはFlutterのテスト作成の専門家です。</p>
+<p><code>MemoService</code>クラスに対して、<code>flutter_test</code>を使ったユニットテストのコードを生成してください。</p>
+<p>【<strong>テスト対象のコード</strong>】
+@services/memo_service.dart を参照してください。
+（Claude Codeの場合は「<code>memo_service.dart</code>を読んでテストを書いて」と依頼し、直接ファイルを読ませます）</p>
+<p><strong>テストしてほしい項目:</strong>
+1.  初期状態では、メモのリストが空であること。
+2.  <code>addMemo</code>メソッドを呼んだ後、リストの件数が1になり、追加したメモが含まれていること。
+3.  メモを追加した後に<code>removeMemo</code>メソッドを呼ぶと、リストが再び空になること。</p>
+</blockquote>
+<p>「このテストを<code>test/memo_service_test.dart</code>として作成して」と依頼すれば、エージェントが直接ファイルを作成してくれます。あとはターミナルで<code>flutter test</code>を実行すれば、いつでもロジックの健全性を自動でチェックできます。</p>
+<hr />
+<h2 id="4-cursor-claude">4. Cursor + Claudeによるドキュメンテーション</h2>
+<p>最後に、未来の自分や他の開発者のために、コードの「取扱説明書」を残しておきましょう。</p>
+<h3 id="doc">例：公開するクラスやメソッドへのDocコメント追加</h3>
+<blockquote>
+<p><strong>💬 Cursor活用プロンプト (Docコメント生成)</strong></p>
+<p>あなたは分かりやすい技術文書を書くのが得意なテクニカルライターです。</p>
+<p><code>MemoService</code>クラスと、その公開メソッドである<code>addMemo</code>, <code>removeMemo</code>に対して、他の開発者が使い方をすぐに理解できるように、Dartの公式スタイルガイドに従ったDocコメントを生成してください。</p>
+<p>各メソッドが何をするのか、どんな引数を取るのかを簡潔に説明してください。</p>
+</blockquote>
+<p>この最終ステップにより、あなたのプロジェクトはただ「動く」だけでなく、「<strong>健全で、品質が保証され、誰にとっても理解しやすい</strong>」という、プロフェッショナルな成果物へと昇華します。</p>
+<p>これで、開発の主要なプロセスは一通り完了です。次のセクションでは、特定のテーマに特化した応用的なレシピを見ていきましょう。</p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

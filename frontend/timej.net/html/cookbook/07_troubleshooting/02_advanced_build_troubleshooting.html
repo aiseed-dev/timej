@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>トラブルシュート#7-2: Flutterビルドエラー上級編 - AI x Flutter Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flutter Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/ai-x-flutter/cookbook">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. キッチンの準備</summary><ul>
+<li><a href="../01_the_kitchen/01_setting_up_flutter.html">#1-1 Flutter開発環境の準備（キッチンのセットアップ）</a></li>
+<li><a href="../01_the_kitchen/02_ai_development_tools.html">#1-2 AI開発ツールの導入</a></li>
+<li><a href="../01_the_kitchen/03_creating_first_app.html">#1-3 最初のFlutterアプリ作成とプロジェクト探検</a></li>
+<li><a href="../01_the_kitchen/04_ios_development_setup.html">#1-4 iOS開発の準備とセットアップ</a></li>
+<li><a href="../01_the_kitchen/05_project_identity_and_assets.html">#1-5 アプリのIDとアセットの準備</a></li>
+<li><a href="../01_the_kitchen/06_managing_project_with_github.html">#1-6 自分のFlutterプロジェクトをGitHubで管理する</a></li>
+<li><a href="../01_the_kitchen/07_authenticating_with_github_cli.html">#1-7 GitHub CLIでPCを認証する</a></li>
+</ul></details>
+<details><summary>2. Flutterの重要概念</summary><ul>
+<li><a href="../02_core_concepts/00_introduction.html">導入：Flutterアプリの「骨格」を理解する</a></li>
+<li><a href="../02_core_concepts/01_what_is_a_widget.html">#2-1 Flutterの心臓部「ウィジェット（Widget）」とは何か？</a></li>
+<li><a href="../02_core_concepts/02_state_management_basics.html">#2-2 状態管理の基礎</a></li>
+<li><a href="../02_core_concepts/03_async_programming.html">#2-3 非同期プログラミング（Futureとasync/await）</a></li>
+<li><a href="../02_core_concepts/04_introduction_to_routing.html">#2-4 画面遷移の基本（Routing） - Navigatorのpush/pop</a></li>
+<li><a href="../02_core_concepts/05_understanding_build_context.html">#2-5 BuildContextとは何か？ - ウィジェットの「現在地」</a></li>
+<li><a href="../02_core_concepts/06_learning_through_game_development.html">#2-6 ゲーム開発で学ぶFlutterの基本的な考え方</a></li>
+</ul></details>
+<details><summary>3. 料理のプロセス</summary><ul>
+<li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
+<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
+<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
+<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
+<li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
+</ul></details>
+<details><summary>4. 秘伝のソース</summary><ul>
+<li><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
+<li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
+<li><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
+</ul></details>
+<details><summary>5. シェフの特別料理</summary><ul>
+<li><a href="../05_chefs_specials/00_introduction.html">はじめに: 非開発者でもアプリが作れる時代</a></li>
+<li><a href="../05_chefs_specials/01_building_chat_app_with_gemini.html">#5-1 AIチャットアプリを作る - Claude API / Gemini API連携</a></li>
+<li><a href="../05_chefs_specials/02_building_image_recognition_app.html">#5-2 画像認識カメラアプリを作る - ML Kit / TFLite活用</a></li>
+<li><a href="../05_chefs_specials/03_building_realtime_app.html">#5-3 リアルタイム共有メモアプリを作る - Supabase Realtime</a></li>
+<li><a href="../05_chefs_specials/04_responsive_design_basics.html">#5-4 レスポンシブデザインの基礎 - あらゆる画面サイズに対応する</a></li>
+<li><a href="../05_chefs_specials/05_building_desktop_app.html">#5-5 デスクトップアプリを作る - Windows / macOS / Linux対応</a></li>
+<li><a href="../05_chefs_specials/06_building_web_app.html">#5-6 Webアプリを作る - ブラウザで動くFlutterアプリ</a></li>
+<li><a href="../05_chefs_specials/07_handling_text_size_changes.html">#5-7 テキストサイズ変更への対応 - ダッシュボードとアクセシビリティ</a></li>
+</ul></details>
+<details><summary>6. 他のシェフとの協業</summary><ul>
+<li><a href="../06_collaboration/01_fork_and_clone.html">#6-1 他の人のリポジトリをFork & Cloneする</a></li>
+<li><a href="../06_collaboration/02_push_and_pull_request.html">#6-2 変更をPushし、Pull Requestで本家に貢献する</a></li>
+<li><a href="../06_collaboration/03_resolving_merge_conflicts.html">#6-3 マージコンフリクト（競合）を解決する</a></li>
+<li><a href="../06_collaboration/04_what_is_byoa_development.html">#6-4 BYOA開発とは - 自分たちで課題を解決する新しい形</a></li>
+<li><a href="../06_collaboration/05_byoa_case_study_childcare_app.html">#6-5 【事例研究】育児・発達支援アプリをBYOAで開発する</a></li>
+<li><a href="../06_collaboration/06_byoa_case_study_dev_tools.html">#6-6 チャットだけで自分用のWebアプリを作る</a></li>
+<li><a href="../06_collaboration/07_evolve_with_collaboration.html">#6-7 コラボレーションでアプリを進化させる</a></li>
+<li><a href="../06_collaboration/08_mcp_fundamentals.html">#6-8 MCP（Model Context Protocol）でClaudeを拡張する</a></li>
+<li><a href="../06_collaboration/09_mcp_practical_applications.html">#6-9 実践的なMCP活用でBYOAアプリを進化させる</a></li>
+</ul></details>
+<details open><summary>7. 救急箱</summary><ul>
+<li><a href="../07_troubleshooting/01_fix_gradle_metadata_error.html">#7-1 Could not read workspace metadata エラーを解決する</a></li>
+<li class="current"><a href="../07_troubleshooting/02_advanced_build_troubleshooting.html">#7-2 Flutterビルドエラー上級編</a></li>
+<li><a href="../07_troubleshooting/03_understanding_null_safety_errors.html">#7-3 Null check operator used on a null valueエラーを理解し、解決する</a></li>
+<li><a href="../07_troubleshooting/04_ai_development_troubleshooting.html">#7-4 AIとの開発で起こる典型的なトラブルと対処法</a></li>
+</ul></details>
+<details><summary>8. BFFとサーバーサイドDart</summary><ul>
+<li><a href="../08_backend_for_frontend_with_ai/01_why_dart_for_backend.html">#8-1 なぜDartでバックエンドを作るのか？ (BFFの概念)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/02_choosing_backend_framework.html">#8-2 Dartバックエンドフレームワークの選定</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/03_building_simple_api_with_dart_frog.html">#8-3 AIと作るシンプルなREST API (Dart Frog編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/04_sharing_code_between_flutter_and_backend.html">#8-4 FlutterアプリとDartバックエンドでコードを共有する</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/05_full_stack_development_with_serverpod.html">#8-5 AIと創るフルスタック認証 (Serverpod編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/06_realtime_communication_with_websockets.html">#8-6 AIと実装するリアルタイム通信 (WebSocket編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
+</ul></details>
+<details><summary>9. 設計とプロトタイピング</summary><ul>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="7-2-flutter">トラブルシュート#7-2: Flutterビルドエラー上級編</h1>
+<p>前のレシピで紹介したキャッシュ削除を試しても、まだビルドエラーが解決しない場合、問題はより環境に根ざした、深い部分に潜んでいる可能性があります。</p>
+<p>このマニュアルでは、プロの開発者が行うような、体系的な問題の切り分けと解決策を探っていきます。</p>
+<h2 id="step-1">Step 1: ネットワークの問題を疑う</h2>
+<p>Gradleは、ビルドに必要なライブラリをインターネット上のリポジトリからダウンロードします。この通信が妨害されると、ファイルが不完全にダウンロードされ、キャッシュ破損と同じようなエラーを引き起こします。</p>
+<h3 id="1-1">1-1. 詳細ログでネットワークエラーを確認する</h3>
+<p>まずは、ビルドプロセスでネットワーク関連のエラーが出ていないかを確認します。</p>
+<pre><code class="language-bash">flutter run -v
+</code></pre>
+<p><code>-v</code> (verbose) オプションを付けて実行すると、非常に詳細なログが出力されます。出力されたログの中に、以下のようなメッセージがないか注意深く確認してください。</p>
+<ul>
+<li><code>Connect to ... timed out</code> (接続タイムアウト)</li>
+<li><code>Could not GET 'https://...'</code> (リソースの取得失敗)</li>
+<li><code>Read timed out</code> (読み取りタイムアウト)</li>
+<li><code>SSL peer handshake failed</code> (SSL/TLS証明書の問題)</li>
+</ul>
+<p>これらのメッセージが見つかった場合、ネットワークに問題がある可能性が非常に高いです。</p>
+<h3 id="1-2">1-2. 対策</h3>
+<ul>
+<li>
+<p><strong>対策A: セキュリティソフト/ファイアウォールの一時停止</strong></p>
+<ul>
+<li>Windows Defender、ノートン、マカフィーなどのセキュリティソフトを<strong>一時的に無効</strong>にして、再度ビルドを試します。</li>
+<li>もしこれで成功した場合、原因はセキュリティソフトです。お使いのソフトの設定で、<strong>Flutter SDKのフォルダ</strong>や<strong>Javaの実行ファイル(<code>java.exe</code>)</strong>をスキャン対象から除外する設定を行ってください。</li>
+<li>確認後は、必ずセキュリティソフトを有効に戻してください。</li>
+</ul>
+</li>
+<li>
+<p><strong>対策B: プロキシ環境の設定（会社のネットワークなど</strong>）</p>
+<ul>
+<li>会社のネットワークなど、プロキシサーバーを経由しないと外部にアクセスできない環境では、その設定をGradleに教える必要があります。</li>
+<li><code>C:\Users\あなたのユーザー名\.gradle</code> (Windows) または <code>~/.gradle</code> (Mac/Linux) にある <code>gradle.properties</code> ファイルに、プロキシ設定を記述します。詳細はネットワーク管理者に確認してください。</li>
+</ul>
+</li>
+</ul>
+<h2 id="step-2">Step 2: アンチウイルスソフトの影響をさらに詳しく調査する</h2>
+<p>アンチウイルスソフトは、ビルドエラーの最も一般的な原因の一つです。一時停止で解決した場合、恒久的な対策として「<strong>除外設定</strong>」を行うことを強く推奨します。</p>
+<p>お使いのソフトの「スキャン除外設定」や「監視除外設定」に、以下のフォルダをすべて追加してください。</p>
+<ul>
+<li><strong>Flutter SDK フォルダ:</strong> (例: <code>C:\flutter</code>)</li>
+<li><strong>Android SDK フォルダ:</strong> (Android StudioのSDK Managerでパスを確認)</li>
+<li><strong>Gradle キャッシュフォルダ:</strong> (<code>C:\Users\あなたのユーザー名\.gradle</code> や <code>~/.gradle</code>)</li>
+<li><strong>Pub キャッシュフォルダ:</strong> (<code>%APPDATA%\Pub\Cache</code> や <code>~/.pub-cache</code>)</li>
+<li><strong>全Flutterプロジェクトを置いている親フォルダ:</strong> (例: <code>C:\dev</code> や <code>~/dev</code>)</li>
+</ul>
+<h2 id="step-3">Step 3: 環境の健全性を確認する</h2>
+<ul>
+<li>
+<p><strong>対策A: プロジェクトパスの確認</strong></p>
+<ul>
+<li>プロジェクトのフルパスに<strong>日本語、スペース、特殊文字</strong>が含まれていないか確認してください。</li>
+<li><strong>悪い例:</strong> <code>C:\Users\山田 太郎\すごいアプリ\</code></li>
+<li><strong>良い例:</strong> <code>C:\dev\sugoi_app</code></li>
+<li>もし該当する場合、プロジェクトをシンプルなパスに移動してから、<code>flutter clean</code> を実行し、再度ビルドを試してください。</li>
+</ul>
+</li>
+<li>
+<p><strong>対策B: Windowsユーザー名の確認</strong></p>
+<ul>
+<li>Windowsのユーザー名自体に日本語やスペースが含まれている場合、それが原因でツールが誤動作することがあります。</li>
+<li>根本的な解決策は、英数字のみの新しいローカル管理者アカウントを作成し、そこで開発環境を再構築することです。</li>
+</ul>
+</li>
+<li>
+<p><strong>対策C: ディスクの空き容量の確認</strong></p>
+<ul>
+<li>FlutterとAndroidの開発環境は、合計で数十GBのディスク容量を消費します。Cドライブの空き容量が不足すると、ファイルの書き込みに失敗し、予期せぬエラーでビルドが中断します。</li>
+<li><strong>最低でも20GB以上</strong>の空き容量を確保してください。</li>
+</ul>
+</li>
+</ul>
+<h2 id="step-4-">Step 4: 最終手段 - "手術"による問題の切り分け</h2>
+<p>上記すべてを試しても解決しない場合、いよいよ"手術"によって問題の原因が「<strong>プロジェクト固有の問題</strong>」なのか、それとも「<strong>開発環境全体の問題</strong>」なのかを切り分け、それぞれに応じた最終手段を講じます。</p>
+<h3 id="a">シナリオA: 特定のプロジェクトだけでビルドエラーが起こる場合</h3>
+<p><strong>診断:</strong>
+新しい空のプロジェクト（<code>flutter create test_app</code>）は正常にビルドできるのに、問題のプロジェクトだけが失敗する場合、原因はそのプロジェクトの設定ファイル（<code>android</code>や<code>ios</code>フォルダ内）が破損している可能性が濃厚です。</p>
+<p><strong>処方箋: プロジェクトの再構築（健康な部分の移植手術</strong>）</p>
+<ol>
+<li>
+<p>現在のプロジェクトフォルダとは別の場所で、<strong>新しい空のFlutterプロジェクト</strong>を作成します。
+    <code>bash
+    flutter create my_rebuilt_app --org com.yourdomain</code>
+    (<code>--org</code>には、元のプロジェクトと同じApplication IDを指定します)</p>
+</li>
+<li>
+<p>古いプロジェクトから、<strong>以下の「健康な」フォルダとファイルのみ</strong>を、新しいプロジェクトにコピー＆上書きします。</p>
+<ul>
+<li><code>lib/</code> フォルダ (あなたのDartコード)</li>
+<li><code>pubspec.yaml</code> ファイル (プロジェクトの依存関係)</li>
+<li><code>assets/</code> フォルダ (もしあれば)</li>
+<li>その他、あなたが直接作成・編集したファイル（例: <code>.env</code>ファイルなど）</li>
+</ul>
+</li>
+<li>
+<p>【<strong>重要】古いプロジェクトの<code>android</code>、<code>ios</code>、<code>build</code>フォルダなどはコピーしません。</strong> これらは破損している可能性のある「病巣」です。</p>
+</li>
+<li>
+<p>新しいプロジェクトのフォルダで、コマンドを実行します。
+    <code>bash
+    flutter pub get
+    flutter run</code></p>
+</li>
+</ol>
+<p>この方法でビルドが成功した場合、原因は古いプロジェクトのネイティブ関連ファイルにあったと確定できます。</p>
+<hr />
+<h3 id="b-flutter">シナリオB: すべてのFlutterプロジェクトでビルドエラーが起こる場合</h3>
+<p><strong>診断:</strong>
+新しい空のプロジェクト（<code>flutter create test_app</code>）ですらビルドに失敗する場合、原因はプロジェクト側ではなく、あなたのPCにインストールされた<strong>開発環境全体（特にAndroid SDK</strong>）にあります。</p>
+<p><strong>処方箋: Android SDKの再インストール（開発環境のクリーンアップ</strong>）</p>
+<p>これは影響範囲の大きい操作ですが、多くの根深い問題を解決できます。</p>
+<ol>
+<li>
+<p><strong>Android Studioを開き、SDKのパスを確認・バックアップ:</strong></p>
+<ul>
+<li><code>File &gt; Settings &gt; Appearance &amp; Behavior &gt; System Settings &gt; Android SDK</code> を開きます。</li>
+<li>上部に表示されている「<strong>Android SDK Location</strong>」のパスをメモしておきます。（例: <code>C:\Users\YourUser\AppData\Local\Android\sdk</code>）</li>
+<li>もし、このSDKフォルダ内にエミュレータのイメージなど、残しておきたいものがあれば、別の場所にバックアップしておきます。</li>
+</ul>
+</li>
+<li>
+<p><strong>Android SDKフォルダを削除:</strong></p>
+<ul>
+<li>Android Studioを完全に終了します。</li>
+<li>エクスプローラーやFinderで、先ほど確認した<strong><code>sdk</code>フォルダを丸ごと削除します。</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>Android StudioでSDKを再インストール:</strong></p>
+<ul>
+<li>再度Android Studioを起動します。</li>
+<li>「Android SDK is missing」といったエラーが表示されるので、セットアップウィザードの指示に従います。</li>
+<li>ウィザードが、最新のAndroid SDKを適切な場所にダウンロード・インストールしてくれます。</li>
+</ul>
+</li>
+<li>
+<p><strong>必要なコンポーネントを再確認:</strong></p>
+<ul>
+<li>インストール後、再度SDK Managerを開きます。</li>
+<li>「SDK Tools」タブで、以下のコンポーネントにチェックが入っている（インストールされている）ことを確認します。<ul>
+<li><strong>Android SDK Build-Tools</strong></li>
+<li><strong>Android SDK Command-line Tools (latest)</strong></li>
+<li><strong>Android Emulator</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>ライセンスの再同意:</strong></p>
+<ul>
+<li>ターミナルで以下のコマンドを実行し、すべてのライセンスに <code>y</code> で同意します。
+<code>bash
+flutter doctor --android-licenses</code></li>
+</ul>
+</li>
+<li>
+<p><strong>最終確認:</strong></p>
+<ul>
+<li><code>flutter doctor</code> を実行し、<code>Android toolchain</code>が <code>[✓]</code> になっていることを確認します。</li>
+<li>最後に、新しい空のプロジェクトで <code>flutter run</code> を試し、ビルドが成功するかを確認します。</li>
+</ul>
+</li>
+</ol>
+<p>この開発環境のクリーンアップは、原因不明の多くのビルドエラーに対する、非常に強力な解決策です。</p>
+<blockquote>
+<p><strong>🤖 AI活用プロンプト (詳細ログの要約)</strong></p>
+<p><code>flutter run -v</code> の出力は膨大で、人間が読むのは大変です。AIに要約と分析を頼んでみましょう。
+```
+あなたはFlutterのビルドシステムに精通したエキスパートです。</p>
+<p>以下の <code>flutter run -v</code> の詳細ログを分析し、エラーの根本原因となっている可能性が最も高い箇所を特定してください。そして、考えられる原因と、次に試すべきアクションを3つ提案してください。</p>
+<p><code>(ここに、ターミナルに表示された詳細ログをすべて貼り付ける)</code></p>
+</blockquote>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

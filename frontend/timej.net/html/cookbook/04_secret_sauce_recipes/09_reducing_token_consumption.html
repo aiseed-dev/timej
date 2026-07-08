@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レシピ#4-9: AIのトークン消費を抑える実践テクニック - AI x Flutter Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flutter Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/ai-x-flutter/cookbook">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. キッチンの準備</summary><ul>
+<li><a href="../01_the_kitchen/01_setting_up_flutter.html">#1-1 Flutter開発環境の準備（キッチンのセットアップ）</a></li>
+<li><a href="../01_the_kitchen/02_ai_development_tools.html">#1-2 AI開発ツールの導入</a></li>
+<li><a href="../01_the_kitchen/03_creating_first_app.html">#1-3 最初のFlutterアプリ作成とプロジェクト探検</a></li>
+<li><a href="../01_the_kitchen/04_ios_development_setup.html">#1-4 iOS開発の準備とセットアップ</a></li>
+<li><a href="../01_the_kitchen/05_project_identity_and_assets.html">#1-5 アプリのIDとアセットの準備</a></li>
+<li><a href="../01_the_kitchen/06_managing_project_with_github.html">#1-6 自分のFlutterプロジェクトをGitHubで管理する</a></li>
+<li><a href="../01_the_kitchen/07_authenticating_with_github_cli.html">#1-7 GitHub CLIでPCを認証する</a></li>
+</ul></details>
+<details><summary>2. Flutterの重要概念</summary><ul>
+<li><a href="../02_core_concepts/00_introduction.html">導入：Flutterアプリの「骨格」を理解する</a></li>
+<li><a href="../02_core_concepts/01_what_is_a_widget.html">#2-1 Flutterの心臓部「ウィジェット（Widget）」とは何か？</a></li>
+<li><a href="../02_core_concepts/02_state_management_basics.html">#2-2 状態管理の基礎</a></li>
+<li><a href="../02_core_concepts/03_async_programming.html">#2-3 非同期プログラミング（Futureとasync/await）</a></li>
+<li><a href="../02_core_concepts/04_introduction_to_routing.html">#2-4 画面遷移の基本（Routing） - Navigatorのpush/pop</a></li>
+<li><a href="../02_core_concepts/05_understanding_build_context.html">#2-5 BuildContextとは何か？ - ウィジェットの「現在地」</a></li>
+<li><a href="../02_core_concepts/06_learning_through_game_development.html">#2-6 ゲーム開発で学ぶFlutterの基本的な考え方</a></li>
+</ul></details>
+<details><summary>3. 料理のプロセス</summary><ul>
+<li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
+<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
+<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
+<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
+<li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
+</ul></details>
+<details open><summary>4. 秘伝のソース</summary><ul>
+<li><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
+<li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
+<li><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
+<li class="current"><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
+</ul></details>
+<details><summary>5. シェフの特別料理</summary><ul>
+<li><a href="../05_chefs_specials/00_introduction.html">はじめに: 非開発者でもアプリが作れる時代</a></li>
+<li><a href="../05_chefs_specials/01_building_chat_app_with_gemini.html">#5-1 AIチャットアプリを作る - Claude API / Gemini API連携</a></li>
+<li><a href="../05_chefs_specials/02_building_image_recognition_app.html">#5-2 画像認識カメラアプリを作る - ML Kit / TFLite活用</a></li>
+<li><a href="../05_chefs_specials/03_building_realtime_app.html">#5-3 リアルタイム共有メモアプリを作る - Supabase Realtime</a></li>
+<li><a href="../05_chefs_specials/04_responsive_design_basics.html">#5-4 レスポンシブデザインの基礎 - あらゆる画面サイズに対応する</a></li>
+<li><a href="../05_chefs_specials/05_building_desktop_app.html">#5-5 デスクトップアプリを作る - Windows / macOS / Linux対応</a></li>
+<li><a href="../05_chefs_specials/06_building_web_app.html">#5-6 Webアプリを作る - ブラウザで動くFlutterアプリ</a></li>
+<li><a href="../05_chefs_specials/07_handling_text_size_changes.html">#5-7 テキストサイズ変更への対応 - ダッシュボードとアクセシビリティ</a></li>
+</ul></details>
+<details><summary>6. 他のシェフとの協業</summary><ul>
+<li><a href="../06_collaboration/01_fork_and_clone.html">#6-1 他の人のリポジトリをFork & Cloneする</a></li>
+<li><a href="../06_collaboration/02_push_and_pull_request.html">#6-2 変更をPushし、Pull Requestで本家に貢献する</a></li>
+<li><a href="../06_collaboration/03_resolving_merge_conflicts.html">#6-3 マージコンフリクト（競合）を解決する</a></li>
+<li><a href="../06_collaboration/04_what_is_byoa_development.html">#6-4 BYOA開発とは - 自分たちで課題を解決する新しい形</a></li>
+<li><a href="../06_collaboration/05_byoa_case_study_childcare_app.html">#6-5 【事例研究】育児・発達支援アプリをBYOAで開発する</a></li>
+<li><a href="../06_collaboration/06_byoa_case_study_dev_tools.html">#6-6 チャットだけで自分用のWebアプリを作る</a></li>
+<li><a href="../06_collaboration/07_evolve_with_collaboration.html">#6-7 コラボレーションでアプリを進化させる</a></li>
+<li><a href="../06_collaboration/08_mcp_fundamentals.html">#6-8 MCP（Model Context Protocol）でClaudeを拡張する</a></li>
+<li><a href="../06_collaboration/09_mcp_practical_applications.html">#6-9 実践的なMCP活用でBYOAアプリを進化させる</a></li>
+</ul></details>
+<details><summary>7. 救急箱</summary><ul>
+<li><a href="../07_troubleshooting/01_fix_gradle_metadata_error.html">#7-1 Could not read workspace metadata エラーを解決する</a></li>
+<li><a href="../07_troubleshooting/02_advanced_build_troubleshooting.html">#7-2 Flutterビルドエラー上級編</a></li>
+<li><a href="../07_troubleshooting/03_understanding_null_safety_errors.html">#7-3 Null check operator used on a null valueエラーを理解し、解決する</a></li>
+<li><a href="../07_troubleshooting/04_ai_development_troubleshooting.html">#7-4 AIとの開発で起こる典型的なトラブルと対処法</a></li>
+</ul></details>
+<details><summary>8. BFFとサーバーサイドDart</summary><ul>
+<li><a href="../08_backend_for_frontend_with_ai/01_why_dart_for_backend.html">#8-1 なぜDartでバックエンドを作るのか？ (BFFの概念)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/02_choosing_backend_framework.html">#8-2 Dartバックエンドフレームワークの選定</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/03_building_simple_api_with_dart_frog.html">#8-3 AIと作るシンプルなREST API (Dart Frog編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/04_sharing_code_between_flutter_and_backend.html">#8-4 FlutterアプリとDartバックエンドでコードを共有する</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/05_full_stack_development_with_serverpod.html">#8-5 AIと創るフルスタック認証 (Serverpod編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/06_realtime_communication_with_websockets.html">#8-6 AIと実装するリアルタイム通信 (WebSocket編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
+</ul></details>
+<details><summary>9. 設計とプロトタイピング</summary><ul>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="4-9-ai">レシピ#4-9: AIのトークン消費を抑える実践テクニック</h1>
+<h2 id="_1">💡 まず知っておくべきこと：料金プランの選択肢</h2>
+<h3 id="claude-pro">Claude Proで使える機能</h3>
+<p><strong>Claude Pro（定額$20/月）で利用可能：</strong>
+- ✅ ターミナル（CLI）
+- ✅ VS Code、Cursor、Windsurf
+- ✅ Claude Code（GitHub連携版）
+- ✅ 全機能が利用可能</p>
+<p>参考: https://www.anthropic.com/pricing</p>
+<hr />
+<h3 id="_2">個人開発者の選択肢</h3>
+<p><strong>1. Claude Pro $20/月（定額プラン）</strong></p>
+<p>✅ <strong>こんな人におすすめ：</strong>
+- 毎日安定してコードを書く
+- トークン消費を気にしたくない
+- 月額固定費で予算管理したい</p>
+<p>⚠️ <strong>注意：</strong>
+- 使用量上限あり（一般的な個人開発には十分）
+- 本格的に大量のコードを書く場合は上限に達する可能性</p>
+<hr />
+<p><strong>2. Cursor Pro + Claude Pro の組み合わせ</strong></p>
+<p>個人開発者に人気の組み合わせ：
+- <strong>Cursor Pro:</strong> IDE機能とプレミアムリクエスト
+- <strong>Claude Pro:</strong> Claude.ai と Claude Code が定額で使える（API利用は別途従量課金）</p>
+<p>両方合わせて月額$40程度で、快適な開発環境が整います。</p>
+<hr />
+<p><strong>3. Claude MAX（上位プラン）</strong></p>
+<p>✅ <strong>こんな人に必要：</strong>
+- 本格的に大量のコードを書く
+- Claude Proの上限では足りない
+- プロフェッショナル開発者</p>
+<hr />
+<p><strong>4. 従量課金（API直接利用）</strong></p>
+<p>✅ <strong>こんな人に適している：</strong>
+- 受託作業で日によってコード量が大きく変動する
+- 使用量が不定期
+- 細かいコスト管理が必要</p>
+<p>💰 <strong>料金：</strong>
+- Opus 4.5: $5/1M入力, $25/1M出力
+- Sonnet 4.5: $3/1M入力, $15/1M出力</p>
+<hr />
+<h2 id="_3">🎯 このガイドの位置づけ</h2>
+<p><strong>どのプランを使っていても、効率的なAIの使い方は重要です：</strong></p>
+<ul>
+<li>適切なツール選択（Composer / Chat / Inline Edit）</li>
+<li>無駄な往復を減らす</li>
+<li>トークン消費を抑える = 生産性向上</li>
+</ul>
+<p>以下では、効率的なAI活用テクニックを学びます。</p>
+<hr />
+<h2 id="_4">💰 従量課金を使う場合のコスト</h2>
+<h3 id="_5">コストの現実</h3>
+<p><strong>Claude API料金（2025年12月時点）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>モデル</th>
+<th>入力トークン</th>
+<th>出力トークン</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Opus 4.5</strong></td>
+<td>$5/1M tokens</td>
+<td>$25/1M tokens</td>
+</tr>
+<tr>
+<td><strong>Sonnet 4.5</strong></td>
+<td>$3/1M tokens</td>
+<td>$15/1M tokens</td>
+</tr>
+</tbody>
+</table>
+<p><strong>例：</strong> 10,000トークンのコンテキスト（約7,500ワード）で100回の対話：
+- <strong>Opus 4.5:</strong> 約$30
+- <strong>Sonnet 4.5:</strong> 約$18</p>
+<p><strong>個人開発での月間コスト試算：</strong>
+- 毎日10回の対話 × 30日 = 月間300回
+- <strong>Opus 4.5のみ:</strong> 約$90/月
+- <strong>Sonnet 4.5のみ:</strong> 約$54/月
+- <strong>効率的な使い分け（Sonnet 80% / Opus 20%）:</strong> 約$60/月</p>
+<p><strong>効率的な使い方を知ることで、無駄なコストを抑えられます。</strong></p>
+<hr />
+<h2 id="_6">🎯 トークン節約の基本原則</h2>
+<h3 id="1">原則1: 必要最小限のコンテキストを渡す</h3>
+<p><strong>❌ 悪い例：</strong></p>
+<pre><code>Composer（Ctrl+I）で全プロジェクトを参照：
+「アプリ全体を見て、ボタンの色を赤に変更してください」
+→ 不要なファイルまで全て読み込まれる
+</code></pre>
+<p><strong>✅ 良い例：</strong></p>
+<pre><code>Inline Edit（Ctrl+K）で該当行を選択：
+「このボタンを赤色にしてください」
+→ 必要な部分だけを処理
+</code></pre>
+<p><strong>削減効果：</strong> 90%以上のトークン節約</p>
+<hr />
+<h3 id="2">原則2: 適切なツールを選ぶ</h3>
+<table>
+<thead>
+<tr>
+<th>機能</th>
+<th>トークン消費</th>
+<th>使うべき場面</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Inline Edit（Ctrl+K）</strong></td>
+<td>⭐ 最小</td>
+<td>小さな修正・1箇所の変更</td>
+</tr>
+<tr>
+<td><strong>Chat（Ctrl+L）</strong></td>
+<td>⭐⭐ 小〜中</td>
+<td>質問・相談・エラー調査</td>
+</tr>
+<tr>
+<td><strong>Composer（Ctrl+I）</strong></td>
+<td>⭐⭐⭐⭐⭐ 最大</td>
+<td>複数ファイルの変更・新規ファイル作成</td>
+</tr>
+</tbody>
+</table>
+<p><strong>基本ルール：</strong>
+- 小さな変更 → Inline Edit
+- 質問・相談 → Chat
+- 大規模な実装 → Composer</p>
+<hr />
+<h3 id="3">原則3: モデルを使い分ける</h3>
+<p><strong>Opus 4.5（高コスト）を使うべき場面：</strong>
+- 複雑なアーキテクチャ設計
+- 大規模なリファクタリング
+- 難しいバグの調査
+- 初めての技術への挑戦</p>
+<p><strong>Sonnet 4.5（低コスト）で十分な場面：</strong>
+- 簡単なUI実装
+- 定型的なコード生成
+- エラーメッセージの解読
+- 小さな修正・調整</p>
+<p><strong>削減効果：</strong> 80%のコスト削減（同じ作業でも）</p>
+<hr />
+<h2 id="_7">🛠️ 実践テクニック</h2>
+<h3 id="1_1">テクニック1: @マークを戦略的に使う</h3>
+<p><strong>❌ 無駄なコンテキスト：</strong></p>
+<pre><code>Composer（Ctrl+I）で：
+「アプリ全体を見て、home_page.dartのボタンを修正してください」
+→ プロジェクト全体が読み込まれる（数千〜数万トークン）
+</code></pre>
+<p><strong>✅ 必要なファイルだけ参照：</strong></p>
+<pre><code>Composer（Ctrl+I）で：
+「@lib/home_page.dart を見て、ボタンを修正してください」
+→ 1ファイルだけ読み込み（数百トークン）
+</code></pre>
+<p><strong>削減効果：</strong> 90%以上のトークン節約</p>
+<hr />
+<h3 id="2_1">テクニック2: 段階的に質問する</h3>
+<p><strong>❌ 一度に全てを聞く：</strong></p>
+<pre><code>Chat（Ctrl+L）で：
+「Flutterの状態管理について、setState、Provider、Riverpod、BLoC、GetXの
+違いを詳しく説明してください。それぞれのメリット・デメリット、使い分け、
+サンプルコード、ベストプラクティス、アンチパターンも教えてください」
+→ 膨大な回答（数千トークン）
+</code></pre>
+<p><strong>✅ 必要なことだけ聞く：</strong></p>
+<pre><code>Chat（Ctrl+L）で：
+「FlutterでsetStateとProviderの違いを簡潔に教えてください」
+→ 必要な情報だけ（数百トークン）
+</code></pre>
+<p><strong>削減効果：</strong> 70〜80%のトークン節約</p>
+<hr />
+<h3 id="3_1">テクニック3: プロンプトを具体的にする</h3>
+<p><strong>❌ 曖昧な指示（往復が増える）：</strong></p>
+<pre><code>Composer（Ctrl+I）で：
+「TODOアプリを作ってください」
+
+Claude: 「どのような機能が必要ですか？」
+あなた: 「TODOの追加と削除」
+Claude: 「データはどこに保存しますか？」
+あなた: 「SharedPreferencesで」
+→ 3往復（トークン3倍）
+</code></pre>
+<p><strong>✅ 具体的な指示（1回で完了）：</strong></p>
+<pre><code>Composer（Ctrl+I）で：
+「TODOアプリを作ってください。機能：TODOの追加・削除・完了チェック。
+データ保存：SharedPreferences。UI：Material Design。」
+
+Claude: [実装を開始]
+→ 1往復のみ
+</code></pre>
+<p><strong>削減効果：</strong> 60〜70%のトークン節約</p>
+<hr />
+<h3 id="4">テクニック4: 小さく実装して確認する</h3>
+<p><strong>❌ 大規模な実装を一度に依頼：</strong></p>
+<pre><code>Composer（Ctrl+I）で：
+「TODOアプリを完全に実装してください。ホーム画面、詳細画面、設定画面、
+データベース、API通信、認証、通知、テーマ切り替え、多言語対応も。」
+→ 実装後に問題発覚 → 大規模な修正が必要（トークン大量消費）
+</code></pre>
+<p><strong>✅ 小さく作って確認：</strong></p>
+<pre><code>1. Composer（Ctrl+I）で：「TODOのホーム画面だけ作成」
+   → 確認 → OK
+
+2. Composer（Ctrl+I）で：「SharedPreferencesでの保存機能を追加」
+   → 確認 → OK
+
+3. Composer（Ctrl+I）で：「削除機能を追加」
+   → 確認 → OK
+</code></pre>
+<p><strong>削減効果：</strong> 失敗時の無駄なトークンを削減</p>
+<hr />
+<h3 id="5">テクニック5: エラーは最小限の情報で相談</h3>
+<p><strong>❌ 全ての情報をコピペ：</strong></p>
+<pre><code>Chat（Ctrl+L）で：
+[エラーログ全文をコピペ（500行）]
+[該当ファイル全文をコピペ（300行）]
+[pubspec.yaml全文をコピペ（100行）]
+「このエラーを修正してください」
+→ 900行のコンテキスト（数千トークン）
+</code></pre>
+<p><strong>✅ エラーの核心だけ送る：</strong></p>
+<pre><code>Chat（Ctrl+L）で：
+「以下のエラーが出ました：
+The method 'setState' isn't defined for the class 'MyWidget'
+
+該当コード：
+@lib/home_page.dart の50行目付近を見てください
+」
+→ 必要最小限（数百トークン）
+</code></pre>
+<p><strong>削減効果：</strong> 80〜90%のトークン節約</p>
+<hr />
+<h3 id="6-chat">テクニック6: Chat履歴をリセットする</h3>
+<p><strong>Chatの履歴は累積する：</strong></p>
+<pre><code>1回目の質問: 100トークン
+2回目の質問: 100 + 前回の履歴200トークン = 300トークン
+3回目の質問: 100 + 前回の履歴500トークン = 600トークン
+</code></pre>
+<p><strong>新しいトピックは新しいChatで：</strong>
+- 無関係な話題は履歴をクリアしてから質問
+- Cursor: Chat画面の「New Chat」ボタン
+- または Ctrl+L で新しいChatを開始</p>
+<p><strong>削減効果：</strong> 50%以上のトークン節約（長い対話の場合）</p>
+<hr />
+<h2 id="_8">📊 実践例：トークン消費の比較</h2>
+<h3 id="1_2">ケース1: ボタンの色を変更</h3>
+<p><strong>❌ 非効率な方法（約5,000トークン）：</strong></p>
+<pre><code>1. Composer（Ctrl+I）でプロジェクト全体を読み込み
+2. 「ボタンの色を変更してください」
+3. Claudeが全ファイルを解析
+4. 変更を提案
+</code></pre>
+<p><strong>✅ 効率的な方法（約50トークン）：</strong></p>
+<pre><code>1. 該当行を選択
+2. Inline Edit（Ctrl+K）で「このボタンを赤色にして」
+3. 即座に変更
+</code></pre>
+<p><strong>削減率：</strong> 99%</p>
+<hr />
+<h3 id="2_2">ケース2: エラー修正</h3>
+<p><strong>❌ 非効率な方法（約8,000トークン）：</strong></p>
+<pre><code>1. Composer（Ctrl+I）で：
+   「プロジェクト全体を見て、エラーを探して修正してください」
+2. 全ファイルを解析
+3. エラーを発見
+4. 修正提案
+</code></pre>
+<p><strong>✅ 効率的な方法（約500トークン）：</strong></p>
+<pre><code>1. エラーログをコピー
+2. Chat（Ctrl+L）で：
+   「このエラーの原因を教えてください：
+   [エラーメッセージ]」
+3. 原因を理解
+4. Inline Edit（Ctrl+K）で該当箇所を修正
+</code></pre>
+<p><strong>削減率：</strong> 94%</p>
+<hr />
+<h3 id="3_2">ケース3: 新しい画面の作成</h3>
+<p><strong>❌ 非効率な方法（約15,000トークン）：</strong></p>
+<pre><code>1. Composer（Ctrl+I）で全プロジェクトを読み込み
+2. 曖昧な指示：「設定画面を作ってください」
+3. Claudeが詳細を質問（往復3回）
+4. 実装
+</code></pre>
+<p><strong>✅ 効率的な方法（約3,000トークン）：</strong></p>
+<pre><code>1. Composer（Ctrl+I）で：
+   「@lib/main.dart を参照して、以下の設定画面を作成してください：
+   - ファイル名: lib/screens/settings_page.dart
+   - 機能: ダークモード切り替え、通知ON/OFF
+   - データ保存: SharedPreferences」
+2. 1回で実装完了
+</code></pre>
+<p><strong>削減率：</strong> 80%</p>
+<hr />
+<h2 id="_9">🎓 トークン節約のチェックリスト</h2>
+<h3 id="_10">実装前のチェック</h3>
+<ul>
+<li>[ ] この作業にComposerは本当に必要か？（Inline EditやChatで済まないか？）</li>
+<li>[ ] 参照するファイルを@マークで明示的に指定したか？</li>
+<li>[ ] プロンプトは具体的か？（往復を減らせるか？）</li>
+<li>[ ] Sonnet 4.5で十分な作業か？（Opusが必要か？）</li>
+</ul>
+<h3 id="_11">実装中のチェック</h3>
+<ul>
+<li>[ ] 小さく実装して確認しているか？（大規模な失敗を避けられるか？）</li>
+<li>[ ] 不要なChat履歴を引きずっていないか？</li>
+<li>[ ] エラー情報は必要最小限か？（全文コピペしていないか？）</li>
+</ul>
+<h3 id="_12">実装後のチェック</h3>
+<ul>
+<li>[ ] 次回のために、効率的だった方法をメモしたか？</li>
+<li>[ ] 同じ質問を何度もしていないか？（よくある質問は記録しておく）</li>
+</ul>
+<hr />
+<h2 id="_13">💡 モデル別の使い分け戦略</h2>
+<h3 id="sonnet-45">Sonnet 4.5を使う場面（コスト効率重視）</h3>
+<p><strong>日常的な開発作業：</strong>
+- UI実装（ボタン、リスト、フォームなど）
+- 定型的なコード生成（モデルクラス、APIクライアントなど）
+- エラーメッセージの解読
+- 簡単なリファクタリング
+- コードレビュー
+- ドキュメント作成</p>
+<p><strong>コスト：</strong> 約$3/100万入力トークン</p>
+<hr />
+<h3 id="opus-45">Opus 4.5を使う場面（品質重視）</h3>
+<p><strong>複雑な作業：</strong>
+- アーキテクチャ設計
+- 複雑なバグの調査
+- 大規模リファクタリング
+- 新しい技術の導入
+- パフォーマンス最適化
+- セキュリティレビュー</p>
+<p><strong>コスト：</strong> 約$5/100万入力トークン</p>
+<p><strong>戦略：</strong>
+- 全作業の80%をSonnet、20%をOpusにすることで、コストを効率化できる</p>
+<hr />
+<h2 id="_14">🚀 実践的な節約ワークフロー</h2>
+<h3 id="1_3">ワークフロー1: 新機能の実装</h3>
+<pre><code>1. 【Chat + Sonnet】設計を相談（低コスト）
+   ↓
+2. 【Composer + Sonnet】基本実装（中コスト）
+   ↓
+3. 【Inline Edit + Sonnet】細かい調整（超低コスト）
+   ↓
+4. 【Chat + Opus】複雑な問題の相談（必要時のみ）
+</code></pre>
+<p><strong>効率的なコスト管理が可能です。</strong></p>
+<hr />
+<h3 id="2_3">ワークフロー2: バグ修正</h3>
+<pre><code>1. エラーログを確認
+   ↓
+2. 【Chat + Sonnet】エラーの原因を質問（低コスト）
+   ↓
+3. 【Inline Edit + Sonnet】該当箇所を修正（超低コスト）
+   ↓
+4. （解決しない場合）【Chat + Opus】深い調査
+</code></pre>
+<p><strong>適切なツール選択で、無駄なトークン消費を避けられます。</strong></p>
+<hr />
+<h2 id="_15">📈 トークン消費の可視化</h2>
+<h3 id="cursor">Cursorでの確認方法</h3>
+<p><strong>Cursor Settings &gt; Usage &gt; Token Usage</strong>
+- 今月の消費トークン数を確認
+- モデル別の使用状況
+- コスト推定</p>
+<p><strong>定期的にチェックして、無駄な消費がないか確認しましょう。</strong></p>
+<hr />
+<h2 id="_16">⚠️ やってはいけないこと</h2>
+<h3 id="1-composer">❌ アンチパターン1: 全てをComposerで処理</h3>
+<pre><code>ボタンの色変更 → Composer（数千トークン）
+変数名の変更 → Composer（数千トークン）
+コメント追加 → Composer（数千トークン）
+</code></pre>
+<p><strong>正解：</strong> 小さな変更はInline Edit（数十トークン）</p>
+<hr />
+<h3 id="2-opus">❌ アンチパターン2: 常にOpusを使う</h3>
+<pre><code>簡単なUI実装 → Opus（高コスト）
+エラー解読 → Opus（高コスト）
+ドキュメント作成 → Opus（高コスト）
+</code></pre>
+<p><strong>正解：</strong> 日常作業はSonnet、複雑な作業だけOpus</p>
+<hr />
+<h3 id="3_3">❌ アンチパターン3: 曖昧な指示で何度も往復</h3>
+<pre><code>「アプリを作って」
+「どんな機能？」
+「TODOアプリ」
+「どこに保存？」
+「SharedPreferences」
+→ 3往復（トークン3倍）
+</code></pre>
+<p><strong>正解：</strong> 最初から具体的に指示（1往復）</p>
+<hr />
+<h2 id="_17">📝 まとめ</h2>
+<p><strong>トークン節約の3大原則：</strong></p>
+<ol>
+<li>
+<p><strong>適切なツールを選ぶ</strong>
+   - 小さな変更 → Inline Edit
+   - 質問・相談 → Chat
+   - 大規模実装 → Composer</p>
+</li>
+<li>
+<p><strong>必要最小限のコンテキスト</strong>
+   - @マークで明示的に指定
+   - エラーは核心だけ送る
+   - Chat履歴をリセット</p>
+</li>
+<li>
+<p><strong>モデルを使い分ける</strong>
+   - 日常作業 → Sonnet 4.5（80%）
+   - 複雑な作業 → Opus 4.5（20%）</p>
+</li>
+</ol>
+<p><strong>これらのテクニックで、無駄なコストを抑えながら、生産性を最大化できます。</strong></p>
+<p>効率的なAI活用は、開発スキルの一部です。賢く使って、コストと生産性の両方を最適化しましょう。</p>
+<hr />
+<p><strong>次のステップ:</strong> これらのテクニックを実際の開発で実践してみましょう。最初は意識的に、やがて自然にできるようになります。</p>
+<p>➡️ <strong>関連レシピ:</strong>
+- <a href="01_cursor_workflow.html"><code>#4-1: Cursorを使った効率的な開発ワークフロー</code></a>
+- <a href="../01_the_kitchen/02_ai_development_tools.html"><code>#1-2: AI開発ツールの導入</code></a></p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

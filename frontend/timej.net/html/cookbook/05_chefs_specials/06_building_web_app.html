@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ケーススタディ#5-6: Webアプリを作る - ブラウザで動くFlutterアプリ - AI x Flutter Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flutter Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/ai-x-flutter/cookbook">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. キッチンの準備</summary><ul>
+<li><a href="../01_the_kitchen/01_setting_up_flutter.html">#1-1 Flutter開発環境の準備（キッチンのセットアップ）</a></li>
+<li><a href="../01_the_kitchen/02_ai_development_tools.html">#1-2 AI開発ツールの導入</a></li>
+<li><a href="../01_the_kitchen/03_creating_first_app.html">#1-3 最初のFlutterアプリ作成とプロジェクト探検</a></li>
+<li><a href="../01_the_kitchen/04_ios_development_setup.html">#1-4 iOS開発の準備とセットアップ</a></li>
+<li><a href="../01_the_kitchen/05_project_identity_and_assets.html">#1-5 アプリのIDとアセットの準備</a></li>
+<li><a href="../01_the_kitchen/06_managing_project_with_github.html">#1-6 自分のFlutterプロジェクトをGitHubで管理する</a></li>
+<li><a href="../01_the_kitchen/07_authenticating_with_github_cli.html">#1-7 GitHub CLIでPCを認証する</a></li>
+</ul></details>
+<details><summary>2. Flutterの重要概念</summary><ul>
+<li><a href="../02_core_concepts/00_introduction.html">導入：Flutterアプリの「骨格」を理解する</a></li>
+<li><a href="../02_core_concepts/01_what_is_a_widget.html">#2-1 Flutterの心臓部「ウィジェット（Widget）」とは何か？</a></li>
+<li><a href="../02_core_concepts/02_state_management_basics.html">#2-2 状態管理の基礎</a></li>
+<li><a href="../02_core_concepts/03_async_programming.html">#2-3 非同期プログラミング（Futureとasync/await）</a></li>
+<li><a href="../02_core_concepts/04_introduction_to_routing.html">#2-4 画面遷移の基本（Routing） - Navigatorのpush/pop</a></li>
+<li><a href="../02_core_concepts/05_understanding_build_context.html">#2-5 BuildContextとは何か？ - ウィジェットの「現在地」</a></li>
+<li><a href="../02_core_concepts/06_learning_through_game_development.html">#2-6 ゲーム開発で学ぶFlutterの基本的な考え方</a></li>
+</ul></details>
+<details><summary>3. 料理のプロセス</summary><ul>
+<li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
+<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
+<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
+<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
+<li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
+</ul></details>
+<details><summary>4. 秘伝のソース</summary><ul>
+<li><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
+<li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
+<li><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
+</ul></details>
+<details open><summary>5. シェフの特別料理</summary><ul>
+<li><a href="../05_chefs_specials/00_introduction.html">はじめに: 非開発者でもアプリが作れる時代</a></li>
+<li><a href="../05_chefs_specials/01_building_chat_app_with_gemini.html">#5-1 AIチャットアプリを作る - Claude API / Gemini API連携</a></li>
+<li><a href="../05_chefs_specials/02_building_image_recognition_app.html">#5-2 画像認識カメラアプリを作る - ML Kit / TFLite活用</a></li>
+<li><a href="../05_chefs_specials/03_building_realtime_app.html">#5-3 リアルタイム共有メモアプリを作る - Supabase Realtime</a></li>
+<li><a href="../05_chefs_specials/04_responsive_design_basics.html">#5-4 レスポンシブデザインの基礎 - あらゆる画面サイズに対応する</a></li>
+<li><a href="../05_chefs_specials/05_building_desktop_app.html">#5-5 デスクトップアプリを作る - Windows / macOS / Linux対応</a></li>
+<li class="current"><a href="../05_chefs_specials/06_building_web_app.html">#5-6 Webアプリを作る - ブラウザで動くFlutterアプリ</a></li>
+<li><a href="../05_chefs_specials/07_handling_text_size_changes.html">#5-7 テキストサイズ変更への対応 - ダッシュボードとアクセシビリティ</a></li>
+</ul></details>
+<details><summary>6. 他のシェフとの協業</summary><ul>
+<li><a href="../06_collaboration/01_fork_and_clone.html">#6-1 他の人のリポジトリをFork & Cloneする</a></li>
+<li><a href="../06_collaboration/02_push_and_pull_request.html">#6-2 変更をPushし、Pull Requestで本家に貢献する</a></li>
+<li><a href="../06_collaboration/03_resolving_merge_conflicts.html">#6-3 マージコンフリクト（競合）を解決する</a></li>
+<li><a href="../06_collaboration/04_what_is_byoa_development.html">#6-4 BYOA開発とは - 自分たちで課題を解決する新しい形</a></li>
+<li><a href="../06_collaboration/05_byoa_case_study_childcare_app.html">#6-5 【事例研究】育児・発達支援アプリをBYOAで開発する</a></li>
+<li><a href="../06_collaboration/06_byoa_case_study_dev_tools.html">#6-6 チャットだけで自分用のWebアプリを作る</a></li>
+<li><a href="../06_collaboration/07_evolve_with_collaboration.html">#6-7 コラボレーションでアプリを進化させる</a></li>
+<li><a href="../06_collaboration/08_mcp_fundamentals.html">#6-8 MCP（Model Context Protocol）でClaudeを拡張する</a></li>
+<li><a href="../06_collaboration/09_mcp_practical_applications.html">#6-9 実践的なMCP活用でBYOAアプリを進化させる</a></li>
+</ul></details>
+<details><summary>7. 救急箱</summary><ul>
+<li><a href="../07_troubleshooting/01_fix_gradle_metadata_error.html">#7-1 Could not read workspace metadata エラーを解決する</a></li>
+<li><a href="../07_troubleshooting/02_advanced_build_troubleshooting.html">#7-2 Flutterビルドエラー上級編</a></li>
+<li><a href="../07_troubleshooting/03_understanding_null_safety_errors.html">#7-3 Null check operator used on a null valueエラーを理解し、解決する</a></li>
+<li><a href="../07_troubleshooting/04_ai_development_troubleshooting.html">#7-4 AIとの開発で起こる典型的なトラブルと対処法</a></li>
+</ul></details>
+<details><summary>8. BFFとサーバーサイドDart</summary><ul>
+<li><a href="../08_backend_for_frontend_with_ai/01_why_dart_for_backend.html">#8-1 なぜDartでバックエンドを作るのか？ (BFFの概念)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/02_choosing_backend_framework.html">#8-2 Dartバックエンドフレームワークの選定</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/03_building_simple_api_with_dart_frog.html">#8-3 AIと作るシンプルなREST API (Dart Frog編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/04_sharing_code_between_flutter_and_backend.html">#8-4 FlutterアプリとDartバックエンドでコードを共有する</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/05_full_stack_development_with_serverpod.html">#8-5 AIと創るフルスタック認証 (Serverpod編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/06_realtime_communication_with_websockets.html">#8-6 AIと実装するリアルタイム通信 (WebSocket編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
+</ul></details>
+<details><summary>9. 設計とプロトタイピング</summary><ul>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="5-6-web-flutter">ケーススタディ#5-6: Webアプリを作る - ブラウザで動くFlutterアプリ</h1>
+<h2 id="_1">このケーススタディで作るもの</h2>
+<p><strong>Cursor + Claude</strong>を使って、ブラウザで動作するFlutter Webアプリを作り、Firebase HostingやGitHub Pagesにデプロイします。</p>
+<p><strong>機能:</strong>
+- ✅ レスポンシブなWebレイアウト
+- ✅ URLルーティング
+- ✅ SEO対策（メタタグ、タイトル）
+- ✅ PWA対応（オフライン動作）
+- ✅ Webブラウザの機能活用
+- ✅ ホスティングとデプロイ</p>
+<p><strong>技術スタック:</strong>
+- Flutter 3.27+ (Web)
+- go_router（URLルーティング）
+- url_strategy（URLクリーン化）
+- Firebase Hosting / GitHub Pages
+- PWA（Progressive Web App）</p>
+<p><strong>対応ブラウザ:</strong>
+- 🌐 Chrome / Edge
+- 🦊 Firefox
+- 🧭 Safari
+- 🎭 Opera</p>
+<h2 id="_2">完成イメージ</h2>
+<pre><code>┌──────────────────────────────────────────────┐
+│ https://myapp.web.app                        │
+├──────────────────────────────────────────────┤
+│  [Logo]  Home  About  Contact    [Login]    │ ← ナビゲーションバー
+├──────────────────────────────────────────────┤
+│                                              │
+│     Welcome to My Web App!                   │
+│                                              │
+│     [Get Started]  [Learn More]              │
+│                                              │
+│     ・モバイルからデスクトップまで対応      │
+│     ・高速でスムーズな動作                  │
+│     ・オフラインでも動作                    │
+│                                              │
+├──────────────────────────────────────────────┤
+│ © 2025 My App  |  Privacy  |  Terms          │
+└──────────────────────────────────────────────┘
+</code></pre>
+<h2 id="step-1-web">Step 1: Webサポートの有効化</h2>
+<h3 id="web">既存プロジェクトでWebを有効にする</h3>
+<pre><code class="language-bash"># Webサポートを有効化
+flutter config --enable-web
+
+# Webプラットフォームを追加
+flutter create --platforms=web .
+
+# 確認
+flutter devices
+</code></pre>
+<p><strong>出力例:</strong></p>
+<pre><code>Chrome (web) • chrome • web-javascript • Google Chrome 120.0
+Edge (web) • edge • web-javascript • Microsoft Edge 120.0
+</code></pre>
+<h3 id="_3">プロジェクト構造の確認</h3>
+<pre><code>my_web_app/
+├── lib/
+├── web/          ← Web固有ファイル
+│   ├── index.html
+│   ├── manifest.json
+│   └── icons/
+└── pubspec.yaml
+</code></pre>
+<h2 id="step-2-url">Step 2: URLルーティングの実装</h2>
+<h3 id="go_router">go_routerのセットアップ</h3>
+<p><strong>Cursorに以下をリクエスト:</strong></p>
+<pre><code>pubspec.yamlに以下のパッケージを追加してください：
+- go_router: ^14.0.0
+- url_strategy: ^0.3.0
+</code></pre>
+<h3 id="_4">ルーティング設定</h3>
+<p><strong>Cursorに以下をリクエスト:</strong></p>
+<pre><code>go_routerを使って、以下のルートを設定してください：
+- / (ホームページ)
+- /about (アバウトページ)
+- /contact (コンタクトページ)
+- /blog/:id (ブログ詳細、動的ルート)
+
+URLから#を除去するurl_strategyも設定してください。
+</code></pre>
+<p><strong>生成されるコード例:</strong></p>
+<pre><code class="language-dart">import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:url_strategy/url_strategy.dart';
+
+void main() {
+  // URLから#を除去
+  setPathUrlStrategy();
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      title: 'My Web App',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      routerConfig: _router,
+    );
+  }
+
+  static final GoRouter _router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) =&gt; const HomePage(),
+      ),
+      GoRoute(
+        path: '/about',
+        builder: (context, state) =&gt; const AboutPage(),
+      ),
+      GoRoute(
+        path: '/contact',
+        builder: (context, state) =&gt; const ContactPage(),
+      ),
+      GoRoute(
+        path: '/blog/:id',
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          return BlogDetailPage(id: id);
+        },
+      ),
+    ],
+  );
+}
+</code></pre>
+<h2 id="step-3-web">Step 3: Webナビゲーションバーの実装</h2>
+<h3 id="_5">レスポンシブなナビゲーション</h3>
+<p><strong>Cursorに以下をリクエスト:</strong></p>
+<pre><code>以下の仕様でナビゲーションバーを作成してください：
+- デスクトップ: 横並びメニュー
+- モバイル: ハンバーガーメニュー
+- ロゴ、メニュー項目、ログインボタン
+- 現在のページをハイライト
+</code></pre>
+<p><strong>生成されるコード例:</strong></p>
+<pre><code class="language-dart">class ResponsiveNavBar extends StatelessWidget {
+  const ResponsiveNavBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width &lt; 600;
+
+    return AppBar(
+      title: const Text('My Web App'),
+      actions: isMobile ? null : _buildDesktopMenu(context),
+    );
+  }
+
+  List&lt;Widget&gt; _buildDesktopMenu(BuildContext context) {
+    return [
+      TextButton(
+        onPressed: () =&gt; context.go('/'),
+        child: const Text('Home', style: TextStyle(color: Colors.white)),
+      ),
+      TextButton(
+        onPressed: () =&gt; context.go('/about'),
+        child: const Text('About', style: TextStyle(color: Colors.white)),
+      ),
+      TextButton(
+        onPressed: () =&gt; context.go('/contact'),
+        child: const Text('Contact', style: TextStyle(color: Colors.white)),
+      ),
+      const SizedBox(width: 16),
+      ElevatedButton(
+        onPressed: () {},
+        child: const Text('Login'),
+      ),
+      const SizedBox(width: 16),
+    ];
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const ResponsiveNavBar(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Welcome to My Web App!',
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () =&gt; context.go('/about'),
+              child: const Text('Learn More'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+</code></pre>
+<h2 id="step-4-seo">Step 4: SEO対策</h2>
+<h3 id="indexhtml">index.htmlのメタタグ設定</h3>
+<p><strong>Cursorに以下をリクエスト:</strong></p>
+<pre><code>web/index.htmlに以下のSEO設定を追加してください：
+- タイトル: &quot;My Web App - Flutter Powered&quot;
+- description: &quot;A modern web app built with Flutter&quot;
+- OGP画像設定（SNSシェア用）
+- Googleアナリティクス用の準備
+</code></pre>
+<p><strong>生成されるコード例:</strong></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+
+  &lt;!-- SEO --&gt;
+  &lt;title&gt;My Web App - Flutter Powered&lt;/title&gt;
+  &lt;meta name=&quot;description&quot; content=&quot;A modern web app built with Flutter&quot;&gt;
+  &lt;meta name=&quot;keywords&quot; content=&quot;flutter, web app, modern&quot;&gt;
+
+  &lt;!-- OGP (Open Graph Protocol) --&gt;
+  &lt;meta property=&quot;og:title&quot; content=&quot;My Web App&quot;&gt;
+  &lt;meta property=&quot;og:description&quot; content=&quot;A modern web app built with Flutter&quot;&gt;
+  &lt;meta property=&quot;og:image&quot; content=&quot;https://myapp.web.app/og-image.png&quot;&gt;
+  &lt;meta property=&quot;og:url&quot; content=&quot;https://myapp.web.app&quot;&gt;
+  &lt;meta property=&quot;og:type&quot; content=&quot;website&quot;&gt;
+
+  &lt;!-- Twitter Card --&gt;
+  &lt;meta name=&quot;twitter:card&quot; content=&quot;summary_large_image&quot;&gt;
+  &lt;meta name=&quot;twitter:title&quot; content=&quot;My Web App&quot;&gt;
+  &lt;meta name=&quot;twitter:description&quot; content=&quot;A modern web app built with Flutter&quot;&gt;
+  &lt;meta name=&quot;twitter:image&quot; content=&quot;https://myapp.web.app/twitter-image.png&quot;&gt;
+
+  &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;favicon.png&quot;/&gt;
+  &lt;link rel=&quot;manifest&quot; href=&quot;manifest.json&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;script src=&quot;flutter_bootstrap.js&quot; async&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="step-5-pwaprogressive-web-app">Step 5: PWA（Progressive Web App）対応</h2>
+<h3 id="manifestjson">manifest.jsonの設定</h3>
+<p><strong>Cursorに以下をリクエスト:</strong></p>
+<pre><code>web/manifest.jsonをPWA対応にカスタマイズしてください：
+- アプリ名: &quot;My Web App&quot;
+- ショートカット名: &quot;MyApp&quot;
+- テーマカラー: #2196F3
+- アイコン: 192x192, 512x512
+</code></pre>
+<p><strong>生成されるコード例:</strong></p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;My Web App&quot;,
+  &quot;short_name&quot;: &quot;MyApp&quot;,
+  &quot;description&quot;: &quot;A modern web app built with Flutter&quot;,
+  &quot;start_url&quot;: &quot;/&quot;,
+  &quot;display&quot;: &quot;standalone&quot;,
+  &quot;background_color&quot;: &quot;#FFFFFF&quot;,
+  &quot;theme_color&quot;: &quot;#2196F3&quot;,
+  &quot;orientation&quot;: &quot;portrait-primary&quot;,
+  &quot;icons&quot;: [
+    {
+      &quot;src&quot;: &quot;icons/icon-192.png&quot;,
+      &quot;sizes&quot;: &quot;192x192&quot;,
+      &quot;type&quot;: &quot;image/png&quot;,
+      &quot;purpose&quot;: &quot;any maskable&quot;
+    },
+    {
+      &quot;src&quot;: &quot;icons/icon-512.png&quot;,
+      &quot;sizes&quot;: &quot;512x512&quot;,
+      &quot;type&quot;: &quot;image/png&quot;,
+      &quot;purpose&quot;: &quot;any maskable&quot;
+    }
+  ]
+}
+</code></pre>
+<h3 id="service-worker">Service Workerの有効化</h3>
+<p><strong>web/index.htmlに追加:</strong></p>
+<pre><code class="language-html">&lt;script&gt;
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('flutter_service_worker.js');
+    });
+  }
+&lt;/script&gt;
+</code></pre>
+<h2 id="step-6">Step 6: ローカルでのテスト</h2>
+<h3 id="web_1">Webアプリの起動</h3>
+<pre><code class="language-bash"># 開発サーバーで起動
+flutter run -d chrome
+
+# または特定のブラウザで起動
+flutter run -d edge
+flutter run -d firefox
+
+# ホットリロード有効
+# コードを変更すると自動的にブラウザがリロード
+</code></pre>
+<h3 id="_6">デバッグツール</h3>
+<pre><code class="language-bash"># DevToolsを開く
+flutter run -d chrome
+</code></pre>
+<p><strong>レンダラーについて:</strong>
+現在のFlutter WebはCanvasKitベースのレンダラーが標準で、以前あった<code>--web-renderer</code>フラグ（html/canvaskit/auto）はFlutter 3.29で廃止されました。WebAssembly版を試したい場合は<code>flutter build web --wasm</code>でオプトインできます。</p>
+<h2 id="step-7">Step 7: ビルドとデプロイ</h2>
+<h3 id="_7">リリースビルド</h3>
+<pre><code class="language-bash">flutter build web --release
+
+# 生成物: build/web/
+</code></pre>
+<h3 id="firebase-hosting">Firebase Hostingへのデプロイ</h3>
+<p><strong>Step 7-1: Firebase CLIのインストール</strong></p>
+<pre><code class="language-bash">npm install -g firebase-tools
+firebase login
+</code></pre>
+<p><strong>Step 7-2: Firebaseプロジェクトの初期化</strong></p>
+<pre><code class="language-bash">firebase init hosting
+
+# 質問への回答:
+# - Public directory: build/web
+# - Configure as single-page app: Yes
+# - Automatic builds with GitHub: No（後で設定可能）
+</code></pre>
+<p><strong>Step 7-3: デプロイ</strong></p>
+<pre><code class="language-bash"># ビルド
+flutter build web --release
+
+# デプロイ
+firebase deploy --only hosting
+
+# 出力例:
+# Hosting URL: https://my-app-12345.web.app
+</code></pre>
+<h3 id="github-pages">GitHub Pagesへのデプロイ</h3>
+<p><strong>Step 7-1: リポジトリ設定</strong></p>
+<pre><code class="language-bash"># build/webの内容をgh-pagesブランチにプッシュ
+flutter build web --release --base-href &quot;/リポジトリ名/&quot;
+
+# gh-pagesブランチにデプロイ
+cd build/web
+git init
+git add .
+git commit -m &quot;Deploy to GitHub Pages&quot;
+git branch -M gh-pages
+git remote add origin https://github.com/username/repository.git
+git push -f origin gh-pages
+</code></pre>
+<p><strong>Step 7-2: GitHub Settings</strong></p>
+<ol>
+<li>リポジトリの Settings &gt; Pages</li>
+<li>Source: <code>gh-pages</code> ブランチを選択</li>
+<li>公開URL: <code>https://username.github.io/repository/</code></li>
+</ol>
+<h2 id="step-8">Step 8: パフォーマンス最適化</h2>
+<h3 id="_8">ビルドサイズの最適化</h3>
+<p><strong>Cursorに以下をリクエスト:</strong></p>
+<pre><code>以下のパフォーマンス最適化を実施してください：
+1. 不要なパッケージの削除
+2. 画像の遅延読み込み
+3. コード分割（Deferred loading）
+</code></pre>
+<p><strong>遅延読み込みの例:</strong></p>
+<pre><code class="language-dart">// lib/pages/heavy_page.dart を遅延読み込み
+import 'pages/heavy_page.dart' deferred as heavy;
+
+// 使用時
+ElevatedButton(
+  onPressed: () async {
+    await heavy.loadLibrary();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) =&gt; heavy.HeavyPage()),
+    );
+  },
+  child: const Text('Load Heavy Page'),
+)
+</code></pre>
+<h2 id="step-9-web">Step 9: Web固有の機能</h2>
+<h3 id="url">URLパラメータの取得</h3>
+<pre><code class="language-dart">// URLパラメータの取得（例: /search?q=flutter）
+final uri = Uri.base;
+final query = uri.queryParameters['q']; // &quot;flutter&quot;
+</code></pre>
+<h3 id="_9">ブラウザの履歴操作</h3>
+<pre><code class="language-dart">import 'package:go_router/go_router.dart';
+
+// 戻る
+context.pop();
+
+// 特定のページへ移動
+context.go('/about');
+
+// パラメータ付き
+context.go('/blog/123');
+</code></pre>
+<h3 id="clipboard-api">Clipboard API</h3>
+<pre><code class="language-dart">import 'package:flutter/services.dart';
+
+// コピー
+await Clipboard.setData(ClipboardData(text: 'コピーするテキスト'));
+
+// ペースト
+final data = await Clipboard.getData('text/plain');
+print(data?.text);
+</code></pre>
+<h2 id="_10">まとめ</h2>
+<h3 id="_11">学んだこと</h3>
+<p>✅ <strong>Webサポート</strong>: Flutterアプリのブラウザ対応
+✅ <strong>URLルーティング</strong>: go_routerでのナビゲーション
+✅ <strong>SEO対策</strong>: メタタグとOGP設定
+✅ <strong>PWA対応</strong>: オフライン動作とインストール
+✅ <strong>デプロイ</strong>: Firebase Hosting、GitHub Pages
+✅ <strong>最適化</strong>: ビルドサイズとパフォーマンス</p>
+<h3 id="web_2">Web開発のベストプラクティス</h3>
+<ol>
+<li><strong>レスポンシブ対応</strong>: モバイルからデスクトップまで</li>
+<li><strong>SEO重視</strong>: 検索エンジン最適化</li>
+<li><strong>PWA化</strong>: アプリライクな体験</li>
+<li><strong>軽量化</strong>: 初期読み込みを高速に</li>
+<li><strong>URL設計</strong>: わかりやすく、シェアしやすいURL</li>
+</ol>
+<h3 id="flutter-web">Flutter Webの注意点</h3>
+<p>⚠️ <strong>制限事項:</strong>
+- カメラ、Bluetooth等のネイティブ機能は制限あり
+- ファイルシステムへの直接アクセス不可
+- 初回読み込みに時間がかかる場合がある</p>
+<p>✅ <strong>得意な用途:</strong>
+- ダッシュボード、管理画面
+- ポートフォリオサイト
+- プレゼンテーション
+- 社内ツール</p>
+<h3 id="_12">完成！</h3>
+<p>これで、モバイル、デスクトップ、Webの全てに対応できるようになりました：</p>
+<ul>
+<li><strong>#5-4: レスポンシブデザイン</strong> ✅</li>
+<li><strong>#5-5: デスクトップアプリ</strong> ✅</li>
+<li><strong>#5-6: Webアプリ</strong> ✅</li>
+</ul>
+<p><strong>一つのFlutterコードベースで、あらゆるプラットフォームに展開できる</strong>ことが、Flutterの最大の魅力です！</p>
+<hr />
+<p><strong>おめでとうございます！</strong> あなたは、Flutterのマルチプラットフォーム開発をマスターしました。次のステップでは、これらの知識を活かして実際のプロジェクトを作ってみましょう。</p>
+<p>➡️ <strong>次のレシピへ:</strong> <a href="./07_handling_text_size_changes.html">#5-7: テキストサイズ変更への対応</a></p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

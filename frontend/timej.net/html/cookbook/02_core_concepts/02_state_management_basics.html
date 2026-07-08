@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>重要概念#2-2: 状態管理の基礎 - AI x Flutter Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flutter Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/ai-x-flutter/cookbook">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. キッチンの準備</summary><ul>
+<li><a href="../01_the_kitchen/01_setting_up_flutter.html">#1-1 Flutter開発環境の準備（キッチンのセットアップ）</a></li>
+<li><a href="../01_the_kitchen/02_ai_development_tools.html">#1-2 AI開発ツールの導入</a></li>
+<li><a href="../01_the_kitchen/03_creating_first_app.html">#1-3 最初のFlutterアプリ作成とプロジェクト探検</a></li>
+<li><a href="../01_the_kitchen/04_ios_development_setup.html">#1-4 iOS開発の準備とセットアップ</a></li>
+<li><a href="../01_the_kitchen/05_project_identity_and_assets.html">#1-5 アプリのIDとアセットの準備</a></li>
+<li><a href="../01_the_kitchen/06_managing_project_with_github.html">#1-6 自分のFlutterプロジェクトをGitHubで管理する</a></li>
+<li><a href="../01_the_kitchen/07_authenticating_with_github_cli.html">#1-7 GitHub CLIでPCを認証する</a></li>
+</ul></details>
+<details open><summary>2. Flutterの重要概念</summary><ul>
+<li><a href="../02_core_concepts/00_introduction.html">導入：Flutterアプリの「骨格」を理解する</a></li>
+<li><a href="../02_core_concepts/01_what_is_a_widget.html">#2-1 Flutterの心臓部「ウィジェット（Widget）」とは何か？</a></li>
+<li class="current"><a href="../02_core_concepts/02_state_management_basics.html">#2-2 状態管理の基礎</a></li>
+<li><a href="../02_core_concepts/03_async_programming.html">#2-3 非同期プログラミング（Futureとasync/await）</a></li>
+<li><a href="../02_core_concepts/04_introduction_to_routing.html">#2-4 画面遷移の基本（Routing） - Navigatorのpush/pop</a></li>
+<li><a href="../02_core_concepts/05_understanding_build_context.html">#2-5 BuildContextとは何か？ - ウィジェットの「現在地」</a></li>
+<li><a href="../02_core_concepts/06_learning_through_game_development.html">#2-6 ゲーム開発で学ぶFlutterの基本的な考え方</a></li>
+</ul></details>
+<details><summary>3. 料理のプロセス</summary><ul>
+<li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
+<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
+<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
+<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
+<li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
+</ul></details>
+<details><summary>4. 秘伝のソース</summary><ul>
+<li><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
+<li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
+<li><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
+</ul></details>
+<details><summary>5. シェフの特別料理</summary><ul>
+<li><a href="../05_chefs_specials/00_introduction.html">はじめに: 非開発者でもアプリが作れる時代</a></li>
+<li><a href="../05_chefs_specials/01_building_chat_app_with_gemini.html">#5-1 AIチャットアプリを作る - Claude API / Gemini API連携</a></li>
+<li><a href="../05_chefs_specials/02_building_image_recognition_app.html">#5-2 画像認識カメラアプリを作る - ML Kit / TFLite活用</a></li>
+<li><a href="../05_chefs_specials/03_building_realtime_app.html">#5-3 リアルタイム共有メモアプリを作る - Supabase Realtime</a></li>
+<li><a href="../05_chefs_specials/04_responsive_design_basics.html">#5-4 レスポンシブデザインの基礎 - あらゆる画面サイズに対応する</a></li>
+<li><a href="../05_chefs_specials/05_building_desktop_app.html">#5-5 デスクトップアプリを作る - Windows / macOS / Linux対応</a></li>
+<li><a href="../05_chefs_specials/06_building_web_app.html">#5-6 Webアプリを作る - ブラウザで動くFlutterアプリ</a></li>
+<li><a href="../05_chefs_specials/07_handling_text_size_changes.html">#5-7 テキストサイズ変更への対応 - ダッシュボードとアクセシビリティ</a></li>
+</ul></details>
+<details><summary>6. 他のシェフとの協業</summary><ul>
+<li><a href="../06_collaboration/01_fork_and_clone.html">#6-1 他の人のリポジトリをFork & Cloneする</a></li>
+<li><a href="../06_collaboration/02_push_and_pull_request.html">#6-2 変更をPushし、Pull Requestで本家に貢献する</a></li>
+<li><a href="../06_collaboration/03_resolving_merge_conflicts.html">#6-3 マージコンフリクト（競合）を解決する</a></li>
+<li><a href="../06_collaboration/04_what_is_byoa_development.html">#6-4 BYOA開発とは - 自分たちで課題を解決する新しい形</a></li>
+<li><a href="../06_collaboration/05_byoa_case_study_childcare_app.html">#6-5 【事例研究】育児・発達支援アプリをBYOAで開発する</a></li>
+<li><a href="../06_collaboration/06_byoa_case_study_dev_tools.html">#6-6 チャットだけで自分用のWebアプリを作る</a></li>
+<li><a href="../06_collaboration/07_evolve_with_collaboration.html">#6-7 コラボレーションでアプリを進化させる</a></li>
+<li><a href="../06_collaboration/08_mcp_fundamentals.html">#6-8 MCP（Model Context Protocol）でClaudeを拡張する</a></li>
+<li><a href="../06_collaboration/09_mcp_practical_applications.html">#6-9 実践的なMCP活用でBYOAアプリを進化させる</a></li>
+</ul></details>
+<details><summary>7. 救急箱</summary><ul>
+<li><a href="../07_troubleshooting/01_fix_gradle_metadata_error.html">#7-1 Could not read workspace metadata エラーを解決する</a></li>
+<li><a href="../07_troubleshooting/02_advanced_build_troubleshooting.html">#7-2 Flutterビルドエラー上級編</a></li>
+<li><a href="../07_troubleshooting/03_understanding_null_safety_errors.html">#7-3 Null check operator used on a null valueエラーを理解し、解決する</a></li>
+<li><a href="../07_troubleshooting/04_ai_development_troubleshooting.html">#7-4 AIとの開発で起こる典型的なトラブルと対処法</a></li>
+</ul></details>
+<details><summary>8. BFFとサーバーサイドDart</summary><ul>
+<li><a href="../08_backend_for_frontend_with_ai/01_why_dart_for_backend.html">#8-1 なぜDartでバックエンドを作るのか？ (BFFの概念)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/02_choosing_backend_framework.html">#8-2 Dartバックエンドフレームワークの選定</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/03_building_simple_api_with_dart_frog.html">#8-3 AIと作るシンプルなREST API (Dart Frog編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/04_sharing_code_between_flutter_and_backend.html">#8-4 FlutterアプリとDartバックエンドでコードを共有する</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/05_full_stack_development_with_serverpod.html">#8-5 AIと創るフルスタック認証 (Serverpod編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/06_realtime_communication_with_websockets.html">#8-6 AIと実装するリアルタイム通信 (WebSocket編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
+</ul></details>
+<details><summary>9. 設計とプロトタイピング</summary><ul>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="2-2">重要概念#2-2: 状態管理の基礎</h1>
+<h2 id="_1">はじめに</h2>
+<p>「状態管理」と聞くと難しそうに感じるかもしれませんが、実はとてもシンプルな概念です。</p>
+<p><strong>状態（State）とは、「アプリが覚えておくべき情報」</strong>のことです。</p>
+<p>たとえば：
+- カウンターアプリの「現在の数字」
+- TODOアプリの「TODOリスト」
+- 設定画面の「ダークモードのON/OFF」</p>
+<p>これらの情報を<strong>どこに保存し、どう更新するか</strong>が「状態管理」です。</p>
+<h2 id="_2">なぜ状態管理を学ぶのか？</h2>
+<p>Flutterアプリは、ユーザーの操作に応じて画面が変化します。この変化を実現するには：</p>
+<ol>
+<li><strong>情報を覚えておく</strong>（状態の保持）</li>
+<li><strong>情報が変わったら画面を更新する</strong>（状態の変更）</li>
+</ol>
+<p>この2つができないと、ボタンを押しても何も起こらないアプリになってしまいます。</p>
+<h2 id="statefulwidget">基本中の基本：StatefulWidget</h2>
+<p>Flutterで状態を管理する最もシンプルな方法が<strong>StatefulWidget</strong>です。</p>
+<h3 id="_3">シンプルなカウンターアプリ</h3>
+<pre><code class="language-dart">class CounterWidget extends StatefulWidget {
+  const CounterWidget({super.key});
+
+  @override
+  State&lt;CounterWidget&gt; createState() =&gt; _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State&lt;CounterWidget&gt; {
+  int _counter = 0;  // ← これが「状態」
+
+  void _increment() {
+    setState(() {      // ← setStateで「状態が変わった」と通知
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('カウント: $_counter'),
+        ElevatedButton(
+          onPressed: _increment,
+          child: const Text('+1'),
+        ),
+      ],
+    );
+  }
+}
+</code></pre>
+<h3 id="_4">重要なポイント</h3>
+<ol>
+<li><strong><code>_counter</code></strong> が状態（覚えておきたい情報）</li>
+<li><strong><code>setState(() { ... })</code></strong> で状態を更新</li>
+<li>状態が更新されると、Flutterが自動で画面を再描画</li>
+</ol>
+<p><strong>これだけです！</strong> これが状態管理の基本です。</p>
+<h2 id="_5">状態の種類</h2>
+<p>状態には大きく2種類あります：</p>
+<h3 id="1-widget">1. ローカル状態（Widget内だけで使う）</h3>
+<p>特定のWidget内でのみ使用する状態。</p>
+<p><strong>例：</strong>
+- テキストフィールドの入力内容
+- 展開/折りたたみの状態
+- アニメーションの進行状態</p>
+<p><strong>管理方法:</strong> StatefulWidget</p>
+<h3 id="2-widget">2. 共有状態（複数のWidgetで使う）</h3>
+<p>複数のWidgetで共有する状態。</p>
+<p><strong>例：</strong>
+- ユーザー設定（テーマ、言語）
+- ログイン情報
+- ショッピングカートの中身</p>
+<p><strong>管理方法:</strong> 後で説明（まずはローカル状態から理解しましょう）</p>
+<h2 id="_6">よくある間違い</h2>
+<h3 id="1setstate">❌ 間違い1：setStateを忘れる</h3>
+<pre><code class="language-dart">void _increment() {
+  _counter++;  // ← これだけでは画面が更新されない
+}
+</code></pre>
+<p><strong>正解:</strong></p>
+<pre><code class="language-dart">void _increment() {
+  setState(() {
+    _counter++;  // ← setStateで囲む
+  });
+}
+</code></pre>
+<h3 id="2statelesswidget">❌ 間違い2：StatelessWidgetで状態を持とうとする</h3>
+<pre><code class="language-dart">class MyWidget extends StatelessWidget {
+  int _counter = 0;  // ← StatelessWidgetでは状態を持てない
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('$_counter');
+  }
+}
+</code></pre>
+<p><strong>正解:</strong> 状態が必要なら<strong>StatefulWidget</strong>を使う</p>
+<h2 id="onoff">実践例：ON/OFFスイッチ</h2>
+<pre><code class="language-dart">class ToggleWidget extends StatefulWidget {
+  const ToggleWidget({super.key});
+
+  @override
+  State&lt;ToggleWidget&gt; createState() =&gt; _ToggleWidgetState();
+}
+
+class _ToggleWidgetState extends State&lt;ToggleWidget&gt; {
+  bool _isOn = false;  // ← ON/OFFの状態
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(_isOn ? 'ON' : 'OFF'),
+        Switch(
+          value: _isOn,
+          onChanged: (value) {
+            setState(() {
+              _isOn = value;  // ← 状態を更新
+            });
+          },
+        ),
+      ],
+    );
+  }
+}
+</code></pre>
+<h2 id="widget">ライフサイクル：Widgetの一生</h2>
+<p>StatefulWidgetには「ライフサイクル」があります。</p>
+<pre><code class="language-dart">class MyWidget extends StatefulWidget {
+  @override
+  State&lt;MyWidget&gt; createState() =&gt; _MyWidgetState();
+}
+
+class _MyWidgetState extends State&lt;MyWidget&gt; {
+  @override
+  void initState() {
+    super.initState();
+    // ← Widget作成時に1度だけ呼ばれる
+    //   データの読み込みなどを行う
+  }
+
+  @override
+  void dispose() {
+    // ← Widget破棄時に呼ばれる
+    //   タイマーの停止などを行う
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // ← 画面を描画
+    return Container();
+  }
+}
+</code></pre>
+<h3 id="mounted">重要な注意点：mounted チェック</h3>
+<p>非同期処理（APIからデータを取得するなど）の後は、必ず<code>mounted</code>をチェック：</p>
+<pre><code class="language-dart">Future&lt;void&gt; _fetchData() async {
+  final data = await api.fetch();
+
+  // ← Widgetが破棄されていないか確認
+  if (mounted) {
+    setState(() {
+      _data = data;
+    });
+  }
+}
+</code></pre>
+<p>これを忘れると、エラーが発生します。</p>
+<h2 id="_7">まとめ</h2>
+<p>状態管理の基本：</p>
+<ol>
+<li><strong>状態 = アプリが覚えておく情報</strong></li>
+<li><strong>StatefulWidget</strong> で状態を持つ</li>
+<li><strong>setState()</strong> で状態を更新</li>
+<li><strong>initState</strong> で初期化、<strong>dispose</strong> で後片付け</li>
+<li>非同期処理後は <strong>mounted</strong> をチェック</li>
+</ol>
+<p>これだけ理解できれば、基本的なFlutterアプリを作れます。</p>
+<h2 id="_8">次のステップ</h2>
+<p>複数のWidgetで状態を共有する方法については、別のドキュメントで解説します。</p>
+<p>まずは、StatefulWidgetを使ったシンプルなアプリを作ってみましょう！</p>
+<blockquote>
+<p><strong>🤖 AI活用プロンプト</strong></p>
+<p><code>StatefulWidgetを使って、テキストの表示/非表示を切り替えるボタンを作ってください。
+ボタンを押すと、テキストが表示されたり消えたりするようにしてください。</code></p>
+</blockquote>
+<hr />
+<p><strong>より詳しい状態管理（ChangeNotifier、InheritedWidgetなど）については、実際にアプリを作りながら学んでいきましょう。</strong></p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

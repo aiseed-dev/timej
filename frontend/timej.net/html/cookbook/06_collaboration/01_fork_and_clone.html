@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レシピ#6-1: 他の人のリポジトリをFork & Cloneする - AI x Flutter Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flutter Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/ai-x-flutter/cookbook">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. キッチンの準備</summary><ul>
+<li><a href="../01_the_kitchen/01_setting_up_flutter.html">#1-1 Flutter開発環境の準備（キッチンのセットアップ）</a></li>
+<li><a href="../01_the_kitchen/02_ai_development_tools.html">#1-2 AI開発ツールの導入</a></li>
+<li><a href="../01_the_kitchen/03_creating_first_app.html">#1-3 最初のFlutterアプリ作成とプロジェクト探検</a></li>
+<li><a href="../01_the_kitchen/04_ios_development_setup.html">#1-4 iOS開発の準備とセットアップ</a></li>
+<li><a href="../01_the_kitchen/05_project_identity_and_assets.html">#1-5 アプリのIDとアセットの準備</a></li>
+<li><a href="../01_the_kitchen/06_managing_project_with_github.html">#1-6 自分のFlutterプロジェクトをGitHubで管理する</a></li>
+<li><a href="../01_the_kitchen/07_authenticating_with_github_cli.html">#1-7 GitHub CLIでPCを認証する</a></li>
+</ul></details>
+<details><summary>2. Flutterの重要概念</summary><ul>
+<li><a href="../02_core_concepts/00_introduction.html">導入：Flutterアプリの「骨格」を理解する</a></li>
+<li><a href="../02_core_concepts/01_what_is_a_widget.html">#2-1 Flutterの心臓部「ウィジェット（Widget）」とは何か？</a></li>
+<li><a href="../02_core_concepts/02_state_management_basics.html">#2-2 状態管理の基礎</a></li>
+<li><a href="../02_core_concepts/03_async_programming.html">#2-3 非同期プログラミング（Futureとasync/await）</a></li>
+<li><a href="../02_core_concepts/04_introduction_to_routing.html">#2-4 画面遷移の基本（Routing） - Navigatorのpush/pop</a></li>
+<li><a href="../02_core_concepts/05_understanding_build_context.html">#2-5 BuildContextとは何か？ - ウィジェットの「現在地」</a></li>
+<li><a href="../02_core_concepts/06_learning_through_game_development.html">#2-6 ゲーム開発で学ぶFlutterの基本的な考え方</a></li>
+</ul></details>
+<details><summary>3. 料理のプロセス</summary><ul>
+<li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
+<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
+<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
+<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
+<li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
+</ul></details>
+<details><summary>4. 秘伝のソース</summary><ul>
+<li><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
+<li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
+<li><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
+</ul></details>
+<details><summary>5. シェフの特別料理</summary><ul>
+<li><a href="../05_chefs_specials/00_introduction.html">はじめに: 非開発者でもアプリが作れる時代</a></li>
+<li><a href="../05_chefs_specials/01_building_chat_app_with_gemini.html">#5-1 AIチャットアプリを作る - Claude API / Gemini API連携</a></li>
+<li><a href="../05_chefs_specials/02_building_image_recognition_app.html">#5-2 画像認識カメラアプリを作る - ML Kit / TFLite活用</a></li>
+<li><a href="../05_chefs_specials/03_building_realtime_app.html">#5-3 リアルタイム共有メモアプリを作る - Supabase Realtime</a></li>
+<li><a href="../05_chefs_specials/04_responsive_design_basics.html">#5-4 レスポンシブデザインの基礎 - あらゆる画面サイズに対応する</a></li>
+<li><a href="../05_chefs_specials/05_building_desktop_app.html">#5-5 デスクトップアプリを作る - Windows / macOS / Linux対応</a></li>
+<li><a href="../05_chefs_specials/06_building_web_app.html">#5-6 Webアプリを作る - ブラウザで動くFlutterアプリ</a></li>
+<li><a href="../05_chefs_specials/07_handling_text_size_changes.html">#5-7 テキストサイズ変更への対応 - ダッシュボードとアクセシビリティ</a></li>
+</ul></details>
+<details open><summary>6. 他のシェフとの協業</summary><ul>
+<li class="current"><a href="../06_collaboration/01_fork_and_clone.html">#6-1 他の人のリポジトリをFork & Cloneする</a></li>
+<li><a href="../06_collaboration/02_push_and_pull_request.html">#6-2 変更をPushし、Pull Requestで本家に貢献する</a></li>
+<li><a href="../06_collaboration/03_resolving_merge_conflicts.html">#6-3 マージコンフリクト（競合）を解決する</a></li>
+<li><a href="../06_collaboration/04_what_is_byoa_development.html">#6-4 BYOA開発とは - 自分たちで課題を解決する新しい形</a></li>
+<li><a href="../06_collaboration/05_byoa_case_study_childcare_app.html">#6-5 【事例研究】育児・発達支援アプリをBYOAで開発する</a></li>
+<li><a href="../06_collaboration/06_byoa_case_study_dev_tools.html">#6-6 チャットだけで自分用のWebアプリを作る</a></li>
+<li><a href="../06_collaboration/07_evolve_with_collaboration.html">#6-7 コラボレーションでアプリを進化させる</a></li>
+<li><a href="../06_collaboration/08_mcp_fundamentals.html">#6-8 MCP（Model Context Protocol）でClaudeを拡張する</a></li>
+<li><a href="../06_collaboration/09_mcp_practical_applications.html">#6-9 実践的なMCP活用でBYOAアプリを進化させる</a></li>
+</ul></details>
+<details><summary>7. 救急箱</summary><ul>
+<li><a href="../07_troubleshooting/01_fix_gradle_metadata_error.html">#7-1 Could not read workspace metadata エラーを解決する</a></li>
+<li><a href="../07_troubleshooting/02_advanced_build_troubleshooting.html">#7-2 Flutterビルドエラー上級編</a></li>
+<li><a href="../07_troubleshooting/03_understanding_null_safety_errors.html">#7-3 Null check operator used on a null valueエラーを理解し、解決する</a></li>
+<li><a href="../07_troubleshooting/04_ai_development_troubleshooting.html">#7-4 AIとの開発で起こる典型的なトラブルと対処法</a></li>
+</ul></details>
+<details><summary>8. BFFとサーバーサイドDart</summary><ul>
+<li><a href="../08_backend_for_frontend_with_ai/01_why_dart_for_backend.html">#8-1 なぜDartでバックエンドを作るのか？ (BFFの概念)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/02_choosing_backend_framework.html">#8-2 Dartバックエンドフレームワークの選定</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/03_building_simple_api_with_dart_frog.html">#8-3 AIと作るシンプルなREST API (Dart Frog編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/04_sharing_code_between_flutter_and_backend.html">#8-4 FlutterアプリとDartバックエンドでコードを共有する</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/05_full_stack_development_with_serverpod.html">#8-5 AIと創るフルスタック認証 (Serverpod編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/06_realtime_communication_with_websockets.html">#8-6 AIと実装するリアルタイム通信 (WebSocket編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
+</ul></details>
+<details><summary>9. 設計とプロトタイピング</summary><ul>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="6-1-fork-clone">レシピ#6-1: 他の人のリポジトリをFork &amp; Cloneする</h1>
+<p>オープンソース開発に参加したり、他の人の優れたコードを参考にしたりする第一歩は、リポジトリを<strong>Fork</strong>し、それを自分のPCに持ってくることです。このマニュアルでは、その一連の手順を解説します。</p>
+<p>自分のためのアプリ（内側）を人に届けた（外側）その先には、他のビルダーとの協業があります。このセクションでは、その入り口となるGitの共同開発フローと、BYOA（自分たちで課題を解決する開発）を学びます。</p>
+<h2 id="fork">なぜForkするのか？</h2>
+<ul>
+<li><strong>自由に実験できる:</strong> Forkすると、元のリポジトリの完全なコピーが、あなたのGitHubアカウント配下に作成されます。これにより、あなたは元のリポジトリに影響を与えることなく、自由にコードを変更したり、新しい機能を追加したりできます。</li>
+<li><strong>貢献（Pull Request）の準備:</strong> あなたがForkしたリポジトリで行った改善を、元のリポジトリに「こういう改善をしたので、取り込んでくれませんか？」と提案（Pull Request）することができます。これがオープンソースへの貢献の基本フローです。</li>
+</ul>
+<h2 id="_1">用語の整理</h2>
+<ul>
+<li><strong>Upstream (上流):</strong> あなたがForkした<strong>元の</strong>リポジトリのこと。（例: <code>flutter/flutter</code>）</li>
+<li><strong>Origin (起点):</strong> あなたがForkして作成された、<strong>あなたのアカウント配下にある</strong>リポジトリのこと。（例: <code>your-username/flutter</code>）</li>
+</ul>
+<p><img alt="Forkの概念図" src="https://docs.github.com/assets/cb-130393/images/help/repository/fork-repo-diagram.png" /></p>
+<hr />
+<h2 id="step-1-githubfork">Step 1: GitHub上でリポジトリをForkする</h2>
+<ol>
+<li>GitHubで、Forkしたいリポジトリのページにアクセスします。</li>
+<li>ページの右上にある「<strong>Fork</strong>」ボタンをクリックします。</li>
+<li>「Create a new fork」という画面が表示されます。<ul>
+<li><strong>Owner:</strong> あなたのGitHubアカウントが選択されていることを確認します。</li>
+<li><strong>Repository name:</strong> 通常は元のリポジトリ名と同じでOKです。</li>
+</ul>
+</li>
+<li>「<strong>Create fork</strong>」ボタンをクリックします。</li>
+</ol>
+<p>数秒待つと、あなたのGitHubアカウント配下に、同じ名前のリポジトリのコピーが作成され、そのページに移動します。ブラウザのアドレスバーが <code>github.com/your-username/repository-name</code> になっていることを確認してください。</p>
+<hr />
+<h2 id="step-2-forkpcclone">Step 2: ForkしたリポジトリをPCにCloneする</h2>
+<p>次に、あなたのGitHubアカウント上にあるリポジトリ（Origin）を、あなたのPCにダウンロードします。この作業を<code>clone</code>と呼びます。</p>
+<ol>
+<li>あなたがForkして作成したリポジトリのページ（<code>github.com/your-username/repository-name</code>）を開きます。</li>
+<li>緑色の「<strong>&lt;&gt; Code</strong>」ボタンをクリックします。</li>
+<li>
+<p>表示されたURL（HTTPSまたはSSH）の右側にあるコピーボタンをクリックして、URLをコピーします。</p>
+<ul>
+<li>通常は <code>https://github.com/your-username/repository-name.git</code> のようなURLです。</li>
+</ul>
+</li>
+<li>
+<p>PCのターミナルを開き、プロジェクトを置きたい親フォルダに移動します。
+    <code>bash
+    # 例: ~/Development (macOS) や C:\dev (Windows) など
+    cd path/to/your/projects_folder</code></p>
+</li>
+<li><code>git clone</code> コマンドを使って、リポジトリをクローンします。
+    <code>bash
+    git clone https://github.com/your-username/repository-name.git</code></li>
+</ol>
+<p>これで、あなたのPC上にリポジトリの全ファイルがダウンロードされ、作業準備が整いました。</p>
+<hr />
+<h2 id="step-3-upstream">Step 3: Upstream（本家）の変更を取り込めるように設定する</h2>
+<p>あなたは今、自分のリポジトリのコピーを手元に持っています。しかし、その間に元のリポジトリ（Upstream）は、他の開発者によって更新されていくかもしれません。</p>
+<p>その最新の変更を、あなたのローカルリポジトリにも取り込めるように、「リモートリポジトリ」としてUpstreamを登録しておく必要があります。これは非常に重要な設定です。</p>
+<ol>
+<li>
+<p>ターミナルで、先ほどクローンしたリポジトリのディレクトリに移動します。
+    <code>bash
+    cd repository-name</code></p>
+</li>
+<li>
+<p>現在登録されているリモートリポジトリを確認します。
+    <code>bash
+    git remote -v</code>
+    実行すると、<code>origin</code> という名前で、あなた自身のGitHubリポジトリのURLが表示されるはずです。</p>
+</li>
+<li>
+<p>次に、<strong>元のリポジトリ</strong>（Upstream）を <code>upstream</code> という名前でリモートに追加します。</p>
+<ul>
+<li>まず、元のリポジトリのURL（例: <code>https://github.com/flutter/flutter.git</code>）をコピーします。</li>
+<li>以下のコマンドを実行します。
+```bash</li>
+</ul>
+<h1 id="git-remote-add-url">git remote add &lt;リモート名&gt; &lt;元のリポジトリのURL&gt;</h1>
+<p>git remote add upstream https://github.com/original-owner/repository-name.git
+```</p>
+</li>
+<li>
+<p>再度 <code>git remote -v</code> を実行して、<code>origin</code> と <code>upstream</code> の両方が登録されていることを確認してください。
+    <code>origin    https://github.com/your-username/repository-name.git (fetch)
+    origin    https://github.com/your-username/repository-name.git (push)
+    upstream  https://github.com/original-owner/repository-name.git (fetch)
+    upstream  https://github.com/original-owner/repository-name.git (push)</code>
+    この状態になっていれば完璧です！</p>
+</li>
+</ol>
+<hr />
+<h2 id="step-4-upstreampull">Step 4: Upstreamの最新の変更を取り込む（Pullする）</h2>
+<p>これで、いつでもUpstreamの最新状態に追いつくことができます。</p>
+<ol>
+<li>まず、Upstreamリポジトリの最新情報を取得します。
+    <code>bash
+    git fetch upstream</code></li>
+<li>
+<p>あなたの作業ブランチ（通常は <code>main</code> または <code>master</code>）に、Upstreamの変更をマージ（統合）します。
+    ```bash
+    # 現在のブランチがmainであることを確認
+    git checkout main</p>
+<h1 id="upstreammain">upstreamのmainブランチの内容を、現在のブランチにマージする</h1>
+<p>git merge upstream/main
+```</p>
+</li>
+</ol>
+<p>これで、あなたのPC上のローカルリポジトリは、本家のリポジトリと全く同じ最新の状態になりました。ここから、あなた自身の変更を加えていくことができます。</p>
+<p>次のレシピでは、このリポジトリで行った変更を、本家に提案（Pull Request）する方法を学びます。</p>
+<p>➡️ <strong>次のレシピへ:</strong> <a href="./02_push_and_pull_request.html"><code>02_push_and_pull_request.md</code></a></p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

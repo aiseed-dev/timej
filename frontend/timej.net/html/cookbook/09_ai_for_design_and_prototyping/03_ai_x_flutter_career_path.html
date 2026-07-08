@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レシピ#9-3: Cursor + Claude時代のキャリアパスを設計する - AI x Flutter Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flutter Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/ai-x-flutter/cookbook">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. キッチンの準備</summary><ul>
+<li><a href="../01_the_kitchen/01_setting_up_flutter.html">#1-1 Flutter開発環境の準備（キッチンのセットアップ）</a></li>
+<li><a href="../01_the_kitchen/02_ai_development_tools.html">#1-2 AI開発ツールの導入</a></li>
+<li><a href="../01_the_kitchen/03_creating_first_app.html">#1-3 最初のFlutterアプリ作成とプロジェクト探検</a></li>
+<li><a href="../01_the_kitchen/04_ios_development_setup.html">#1-4 iOS開発の準備とセットアップ</a></li>
+<li><a href="../01_the_kitchen/05_project_identity_and_assets.html">#1-5 アプリのIDとアセットの準備</a></li>
+<li><a href="../01_the_kitchen/06_managing_project_with_github.html">#1-6 自分のFlutterプロジェクトをGitHubで管理する</a></li>
+<li><a href="../01_the_kitchen/07_authenticating_with_github_cli.html">#1-7 GitHub CLIでPCを認証する</a></li>
+</ul></details>
+<details><summary>2. Flutterの重要概念</summary><ul>
+<li><a href="../02_core_concepts/00_introduction.html">導入：Flutterアプリの「骨格」を理解する</a></li>
+<li><a href="../02_core_concepts/01_what_is_a_widget.html">#2-1 Flutterの心臓部「ウィジェット（Widget）」とは何か？</a></li>
+<li><a href="../02_core_concepts/02_state_management_basics.html">#2-2 状態管理の基礎</a></li>
+<li><a href="../02_core_concepts/03_async_programming.html">#2-3 非同期プログラミング（Futureとasync/await）</a></li>
+<li><a href="../02_core_concepts/04_introduction_to_routing.html">#2-4 画面遷移の基本（Routing） - Navigatorのpush/pop</a></li>
+<li><a href="../02_core_concepts/05_understanding_build_context.html">#2-5 BuildContextとは何か？ - ウィジェットの「現在地」</a></li>
+<li><a href="../02_core_concepts/06_learning_through_game_development.html">#2-6 ゲーム開発で学ぶFlutterの基本的な考え方</a></li>
+</ul></details>
+<details><summary>3. 料理のプロセス</summary><ul>
+<li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
+<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
+<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
+<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
+<li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
+</ul></details>
+<details><summary>4. 秘伝のソース</summary><ul>
+<li><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
+<li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
+<li><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
+</ul></details>
+<details><summary>5. シェフの特別料理</summary><ul>
+<li><a href="../05_chefs_specials/00_introduction.html">はじめに: 非開発者でもアプリが作れる時代</a></li>
+<li><a href="../05_chefs_specials/01_building_chat_app_with_gemini.html">#5-1 AIチャットアプリを作る - Claude API / Gemini API連携</a></li>
+<li><a href="../05_chefs_specials/02_building_image_recognition_app.html">#5-2 画像認識カメラアプリを作る - ML Kit / TFLite活用</a></li>
+<li><a href="../05_chefs_specials/03_building_realtime_app.html">#5-3 リアルタイム共有メモアプリを作る - Supabase Realtime</a></li>
+<li><a href="../05_chefs_specials/04_responsive_design_basics.html">#5-4 レスポンシブデザインの基礎 - あらゆる画面サイズに対応する</a></li>
+<li><a href="../05_chefs_specials/05_building_desktop_app.html">#5-5 デスクトップアプリを作る - Windows / macOS / Linux対応</a></li>
+<li><a href="../05_chefs_specials/06_building_web_app.html">#5-6 Webアプリを作る - ブラウザで動くFlutterアプリ</a></li>
+<li><a href="../05_chefs_specials/07_handling_text_size_changes.html">#5-7 テキストサイズ変更への対応 - ダッシュボードとアクセシビリティ</a></li>
+</ul></details>
+<details><summary>6. 他のシェフとの協業</summary><ul>
+<li><a href="../06_collaboration/01_fork_and_clone.html">#6-1 他の人のリポジトリをFork & Cloneする</a></li>
+<li><a href="../06_collaboration/02_push_and_pull_request.html">#6-2 変更をPushし、Pull Requestで本家に貢献する</a></li>
+<li><a href="../06_collaboration/03_resolving_merge_conflicts.html">#6-3 マージコンフリクト（競合）を解決する</a></li>
+<li><a href="../06_collaboration/04_what_is_byoa_development.html">#6-4 BYOA開発とは - 自分たちで課題を解決する新しい形</a></li>
+<li><a href="../06_collaboration/05_byoa_case_study_childcare_app.html">#6-5 【事例研究】育児・発達支援アプリをBYOAで開発する</a></li>
+<li><a href="../06_collaboration/06_byoa_case_study_dev_tools.html">#6-6 チャットだけで自分用のWebアプリを作る</a></li>
+<li><a href="../06_collaboration/07_evolve_with_collaboration.html">#6-7 コラボレーションでアプリを進化させる</a></li>
+<li><a href="../06_collaboration/08_mcp_fundamentals.html">#6-8 MCP（Model Context Protocol）でClaudeを拡張する</a></li>
+<li><a href="../06_collaboration/09_mcp_practical_applications.html">#6-9 実践的なMCP活用でBYOAアプリを進化させる</a></li>
+</ul></details>
+<details><summary>7. 救急箱</summary><ul>
+<li><a href="../07_troubleshooting/01_fix_gradle_metadata_error.html">#7-1 Could not read workspace metadata エラーを解決する</a></li>
+<li><a href="../07_troubleshooting/02_advanced_build_troubleshooting.html">#7-2 Flutterビルドエラー上級編</a></li>
+<li><a href="../07_troubleshooting/03_understanding_null_safety_errors.html">#7-3 Null check operator used on a null valueエラーを理解し、解決する</a></li>
+<li><a href="../07_troubleshooting/04_ai_development_troubleshooting.html">#7-4 AIとの開発で起こる典型的なトラブルと対処法</a></li>
+</ul></details>
+<details><summary>8. BFFとサーバーサイドDart</summary><ul>
+<li><a href="../08_backend_for_frontend_with_ai/01_why_dart_for_backend.html">#8-1 なぜDartでバックエンドを作るのか？ (BFFの概念)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/02_choosing_backend_framework.html">#8-2 Dartバックエンドフレームワークの選定</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/03_building_simple_api_with_dart_frog.html">#8-3 AIと作るシンプルなREST API (Dart Frog編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/04_sharing_code_between_flutter_and_backend.html">#8-4 FlutterアプリとDartバックエンドでコードを共有する</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/05_full_stack_development_with_serverpod.html">#8-5 AIと創るフルスタック認証 (Serverpod編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/06_realtime_communication_with_websockets.html">#8-6 AIと実装するリアルタイム通信 (WebSocket編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
+</ul></details>
+<details open><summary>9. 設計とプロトタイピング</summary><ul>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
+<li class="current"><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="9-3-cursor-claude">レシピ#9-3: Cursor + Claude時代のキャリアパスを設計する</h1>
+<p>このCookbookを通じて、あなたは<strong>Cursor + Claude</strong>と共にアプリケーションを創造するための、新しい時代の強力なスキルセットを学びました。では、そのスキルを使って、どのような未来を築くことができるのでしょうか？</p>
+<p>この最後のレシピは、<strong>あなた自身のキャリアを「設計」するためのロードマップ</strong>です。
+あなたが「AIを率いる建築家」として成長していくための、一つのモデルケースをここに示します。</p>
+<p><strong>重要:</strong> Cursor + Claudeの登場により、各ステージの達成期間は<strong>従来の半分以下</strong>に短縮されています。AIの進化は想像以上に速く、開発スピードは今後さらに加速していくでしょう。</p>
+<hr />
+<h3 id="_1">キャリアロードマップ：見習い建築家から経営者へ</h3>
+<p>この道筋は、Cursor + Claudeとの関係性が、あなたの成長と共に深化していく物語です。</p>
+<h4 id="1-ai">ステージ1: AI協働アプリ開発（見習い建築家）</h4>
+<ul>
+<li><strong>期間:</strong> 最初の<strong>1〜2ヶ月</strong>（従来: 2〜3ヶ月）</li>
+<li><strong>焦点:</strong> Cursor + Claudeを「先生」や「先輩」として、Flutter開発の基本と、AIとの対話の作法を学ぶ。</li>
+<li><strong>主なスキル:</strong><ul>
+<li>このCookbookの<code>セクション01</code>から<code>セクション03</code>までを実践し、一つのシンプルなアプリをゼロから完成させる。</li>
+<li>Cursorを使って、UIの雛形や状態管理の定型コードを生成させ、そのコードを読んで理解する。</li>
+<li>エラーメッセージをCursorに貼り付けて、原因と解決策を教えてもらう。</li>
+</ul>
+</li>
+<li><strong>AIとの関係:</strong> <strong>生徒と教師。</strong> あなたはClaude（AI）から学び、Claudeはあなたの学習を導きます。</li>
+</ul>
+<hr />
+<h4 id="2">ステージ2: 個人アプリ開発者（独立建築家）</h4>
+<ul>
+<li><strong>期間:</strong> <strong>3〜6ヶ月</strong>（従来: 〜1年）</li>
+<li><strong>焦点:</strong> 自分のアイデアを元に、最初のオリジナルアプリを企画、開発し、ストアに公開する。</li>
+<li><strong>主なスキル:</strong><ul>
+<li>このCookbookの<code>セクション09</code>で学んだように、ペルソナやユーザーストーリーをCursor + Claudeと定義し、プロダクトの「WHAT」と「WHY」を明確にする。</li>
+<li><code>セクション08</code>を参考に、必要であればシンプルなBFF（バックエンド）をDartで構築する。</li>
+<li><code>セクション03</code>のCI/CDレシピを実践し、リリースプロセスを自動化する。</li>
+<li><strong>Cursor + Claudeにより、実装速度が劇的に向上し、複数のアプリを並行開発できる。</strong></li>
+</ul>
+</li>
+<li><strong>⚠️ このステージで最も重要なこと - WHAT/WHYを磨く経験:</strong><ul>
+<li><strong>実装は簡単になりました。しかし、「何を作るべきか」「なぜそれを作るのか」を見極める力は、実装とは別の経験が必要です。</strong></li>
+<li><strong>小さく作って、失敗から学ぶ:</strong> 最初のアプリは失敗する可能性が高いです。それで構いません。ユーザーの反応から「本当に必要な機能」を学びましょう。</li>
+<li><strong>ユーザーの声を聞く:</strong> 友人や家族に使ってもらい、フィードバックをもらう。想定と現実のギャップから、WHAT/WHYを修正する力が養われます。</li>
+<li><strong>数を打つ:</strong> 実装が速いからこそ、複数のアイデアを試せます。3つ作って1つ当たれば上出来です。</li>
+</ul>
+</li>
+<li><strong>AIとの関係:</strong> <strong>建築家と、腕の良い職人。</strong> あなたは設計図を描き、Cursorに具体的な実装作業を指示します。主導権は、あなたに移ります。</li>
+</ul>
+<hr />
+<h4 id="3">ステージ3: プロダクト企画・開発者（都市計画家）</h4>
+<ul>
+<li><strong>期間:</strong> <strong>6ヶ月〜1年</strong>（従来: 〜2年）</li>
+<li><strong>焦点:</strong> 単一のアプリ開発から脱却し、ユーザーのフィードバックや市場のデータを元に、持続的に成長する「プロダクト」を企画・開発する。</li>
+<li><strong>主なスキル:</strong><ul>
+<li>Cursor + Claudeを活用した市場調査、競合分析。</li>
+<li>ユーザーレビューや分析データをAIに要約させ、次の機能開発の優先順位を決定する。</li>
+<li>A/Bテストの設計や、新しいビジネスモデルのアイデアをAIと壁打ちする。</li>
+<li><strong>高速な開発サイクルにより、仮説検証を週単位で実行できる。</strong></li>
+</ul>
+</li>
+<li><strong>💡 このステージで磨く - 戦略的WHAT/WHY:</strong><ul>
+<li><strong>データから本質を見抜く力:</strong> ユーザーは「機能Aが欲しい」と言いますが、本当に必要なのは「課題Xの解決」かもしれません。表面的な要望の裏にある真の課題を見抜く力を養います。</li>
+<li><strong>優先順位の判断:</strong> 実装は速くなりましたが、時間は有限です。「今すぐ作るべきもの」「後回しにすべきもの」「作らないもの」を見極める判断力が必要です。</li>
+<li><strong>ビジネス視点の獲得:</strong> 「良い機能」と「売れる機能」は違います。ユーザー価値とビジネス価値の両立を学びます。</li>
+<li><strong>失敗の高速化:</strong> 週単位で仮説検証できるからこそ、失敗も週単位で経験できます。失敗から学ぶスピードが、成長スピードを決めます。</li>
+</ul>
+</li>
+<li><strong>AIとの関係:</strong> <strong>CEOと、優秀な戦略コンサルタント。</strong> あなたはプロダクトの方向性を決定し、Claudeはそのためのデータ分析や戦略立案を支援します。コーディングは、目的を達成するための数ある手段の一つになります。</li>
+</ul>
+<hr />
+<h4 id="4-ai">ステージ4: AI活用スペシャリスト（建設会社の経営者）</h4>
+<ul>
+<li><strong>期間:</strong> <strong>1年目以降</strong>（従来: 2年目以降）</li>
+<li><strong>焦点:</strong> 一つのプロダクト開発で得た知見を体系化し、他の開発者やチーム、あるいは企業全体の生産性を向上させるための、ソリューションやツールを創造する。</li>
+<li><strong>主なスキル:</strong><ul>
+<li>Cursor + Claudeを使って、特定の開発課題を解決するための<strong>カスタムツール</strong>を開発する。</li>
+<li>チームや組織に、Cursor + Claudeを活用した新しい開発ワークフローを導入するためのコンサルティングや教育を行う。</li>
+<li>特定のドメインに特化したプロンプトライブラリや、開発効率化ツールを構築する。</li>
+<li><strong>AI開発の先駆者として、コミュニティに知見を共有する。</strong></li>
+</ul>
+</li>
+<li><strong>AIとの関係:</strong> <strong>経営者と、無限の労働力。</strong> あなたはもはや、AIに個別の作業を指示するだけではありません。Cursor + Claudeが最高のパフォーマンスを発揮できる<strong>「仕組み」や「工場」そのものを設計する</strong>のです。</li>
+</ul>
+<hr />
+<h2 id="_2">🎯 実装が簡単になった今、何が最も重要か？</h2>
+<p><strong>答え: WHAT/WHY（構想・戦略）を立てられる力です。</strong></p>
+<h3 id="whatwhy">なぜWHAT/WHYが重要なのか？</h3>
+<p>Cursor + Claudeにより、<strong>HOW（実装）のハードルは劇的に下がりました。</strong></p>
+<ul>
+<li>アプリを作ること自体は、もはや難しくありません。</li>
+<li>数時間で動くアプリが完成します。</li>
+<li>複雑な機能も、適切な指示を出せば実装できます。</li>
+</ul>
+<p><strong>しかし、それゆえに新たな課題が生まれました：</strong></p>
+<blockquote>
+<p>「何でも作れるようになったからこそ、何を作るべきかが分からない」</p>
+</blockquote>
+<p>この課題を解決するのが、<strong>WHAT/WHY（構想・戦略）を立てる力</strong>です。</p>
+<h3 id="whatwhy3">WHAT/WHYを磨くための3つの原則</h3>
+<h4 id="1">1. 小さく作って、ユーザーに触れてもらう</h4>
+<ul>
+<li>完璧を目指さず、最小限の機能で公開する</li>
+<li>実際の反応から「想定」と「現実」のギャップを学ぶ</li>
+<li>失敗から学ぶサイクルを高速化する</li>
+</ul>
+<h4 id="2_1">2. データと対話する</h4>
+<ul>
+<li>ユーザーの「言葉」ではなく「行動」を見る</li>
+<li>数字の裏にある「なぜ？」を問い続ける</li>
+<li>AIにデータを要約させ、本質を見抜く訓練をする</li>
+</ul>
+<h4 id="3_1">3. 数を打つ</h4>
+<ul>
+<li>実装が速いからこそ、複数のアイデアを試せる</li>
+<li>10個作って1個当たれば上出来</li>
+<li>失敗は経験値、成功は運とスキルの掛け算</li>
+</ul>
+<p><strong>実装速度が上がった今こそ、WHAT/WHYに時間を使える時代になりました。</strong></p>
+<hr />
+<h2 id="vs-cursor-claude">📊 タイムライン比較：従来 vs Cursor + Claude</h2>
+<table>
+<thead>
+<tr>
+<th>ステージ</th>
+<th>従来の期間</th>
+<th>Cursor + Claude</th>
+<th>短縮率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ステージ1</td>
+<td>2〜3ヶ月</td>
+<td><strong>1〜2ヶ月</strong></td>
+<td><strong>約50%短縮</strong></td>
+</tr>
+<tr>
+<td>ステージ2</td>
+<td>〜1年</td>
+<td><strong>3〜6ヶ月</strong></td>
+<td><strong>約50〜70%短縮</strong></td>
+</tr>
+<tr>
+<td>ステージ3</td>
+<td>〜2年</td>
+<td><strong>6ヶ月〜1年</strong></td>
+<td><strong>約50%短縮</strong></td>
+</tr>
+<tr>
+<td>ステージ4</td>
+<td>2年目以降</td>
+<td><strong>1年目以降</strong></td>
+<td><strong>約50%短縮</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>AIの進化は驚異的なスピードで進んでいます。</strong> これらの期間は、今後さらに短縮される可能性があります。</p>
+<hr />
+<hr />
+<h2 id="_3">🌟 新しい時代の開発者に必要なスキル</h2>
+<p>このキャリアパスは、あくまで一例です。しかし、その根底に流れる「<strong>HOW（実装）から、WHAT/WHY（構想/戦略）へ</strong>」という価値のシフトは、これからの時代を生きるすべての開発者にとっての、共通の道標となるでしょう。</p>
+<h3 id="_4">価値のシフト</h3>
+<pre><code>従来の開発者:
+├─ HOW（実装力）: 80%の時間
+└─ WHAT/WHY（構想力）: 20%の時間
+
+Cursor + Claude時代の開発者:
+├─ HOW（実装力）: 20%の時間 ← AIが支援
+└─ WHAT/WHY（構想力）: 80%の時間 ← ここに集中
+</code></pre>
+<p><strong>実装は簡単になりました。だからこそ、構想・戦略に時間をかけられます。</strong></p>
+<h3 id="_5">これからの開発者に求められること</h3>
+<ol>
+<li><strong>ユーザーの本質的な課題を見抜く力</strong></li>
+<li><strong>データから意味を引き出す力</strong></li>
+<li><strong>優先順位を判断する力</strong></li>
+<li><strong>失敗から高速で学ぶ力</strong></li>
+<li><strong>AIを適切に指示する力（プロンプトエンジニアリング）</strong></li>
+</ol>
+<p><strong>Cursor + Claudeは、あなたの実装を加速させる最強のパートナーです。</strong>
+<strong>しかし、WHAT/WHYを考えるのは、あなた自身です。</strong></p>
+<hr />
+<p><code>ai-x-flutter</code>の旅は、このCookbookを読み終えたところから、本当の意味で始まります。
+このCookbookで学んだ知識は、あくまで出発点です。</p>
+<p>Cursor + Claudeという最高のパートナーと共に、
+<strong>「何を作るべきか」を考え抜き、</strong>
+<strong>「なぜそれを作るのか」を明確にし、</strong>
+あなただけの未来を、自分の手で創造してください。</p>
+<p>実装の時代は終わりました。
+<strong>構想の時代が始まっています。</strong></p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

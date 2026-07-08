@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レシピ#3-4: Cursor + Claudeでデータ永続化を実装する - AI x Flutter Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flutter Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/ai-x-flutter/cookbook">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. キッチンの準備</summary><ul>
+<li><a href="../01_the_kitchen/01_setting_up_flutter.html">#1-1 Flutter開発環境の準備（キッチンのセットアップ）</a></li>
+<li><a href="../01_the_kitchen/02_ai_development_tools.html">#1-2 AI開発ツールの導入</a></li>
+<li><a href="../01_the_kitchen/03_creating_first_app.html">#1-3 最初のFlutterアプリ作成とプロジェクト探検</a></li>
+<li><a href="../01_the_kitchen/04_ios_development_setup.html">#1-4 iOS開発の準備とセットアップ</a></li>
+<li><a href="../01_the_kitchen/05_project_identity_and_assets.html">#1-5 アプリのIDとアセットの準備</a></li>
+<li><a href="../01_the_kitchen/06_managing_project_with_github.html">#1-6 自分のFlutterプロジェクトをGitHubで管理する</a></li>
+<li><a href="../01_the_kitchen/07_authenticating_with_github_cli.html">#1-7 GitHub CLIでPCを認証する</a></li>
+</ul></details>
+<details><summary>2. Flutterの重要概念</summary><ul>
+<li><a href="../02_core_concepts/00_introduction.html">導入：Flutterアプリの「骨格」を理解する</a></li>
+<li><a href="../02_core_concepts/01_what_is_a_widget.html">#2-1 Flutterの心臓部「ウィジェット（Widget）」とは何か？</a></li>
+<li><a href="../02_core_concepts/02_state_management_basics.html">#2-2 状態管理の基礎</a></li>
+<li><a href="../02_core_concepts/03_async_programming.html">#2-3 非同期プログラミング（Futureとasync/await）</a></li>
+<li><a href="../02_core_concepts/04_introduction_to_routing.html">#2-4 画面遷移の基本（Routing） - Navigatorのpush/pop</a></li>
+<li><a href="../02_core_concepts/05_understanding_build_context.html">#2-5 BuildContextとは何か？ - ウィジェットの「現在地」</a></li>
+<li><a href="../02_core_concepts/06_learning_through_game_development.html">#2-6 ゲーム開発で学ぶFlutterの基本的な考え方</a></li>
+</ul></details>
+<details open><summary>3. 料理のプロセス</summary><ul>
+<li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
+<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
+<li class="current"><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
+<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
+<li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
+</ul></details>
+<details><summary>4. 秘伝のソース</summary><ul>
+<li><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
+<li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
+<li><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
+</ul></details>
+<details><summary>5. シェフの特別料理</summary><ul>
+<li><a href="../05_chefs_specials/00_introduction.html">はじめに: 非開発者でもアプリが作れる時代</a></li>
+<li><a href="../05_chefs_specials/01_building_chat_app_with_gemini.html">#5-1 AIチャットアプリを作る - Claude API / Gemini API連携</a></li>
+<li><a href="../05_chefs_specials/02_building_image_recognition_app.html">#5-2 画像認識カメラアプリを作る - ML Kit / TFLite活用</a></li>
+<li><a href="../05_chefs_specials/03_building_realtime_app.html">#5-3 リアルタイム共有メモアプリを作る - Supabase Realtime</a></li>
+<li><a href="../05_chefs_specials/04_responsive_design_basics.html">#5-4 レスポンシブデザインの基礎 - あらゆる画面サイズに対応する</a></li>
+<li><a href="../05_chefs_specials/05_building_desktop_app.html">#5-5 デスクトップアプリを作る - Windows / macOS / Linux対応</a></li>
+<li><a href="../05_chefs_specials/06_building_web_app.html">#5-6 Webアプリを作る - ブラウザで動くFlutterアプリ</a></li>
+<li><a href="../05_chefs_specials/07_handling_text_size_changes.html">#5-7 テキストサイズ変更への対応 - ダッシュボードとアクセシビリティ</a></li>
+</ul></details>
+<details><summary>6. 他のシェフとの協業</summary><ul>
+<li><a href="../06_collaboration/01_fork_and_clone.html">#6-1 他の人のリポジトリをFork & Cloneする</a></li>
+<li><a href="../06_collaboration/02_push_and_pull_request.html">#6-2 変更をPushし、Pull Requestで本家に貢献する</a></li>
+<li><a href="../06_collaboration/03_resolving_merge_conflicts.html">#6-3 マージコンフリクト（競合）を解決する</a></li>
+<li><a href="../06_collaboration/04_what_is_byoa_development.html">#6-4 BYOA開発とは - 自分たちで課題を解決する新しい形</a></li>
+<li><a href="../06_collaboration/05_byoa_case_study_childcare_app.html">#6-5 【事例研究】育児・発達支援アプリをBYOAで開発する</a></li>
+<li><a href="../06_collaboration/06_byoa_case_study_dev_tools.html">#6-6 チャットだけで自分用のWebアプリを作る</a></li>
+<li><a href="../06_collaboration/07_evolve_with_collaboration.html">#6-7 コラボレーションでアプリを進化させる</a></li>
+<li><a href="../06_collaboration/08_mcp_fundamentals.html">#6-8 MCP（Model Context Protocol）でClaudeを拡張する</a></li>
+<li><a href="../06_collaboration/09_mcp_practical_applications.html">#6-9 実践的なMCP活用でBYOAアプリを進化させる</a></li>
+</ul></details>
+<details><summary>7. 救急箱</summary><ul>
+<li><a href="../07_troubleshooting/01_fix_gradle_metadata_error.html">#7-1 Could not read workspace metadata エラーを解決する</a></li>
+<li><a href="../07_troubleshooting/02_advanced_build_troubleshooting.html">#7-2 Flutterビルドエラー上級編</a></li>
+<li><a href="../07_troubleshooting/03_understanding_null_safety_errors.html">#7-3 Null check operator used on a null valueエラーを理解し、解決する</a></li>
+<li><a href="../07_troubleshooting/04_ai_development_troubleshooting.html">#7-4 AIとの開発で起こる典型的なトラブルと対処法</a></li>
+</ul></details>
+<details><summary>8. BFFとサーバーサイドDart</summary><ul>
+<li><a href="../08_backend_for_frontend_with_ai/01_why_dart_for_backend.html">#8-1 なぜDartでバックエンドを作るのか？ (BFFの概念)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/02_choosing_backend_framework.html">#8-2 Dartバックエンドフレームワークの選定</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/03_building_simple_api_with_dart_frog.html">#8-3 AIと作るシンプルなREST API (Dart Frog編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/04_sharing_code_between_flutter_and_backend.html">#8-4 FlutterアプリとDartバックエンドでコードを共有する</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/05_full_stack_development_with_serverpod.html">#8-5 AIと創るフルスタック認証 (Serverpod編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/06_realtime_communication_with_websockets.html">#8-6 AIと実装するリアルタイム通信 (WebSocket編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
+</ul></details>
+<details><summary>9. 設計とプロトタイピング</summary><ul>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="3-4-cursor-claude">レシピ#3-4: Cursor + Claudeでデータ永続化を実装する</h1>
+<p>これまでのレシピで、アプリはメモを追加・削除できるようになりました。しかし、現状では<strong>アプリを再起動すると、すべてのデータが消えてしまいます。</strong> なぜなら、データはメモリ上にしか存在しないからです。</p>
+<p>このレシピでは、<strong>Cursor + Claude</strong>と協力して、アプリのデータをデバイス内に永続的に保存する仕組みを実装します。これにより、ユーザーはいつでも自分のデータに再アクセスできるようになります。</p>
+<h2 id="1">1. 永続化の方法を選ぶ</h2>
+<p>Flutterでデータをローカルに保存する方法はいくつかありますが、今回は以下の組み合わせを使います。
+*   <strong>sqflite:</strong> SQLiteデータベースをFlutterで利用するための、最も標準的で強力なパッケージ。リレーショナルデータを扱うのに適しています。
+*   <strong>path_provider:</strong> デバイスのファイルシステム上で、データベースファイルを保存するのに安全な場所のパスを取得するためのパッケージ。</p>
+<h2 id="2-cursor-claude">2. データ層の設計をCursor + Claudeに依頼する</h2>
+<p>アプリのロジック（Serviceクラスなど）が、直接データベースを操作するのは良い設計ではありません。間に「<strong>データ層（Data Layer）</strong>」を設けることで、関心を分離し、テストしやすいコードになります。</p>
+<p>このデータ層の設計と実装を、<strong>Cursor + Claude</strong>に任せましょう。</p>
+<blockquote>
+<p><strong>💬 Cursor活用プロンプト (データ層の設計)</strong></p>
+<p>あなたは、Flutterアプリのローカルデータベース設計に詳しいエキスパートです。</p>
+<p><code>sqflite</code>パッケージを使って、写真メモアプリのデータを永続化するための「データ層」を設計してください。</p>
+<p><strong>要件:</strong>
+1.  <strong>データベースヘルパーの作成:</strong> データベースへの接続を開き、メモを保存するためのテーブルを作成するクラス（例: <code>DatabaseHelper</code>）を実装してください。
+    - テーブル名: <code>memos</code>
+    - カラム: <code>id (TEXT, PRIMARY KEY)</code>, <code>title (TEXT)</code>, <code>imagePath (TEXT)</code>, <code>createdAt (TEXT)</code>
+2.  <strong>データソースの作成:</strong> <code>DatabaseHelper</code>を使い、メモのCRUD（作成, 読み取り, 更新, 削除）操作を行う具体的なメソッドを持つクラス（例: <code>MemoLocalDataSource</code>）を実装してください。
+    - <code>addMemo(Memo memo)</code>
+    - <code>getMemos()</code>
+    - <code>deleteMemo(String id)</code></p>
+<p>これらのクラスの完全なコードを、<code>data/local_data_source.dart</code>というファイルに記述することを想定して生成してください。</p>
+</blockquote>
+<p><strong>なぜこれが良いのか？</strong>
+*   <strong>SQLの知識が不要:</strong> <code>CREATE TABLE</code>文や<code>INSERT</code>, <code>SELECT</code>, <code>DELETE</code>といった、SQLの面倒な記述を<strong>Cursor + Claude</strong>がすべて肩代わりしてくれます。
+*   <strong>非同期処理の考慮:</strong> データベース操作はすべて非同期です。<strong>Cursor + Claude</strong>は、<code>async/await</code>を正しく使ったコードを自然に生成してくれます。
+*   <strong>定石パターンの適用:</strong> データベース接続をシングルトンで管理するなど、<code>sqflite</code>を使う上での一般的なベストプラクティスを<strong>Cursor + Claude</strong>が適用してくれます。</p>
+<hr />
+<h2 id="3-service">3. Serviceクラスとデータ層を接続する</h2>
+<p>データ層が完成したら、次は既存のServiceクラス（<code>MemoService</code>）を修正し、メモリ上ではなく、データベースとデータをやり取りするように変更します。</p>
+<blockquote>
+<p><strong>💬 Cursor活用プロンプト (Serviceクラスの修正)</strong></p>
+<p>ありがとうございます。データ層のコードが完成しました。</p>
+<p>次に、以前作成した<code>services/memo_service.dart</code>の<code>MemoService</code>を、<strong>この新しいデータ層と連携するように修正してください。</strong></p>
+<p>【<strong>元のServiceクラス</strong>】
+@services/memo_service.dart を参照してください。
+（Claude Codeの場合は「<code>services/memo_service.dart</code>を読んで修正して」と依頼します）</p>
+<p>【<strong>新しいデータ層のクラス</strong>】
+- <code>MemoLocalDataSource</code></p>
+<p><strong>要件:</strong>
+1.  <code>addMemo</code>メソッドが呼ばれたら、メモリ上のリストを操作する代わりに、<code>MemoLocalDataSource.addMemo()</code>を呼び出し、データベースにメモを保存するように変更してください。
+2.  <code>removeMemo</code>メソッドも同様に、<code>MemoLocalDataSource.deleteMemo()</code>を呼び出すように変更してください。
+3.  アプリ起動時に、<code>MemoLocalDataSource.getMemos()</code>を呼び出して、データベースからすべてのメモを読み込み、状態を初期化する処理を追加してください。</p>
+<p>修正後の<code>MemoService</code>の完全なコードを提示してください。</p>
+</blockquote>
+<p><strong>なぜこれが良いのか？</strong>
+*   <strong>差分的なリファクタリング:</strong> <strong>Cursor + Claude</strong>に「前と後」の情報を提供することで、どこをどう変更すれば良いかを正確に理解させることができます。
+*   <strong>依存性の注入:</strong> この修正プロセスを通じて、<code>MemoService</code>が<code>DataSource</code>に依存する形になります。これは、DI（Dependency Injection）という重要な設計パターンの実践的な学習にもなります。</p>
+<hr />
+<h2 id="4">4. 動作確認とデバッグ</h2>
+<p>すべての接続が完了したら、アプリを実行してみましょう。</p>
+<ol>
+<li>メモを追加し、一度アプリを完全に終了させます。</li>
+<li>再度アプリを起動します。</li>
+<li><strong>前に追加したメモが、正しく画面に表示されていれば成功です！</strong></li>
+</ol>
+<p>もしうまく動かない場合、例えばデータベースのテーブル作成に失敗しているかもしれません。その際は、<strong>Cursor + Claude</strong>にエラーログを渡し、デバッグの助けを求めましょう。</p>
+<blockquote>
+<p><strong>💬 Cursor活用プロンプト (デバッグ支援)</strong></p>
+<p><code>sqflite</code>を導入しましたが、アプリ起動時に以下のエラーが発生します。</p>
+<p><code>(ここにエラーログを貼り付ける)</code></p>
+<p>関連するコードは @data/local_data_source.dart と @services/memo_service.dart を参照してください。
+（Claude Codeの場合は「<code>local_data_source.dart</code>と<code>memo_service.dart</code>を読んで調査して」と依頼します）</p>
+<p>原因と解決策を教えてください。</p>
+</blockquote>
+<p><strong>Cursor + Claude</strong>と協力することで、複雑に見えるデータベース操作も、一つ一つのステップに分解し、着実に実装していくことができます。</p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>トラブルシューティング#7-4: AIとの開発で起こる典型的なトラブルと対処法 - AI x Flutter Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flutter Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/ai-x-flutter/cookbook">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. キッチンの準備</summary><ul>
+<li><a href="../01_the_kitchen/01_setting_up_flutter.html">#1-1 Flutter開発環境の準備（キッチンのセットアップ）</a></li>
+<li><a href="../01_the_kitchen/02_ai_development_tools.html">#1-2 AI開発ツールの導入</a></li>
+<li><a href="../01_the_kitchen/03_creating_first_app.html">#1-3 最初のFlutterアプリ作成とプロジェクト探検</a></li>
+<li><a href="../01_the_kitchen/04_ios_development_setup.html">#1-4 iOS開発の準備とセットアップ</a></li>
+<li><a href="../01_the_kitchen/05_project_identity_and_assets.html">#1-5 アプリのIDとアセットの準備</a></li>
+<li><a href="../01_the_kitchen/06_managing_project_with_github.html">#1-6 自分のFlutterプロジェクトをGitHubで管理する</a></li>
+<li><a href="../01_the_kitchen/07_authenticating_with_github_cli.html">#1-7 GitHub CLIでPCを認証する</a></li>
+</ul></details>
+<details><summary>2. Flutterの重要概念</summary><ul>
+<li><a href="../02_core_concepts/00_introduction.html">導入：Flutterアプリの「骨格」を理解する</a></li>
+<li><a href="../02_core_concepts/01_what_is_a_widget.html">#2-1 Flutterの心臓部「ウィジェット（Widget）」とは何か？</a></li>
+<li><a href="../02_core_concepts/02_state_management_basics.html">#2-2 状態管理の基礎</a></li>
+<li><a href="../02_core_concepts/03_async_programming.html">#2-3 非同期プログラミング（Futureとasync/await）</a></li>
+<li><a href="../02_core_concepts/04_introduction_to_routing.html">#2-4 画面遷移の基本（Routing） - Navigatorのpush/pop</a></li>
+<li><a href="../02_core_concepts/05_understanding_build_context.html">#2-5 BuildContextとは何か？ - ウィジェットの「現在地」</a></li>
+<li><a href="../02_core_concepts/06_learning_through_game_development.html">#2-6 ゲーム開発で学ぶFlutterの基本的な考え方</a></li>
+</ul></details>
+<details><summary>3. 料理のプロセス</summary><ul>
+<li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
+<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
+<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
+<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
+<li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
+<li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
+</ul></details>
+<details><summary>4. 秘伝のソース</summary><ul>
+<li><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
+<li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
+<li><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
+</ul></details>
+<details><summary>5. シェフの特別料理</summary><ul>
+<li><a href="../05_chefs_specials/00_introduction.html">はじめに: 非開発者でもアプリが作れる時代</a></li>
+<li><a href="../05_chefs_specials/01_building_chat_app_with_gemini.html">#5-1 AIチャットアプリを作る - Claude API / Gemini API連携</a></li>
+<li><a href="../05_chefs_specials/02_building_image_recognition_app.html">#5-2 画像認識カメラアプリを作る - ML Kit / TFLite活用</a></li>
+<li><a href="../05_chefs_specials/03_building_realtime_app.html">#5-3 リアルタイム共有メモアプリを作る - Supabase Realtime</a></li>
+<li><a href="../05_chefs_specials/04_responsive_design_basics.html">#5-4 レスポンシブデザインの基礎 - あらゆる画面サイズに対応する</a></li>
+<li><a href="../05_chefs_specials/05_building_desktop_app.html">#5-5 デスクトップアプリを作る - Windows / macOS / Linux対応</a></li>
+<li><a href="../05_chefs_specials/06_building_web_app.html">#5-6 Webアプリを作る - ブラウザで動くFlutterアプリ</a></li>
+<li><a href="../05_chefs_specials/07_handling_text_size_changes.html">#5-7 テキストサイズ変更への対応 - ダッシュボードとアクセシビリティ</a></li>
+</ul></details>
+<details><summary>6. 他のシェフとの協業</summary><ul>
+<li><a href="../06_collaboration/01_fork_and_clone.html">#6-1 他の人のリポジトリをFork & Cloneする</a></li>
+<li><a href="../06_collaboration/02_push_and_pull_request.html">#6-2 変更をPushし、Pull Requestで本家に貢献する</a></li>
+<li><a href="../06_collaboration/03_resolving_merge_conflicts.html">#6-3 マージコンフリクト（競合）を解決する</a></li>
+<li><a href="../06_collaboration/04_what_is_byoa_development.html">#6-4 BYOA開発とは - 自分たちで課題を解決する新しい形</a></li>
+<li><a href="../06_collaboration/05_byoa_case_study_childcare_app.html">#6-5 【事例研究】育児・発達支援アプリをBYOAで開発する</a></li>
+<li><a href="../06_collaboration/06_byoa_case_study_dev_tools.html">#6-6 チャットだけで自分用のWebアプリを作る</a></li>
+<li><a href="../06_collaboration/07_evolve_with_collaboration.html">#6-7 コラボレーションでアプリを進化させる</a></li>
+<li><a href="../06_collaboration/08_mcp_fundamentals.html">#6-8 MCP（Model Context Protocol）でClaudeを拡張する</a></li>
+<li><a href="../06_collaboration/09_mcp_practical_applications.html">#6-9 実践的なMCP活用でBYOAアプリを進化させる</a></li>
+</ul></details>
+<details open><summary>7. 救急箱</summary><ul>
+<li><a href="../07_troubleshooting/01_fix_gradle_metadata_error.html">#7-1 Could not read workspace metadata エラーを解決する</a></li>
+<li><a href="../07_troubleshooting/02_advanced_build_troubleshooting.html">#7-2 Flutterビルドエラー上級編</a></li>
+<li><a href="../07_troubleshooting/03_understanding_null_safety_errors.html">#7-3 Null check operator used on a null valueエラーを理解し、解決する</a></li>
+<li class="current"><a href="../07_troubleshooting/04_ai_development_troubleshooting.html">#7-4 AIとの開発で起こる典型的なトラブルと対処法</a></li>
+</ul></details>
+<details><summary>8. BFFとサーバーサイドDart</summary><ul>
+<li><a href="../08_backend_for_frontend_with_ai/01_why_dart_for_backend.html">#8-1 なぜDartでバックエンドを作るのか？ (BFFの概念)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/02_choosing_backend_framework.html">#8-2 Dartバックエンドフレームワークの選定</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/03_building_simple_api_with_dart_frog.html">#8-3 AIと作るシンプルなREST API (Dart Frog編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/04_sharing_code_between_flutter_and_backend.html">#8-4 FlutterアプリとDartバックエンドでコードを共有する</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/05_full_stack_development_with_serverpod.html">#8-5 AIと創るフルスタック認証 (Serverpod編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/06_realtime_communication_with_websockets.html">#8-6 AIと実装するリアルタイム通信 (WebSocket編)</a></li>
+<li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
+</ul></details>
+<details><summary>9. 設計とプロトタイピング</summary><ul>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="7-4-ai">トラブルシューティング#7-4: AIとの開発で起こる典型的なトラブルと対処法</h1>
+<p>AI（Cursor + Claude、Claude Codeなど）を使ったFlutter開発では、従来の開発とは異なる特有のトラブルに遭遇することがあります。このガイドでは、よくある問題とその対処法を解説します。</p>
+<hr />
+<h2 id="1-ai">トラブル1: AIが古いコードを生成する</h2>
+<h3 id="_1">症状</h3>
+<ul>
+<li>非推奨（deprecated）のパッケージやAPIを使ったコードが生成される</li>
+<li>最新のFlutter/Dartの機能を使わない古いパターンのコードが出力される</li>
+<li><code>flutter pub get</code>を実行すると警告が出る</li>
+</ul>
+<h3 id="_2">原因</h3>
+<p>AIの学習データが古く、最新のFlutter/Dartの仕様を反映していない場合があります。</p>
+<h3 id="_3">対処法</h3>
+<p><strong>方法1: プロンプトで最新バージョンを指定</strong></p>
+<pre><code>Flutter 3.27 と Dart 3.6 の最新機能を使って、
+TODOアプリを作成してください。
+非推奨のAPIは使わないでください。
+</code></pre>
+<p><strong>方法2: @Docsで公式ドキュメントを参照させる</strong></p>
+<p>Cursor/Claude Codeで：</p>
+<pre><code>@Docs Flutter 公式ドキュメント
+最新のNavigator 2.0を使ったルーティングを実装してください。
+</code></pre>
+<p><strong>方法3: 生成されたコードを確認する習慣</strong></p>
+<pre><code class="language-bash"># 非推奨の警告を確認
+flutter analyze
+
+# pubspec.yamlのバージョンを確認
+cat pubspec.yaml
+</code></pre>
+<p><strong>解決例:</strong></p>
+<pre><code class="language-dart">// ❌ 古いコード（AIが生成）— RaisedButtonはFlutter 2.0で削除済み
+RaisedButton(
+  onPressed: () {},
+  child: Text('保存'),
+);
+
+// ✅ 最新のコード（修正後）
+ElevatedButton(
+  onPressed: () {},
+  child: Text('保存'),
+);
+</code></pre>
+<hr />
+<h2 id="2-ai">トラブル2: AIが間違った依存関係を追加する</h2>
+<h3 id="_4">症状</h3>
+<ul>
+<li><code>pubspec.yaml</code>に不要なパッケージが追加される</li>
+<li>バージョンの競合エラーが発生する</li>
+<li>ビルドが失敗する</li>
+</ul>
+<h3 id="_5">原因</h3>
+<p>AIがパッケージ名を間違えたり、互換性のないバージョンを指定したりします。</p>
+<h3 id="_6">対処法</h3>
+<p><strong>方法1: 依存関係を明示的に指定</strong></p>
+<pre><code>pubspec.yamlに以下を追加してください：
+- http: ^1.2.0
+- provider: ^6.1.0
+
+バージョンは必ず pub.dev の最新安定版を確認してください。
+</code></pre>
+<p><strong>方法2: 生成後に確認</strong></p>
+<pre><code class="language-bash"># pub.devで最新バージョンを確認
+flutter pub outdated
+
+# 依存関係の競合を確認
+flutter pub get
+</code></pre>
+<p><strong>方法3: AIに確認させる</strong></p>
+<pre><code>@pubspec.yaml を見て、
+依存関係に問題がないか確認してください。
+不要なパッケージがあれば削除してください。
+</code></pre>
+<hr />
+<h2 id="3-ai">トラブル3: AIが生成したコードが動かない</h2>
+<h3 id="_7">症状</h3>
+<ul>
+<li>エラーメッセージが出る</li>
+<li>アプリがクラッシュする</li>
+<li>画面が真っ白になる</li>
+</ul>
+<h3 id="_8">原因</h3>
+<ul>
+<li>AIがコードの一部を生成し忘れた</li>
+<li>ファイル間の整合性が取れていない</li>
+<li>インポート文が不足している</li>
+</ul>
+<h3 id="_9">対処法</h3>
+<p><strong>方法1: エラーメッセージをそのままAIに見せる</strong></p>
+<p>Cursorで：</p>
+<pre><code>以下のエラーが出ています。修正してください：
+
+[エラーメッセージ全体をコピー＆ペースト]
+</code></pre>
+<p><strong>方法2: 全体を見直すよう指示</strong></p>
+<pre><code>@lib/ フォルダ全体を見て、
+このエラーの原因を特定し、修正してください。
+</code></pre>
+<p><strong>方法3: 段階的にテスト</strong></p>
+<pre><code class="language-dart">// 小さく始めて、動作確認しながら進める
+void main() {
+  print('Step 1: OK');
+  runApp(MyApp());
+}
+</code></pre>
+<p><strong>デバッグのコツ:</strong></p>
+<pre><code class="language-bash"># Hot Restart（完全再起動）
+R  # flutter run中にRキーを押す
+
+# ログを確認
+flutter logs
+</code></pre>
+<hr />
+<h2 id="4-ai">トラブル4: AIがハルシネーションを起こす</h2>
+<h3 id="_10">症状</h3>
+<ul>
+<li>存在しないパッケージやAPIを使おうとする</li>
+<li>架空のメソッドやクラスを作成する</li>
+<li>コードが理論上は正しいが、実際には動かない</li>
+</ul>
+<h3 id="_11">原因</h3>
+<p>AIが「こうあるべき」という理想を生成してしまい、実際のAPIと乖離します。</p>
+<h3 id="_12">対処法</h3>
+<p><strong>方法1: 公式ドキュメントを参照させる</strong></p>
+<pre><code>@Docs Flutter Widget Catalog
+Scaffoldウィジェットの正しい使い方を確認してから、
+コードを書いてください。
+</code></pre>
+<p><strong>方法2: 検証を依頼</strong></p>
+<pre><code>このコードは本当に動きますか？
+Flutter 3.27の公式APIドキュメントと照らし合わせて確認してください。
+</code></pre>
+<p><strong>方法3: 小さく実装して確認</strong></p>
+<pre><code>まず、最小限の動作する例を作成してください。
+その後、段階的に機能を追加していきましょう。
+</code></pre>
+<p><strong>ハルシネーションの見分け方:</strong></p>
+<pre><code class="language-dart">// ❌ 存在しないメソッド
+Widget.magicLayout() // こんなメソッドはない
+
+// ✅ 実際のAPI
+Widget build(BuildContext context) // 正しい
+</code></pre>
+<hr />
+<h2 id="5-ai">トラブル5: AIが既存コードを壊してしまう</h2>
+<h3 id="_13">症状</h3>
+<ul>
+<li>動いていた機能が動かなくなる</li>
+<li>ファイルの内容が予期せず書き換えられる</li>
+<li>重要な部分が削除される</li>
+</ul>
+<h3 id="_14">原因</h3>
+<ul>
+<li>AIが全体の文脈を理解せずに修正した</li>
+<li>変更範囲が広すぎた</li>
+<li>依存関係を考慮していない</li>
+</ul>
+<h3 id="_15">対処法</h3>
+<p><strong>方法1: Gitでバージョン管理（必須）</strong></p>
+<pre><code class="language-bash"># 変更前に必ずコミット
+git add .
+git commit -m &quot;AIに修正を依頼する前の状態&quot;
+
+# 問題があればロールバック
+git reset --hard HEAD
+</code></pre>
+<p><strong>方法2: 変更範囲を限定する</strong></p>
+<p>Cursorで：</p>
+<pre><code>@lib/home_page.dart のみを修正してください。
+他のファイルは変更しないでください。
+</code></pre>
+<p><strong>方法3: Composerで変更内容をプレビュー</strong></p>
+<p>Cursor Composer（Ctrl+I）を使うと：
+1. AIが変更案を提示
+2. <strong>Accept/Rejectで承認/拒否できる</strong>
+3. 部分的に承認することも可能</p>
+<p><strong>ベストプラクティス:</strong></p>
+<pre><code class="language-bash"># 小さな変更ごとにコミット
+git add lib/home_page.dart
+git commit -m &quot;ホームページにボタン追加&quot;
+
+# 大きな変更は新しいブランチで
+git checkout -b feature/new-ui
+</code></pre>
+<hr />
+<h2 id="6-ai">トラブル6: AIとの対話で望む結果が得られない</h2>
+<h3 id="_16">症状</h3>
+<ul>
+<li>AIが指示を理解してくれない</li>
+<li>何度も同じミスを繰り返す</li>
+<li>欲しいコードと違うものが生成される</li>
+</ul>
+<h3 id="_17">原因</h3>
+<ul>
+<li>プロンプトが曖昧</li>
+<li>期待値が伝わっていない</li>
+<li>コンテキストが不足</li>
+</ul>
+<h3 id="_18">対処法</h3>
+<p><strong>方法1: 具体的に指示する</strong></p>
+<p>❌ 悪い例：</p>
+<pre><code>ボタンを追加して
+</code></pre>
+<p>✅ 良い例：</p>
+<pre><code>画面下部に、青色のElevatedButtonを追加してください。
+ボタンのテキストは「保存」で、
+押すとデータをSharedPreferencesに保存する処理を実装してください。
+</code></pre>
+<p><strong>方法2: ファイルを明示的に参照</strong></p>
+<pre><code>@lib/main.dart を見て、
+同じスタイルでボタンを追加してください。
+</code></pre>
+<p><strong>方法3: 期待する動作を説明</strong></p>
+<pre><code>以下のような動作を実装してください：
+1. ボタンを押す
+2. ローディングインジケーターを表示
+3. APIからデータ取得
+4. 成功したら画面を更新
+5. 失敗したらエラーメッセージを表示
+</code></pre>
+<p><strong>方法4: 段階的に指示</strong></p>
+<pre><code>Step 1: まず、ボタンだけを追加してください。
+（確認後）
+Step 2: ボタン押下時の処理を追加してください。
+</code></pre>
+<hr />
+<h2 id="7-cursor">トラブル7: Cursorが正しいファイルを参照していない</h2>
+<h3 id="_19">症状</h3>
+<ul>
+<li>AIが無関係なファイルを見ている</li>
+<li>プロジェクト全体を理解していない</li>
+<li>同じ名前の別ファイルと混同している</li>
+</ul>
+<h3 id="_20">原因</h3>
+<ul>
+<li>Cursorのインデックスが古い</li>
+<li>@マークで明示的に指定していない</li>
+<li>プロジェクトが大きすぎてコンテキストに入りきらない</li>
+</ul>
+<h3 id="_21">対処法</h3>
+<p><strong>方法1: @マークで明示的に指定</strong></p>
+<pre><code>@lib/screens/home_page.dart
+@lib/widgets/custom_button.dart
+これらのファイルを参照して、統一感のあるUIにしてください。
+</code></pre>
+<p><strong>方法2: Cursorのインデックスを再構築</strong></p>
+<pre><code>Cmd+Shift+P (Mac) / Ctrl+Shift+P (Windows)
+→ &quot;Cursor: Reindex&quot;
+</code></pre>
+<p><strong>方法3: プロジェクトをシンプルに保つ</strong></p>
+<ul>
+<li>不要なファイルは削除</li>
+<li><code>.cursorignore</code>で除外設定</li>
+<li>ビルド生成物（build/）を除外</li>
+</ul>
+<p><strong>.cursorignore の例:</strong></p>
+<pre><code>build/
+.dart_tool/
+*.g.dart
+*.freezed.dart
+</code></pre>
+<hr />
+<h2 id="8-ai">トラブル8: AIが生成するコードが複雑すぎる</h2>
+<h3 id="_22">症状</h3>
+<ul>
+<li>理解できないコードが生成される</li>
+<li>不要な抽象化や設計パターンが入る</li>
+<li>シンプルな実装で十分なのに複雑</li>
+</ul>
+<h3 id="_23">原因</h3>
+<p>AIが「ベストプラクティス」として複雑なパターンを提案します。</p>
+<h3 id="_24">対処法</h3>
+<p><strong>方法1: シンプルさを要求</strong></p>
+<pre><code>初心者でも理解できる、最もシンプルな実装をしてください。
+デザインパターンや抽象化は不要です。
+StatefulWidgetで素直に実装してください。
+</code></pre>
+<p><strong>方法2: 具体的なパターンを指定</strong></p>
+<pre><code>Riverpodは使わないでください。
+StatefulWidgetとsetStateで実装してください。
+</code></pre>
+<p><strong>方法3: ファイル単位で自己完結させる</strong></p>
+<pre><code>1つのファイル内で完結する、
+自己完結型のウィジェットとして実装してください。
+</code></pre>
+<p>このCookbookの推奨：
+- <strong>小さな自己完結型Widget</strong>
+- <strong>setState中心の状態管理</strong>
+- <strong>複雑な状態管理ライブラリを避ける</strong></p>
+<hr />
+<h2 id="9-ai">トラブル9: AIが遅い・応答しない</h2>
+<h3 id="_25">症状</h3>
+<ul>
+<li>Cursorの応答が遅い</li>
+<li>Composerが固まる</li>
+<li>生成途中で止まる</li>
+</ul>
+<h3 id="_26">原因</h3>
+<ul>
+<li>プロジェクトが大きすぎる</li>
+<li>ネットワーク遅延</li>
+<li>Cursorのキャッシュ問題</li>
+</ul>
+<h3 id="_27">対処法</h3>
+<p><strong>方法1: モデルを変更</strong></p>
+<ul>
+<li><strong>Claude Opus 4.5</strong> → <strong>Claude Sonnet 4.5</strong>（高速）</li>
+<li>Cursor Settings &gt; Model で変更</li>
+</ul>
+<p><strong>方法2: コンテキストを減らす</strong></p>
+<pre><code># 特定のファイルだけを参照
+@lib/home_page.dart のみを見て修正してください。
+</code></pre>
+<p><strong>方法3: Cursorを再起動</strong></p>
+<pre><code class="language-bash"># Cursorを完全に終了して再起動
+</code></pre>
+<p><strong>方法4: キャッシュをクリア</strong></p>
+<pre><code>Cmd+Shift+P / Ctrl+Shift+P
+→ &quot;Developer: Reload Window&quot;
+</code></pre>
+<hr />
+<h2 id="10">トラブル10: パッケージのバージョン競合</h2>
+<h3 id="_28">症状</h3>
+<ul>
+<li><code>flutter pub get</code>が失敗する</li>
+<li>"version solving failed" エラー</li>
+<li>依存関係が解決できない</li>
+</ul>
+<h3 id="_29">原因</h3>
+<p>AIが互換性のないパッケージバージョンを指定しました。</p>
+<h3 id="_30">対処法</h3>
+<p><strong>方法1: AIに解決させる</strong></p>
+<pre><code>@pubspec.yaml
+以下のエラーが出ています。依存関係を修正してください：
+
+[エラーメッセージをペースト]
+</code></pre>
+<p><strong>方法2: 手動で最新版に統一</strong></p>
+<pre><code class="language-bash"># パッケージの最新版を確認
+flutter pub outdated
+
+# 特定のパッケージを更新
+flutter pub upgrade http
+</code></pre>
+<p><strong>方法3: バージョン指定を緩める</strong></p>
+<pre><code class="language-yaml"># ❌ 厳密すぎる
+http: 1.2.0
+
+# ✅ 範囲指定
+http: ^1.2.0  # 1.2.0以上2.0.0未満
+</code></pre>
+<hr />
+<h2 id="ai">予防策：AIとうまく付き合うためのベストプラクティス</h2>
+<h3 id="1-git">1. 常にGitでバージョン管理</h3>
+<pre><code class="language-bash"># 作業前
+git status
+git add .
+git commit -m &quot;作業前の状態&quot;
+
+# AIに依頼
+# ...
+
+# 確認後
+git add .
+git commit -m &quot;AIによる変更を承認&quot;
+</code></pre>
+<h3 id="2">2. 小さく始める</h3>
+<pre><code>❌ 「TODOアプリ全体を作成してください」
+✅ 「まず、TODOリストを表示する画面だけを作成してください」
+</code></pre>
+<h3 id="3">3. 段階的に検証</h3>
+<pre><code>1. コード生成
+2. flutter run で動作確認
+3. 問題があれば即座にAIに報告
+4. 動作確認できたらコミット
+</code></pre>
+<h3 id="4">4. プロンプトの型を作る</h3>
+<pre><code>【テンプレート】
+ファイル: @lib/xxx.dart
+目的: [何をしたいか]
+制約: [使わないパッケージ、守るべきルール]
+期待する動作: [具体的な挙動]
+</code></pre>
+<h3 id="5">5. ドキュメントを参照させる</h3>
+<pre><code>@Docs Flutter公式ドキュメント
+@pubspec.yaml
+@README.md
+これらを参照して実装してください。
+</code></pre>
+<h3 id="6">6. エラーは隠さず全て見せる</h3>
+<pre><code>以下のエラーが出ています：
+
+[エラーメッセージ全文]
+[スタックトレース]
+
+解決方法を教えてください。
+</code></pre>
+<h3 id="7">7. シンプルさを優先</h3>
+<pre><code>複雑な設計パターンは不要です。
+初心者でも理解できる、最もシンプルな方法で実装してください。
+</code></pre>
+<hr />
+<h2 id="_31">まとめ</h2>
+<p>AIとの開発は、以下を意識すると成功率が上がります：</p>
+<p>✅ <strong>Gitでバージョン管理（必須）</strong>
+✅ <strong>小さく始めて、段階的に進める</strong>
+✅ <strong>具体的で明確なプロンプト</strong>
+✅ <strong>エラーはすぐAIに見せる</strong>
+✅ <strong>@マークで参照を明示</strong>
+✅ <strong>シンプルさを優先</strong>
+✅ <strong>生成されたコードを必ず確認</strong></p>
+<p>AIは強力なパートナーですが、完璧ではありません。上記のトラブルシューティングを参考に、AIとうまく付き合いながら開発を進めましょう。</p>
+<hr />
+<p><strong>関連レシピ:</strong>
+- <a href="../01_the_kitchen/02_ai_development_tools.html">#1-2: AI開発ツールの導入</a>
+- <a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1: Cursorを使った効率的な開発ワークフロー</a></p>
+<p>➡️ <strong>次のセクションへ:</strong> <a href="../08_backend_for_frontend_with_ai/01_why_dart_for_backend.html">セクション8: BFFとサーバーサイドDart</a></p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

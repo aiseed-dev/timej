@@ -5,6 +5,19 @@ timej.net の公開サイト。
 - `frontend/timej.net/html` — timej.net(AIとの暮らし方)
 - `frontend/app.timej.net/html` — app.timej.net(世界時計アプリのランディングページ)
 
+## cookbook(timej.net/cookbook/)
+
+`frontend/timej.net/html/cookbook/` は
+[ai-x-flutter/cookbook](https://github.com/ai-x-flutter/cookbook) のビルド成果物の凍結コピー。
+原稿の更新は cookbook リポジトリで行い、以下で再生成してコピーする:
+
+```bash
+cd ../cookbook          # ai-x-flutter/cookbook のクローン
+python3 build.py        # 要: pip install markdown
+rm -rf ../timej/frontend/timej.net/html/cookbook
+cp -r site ../timej/frontend/timej.net/html/cookbook
+```
+
 ## 公開(Cloudflare Pages)
 
 [cf-publish](https://github.com/aiseed-dev/cf-publish) で 2 つの Pages プロジェクトに直接デプロイする。
