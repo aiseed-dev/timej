@@ -7,8 +7,8 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f7fafc;
+    color: #33322e;
+    background-color: #fbfaf6;
 }
 
 .container {
@@ -19,9 +19,9 @@ body {
 
 /* ヘッダー */
 header {
-    background-color: #fff;
+    background-color: #fbfaf6;
     padding: 20px 0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #e2dfd4;
 }
 
 .header-content {
@@ -33,7 +33,7 @@ header {
 .logo {
     font-size: 24px;
     font-weight: 600;
-    color: #2d3748;
+    color: #33322e22e;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -46,19 +46,19 @@ header {
 
 nav a {
     margin-left: 20px;
-    color: #4a5568;
+    color: #6d6a61;
     text-decoration: none;
     font-size: 14px;
 }
 
 nav a:hover {
-    color: #2d3748;
+    color: #33322e22e;
 }
 
 /* ヒーローセクション */
 .hero {
-    background: linear-gradient(135deg, #2196f3 0%, #0d47a1 100%);
-    color: white;
+    background: #fbfaf6;
+    color: #33322e;
     text-align: center;
     padding: 80px 20px;
 }
@@ -73,7 +73,7 @@ nav a:hover {
 .hero p {
     font-size: 20px;
     margin-bottom: 40px;
-    opacity: 0.95;
+    color: #6d6a61;
 }
 
 .store-badges {
@@ -106,7 +106,7 @@ nav a:hover {
 /* Testing Notice Section */
 .testing-announcement {
     padding: 80px 20px;
-    background-color: #f7fafc;
+    background-color: #fbfaf6;
 }
 
 .testing-notice {
@@ -114,7 +114,7 @@ nav a:hover {
     border-radius: 16px;
     padding: 50px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border: 2px solid #e2e8f0;
+    border: 2px solid #e2dfd4;
 }
 
 .testing-notice h2 {
@@ -122,19 +122,19 @@ nav a:hover {
     font-weight: 700;
     margin-bottom: 20px;
     text-align: center;
-    color: #2d3748;
+    color: #33322e22e;
 }
 
 .testing-notice>p {
     font-size: 18px;
     margin-bottom: 15px;
     text-align: center;
-    color: #4a5568;
+    color: #6d6a61;
     line-height: 1.8;
 }
 
 .testing-section {
-    background: linear-gradient(135deg, #2196f3 0%, #0d47a1 100%);
+    background: #2f7d5c;
     border-radius: 12px;
     padding: 35px;
     margin-top: 30px;
@@ -151,7 +151,7 @@ nav a:hover {
 .test-button {
     display: inline-block;
     background-color: white;
-    color: #1976d2;
+    color: #2f7d5c;
     padding: 14px 32px;
     border-radius: 8px;
     text-decoration: none;
@@ -162,7 +162,7 @@ nav a:hover {
 }
 
 .test-button:hover {
-    background-color: #f7fafc;
+    background-color: #fbfaf6;
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
@@ -204,7 +204,7 @@ nav a:hover {
 
 .step-number {
     background-color: white;
-    color: #1976d2;
+    color: #2f7d5c;
     font-size: 20px;
     font-weight: 700;
     width: 36px;
@@ -249,7 +249,7 @@ nav a:hover {
     text-align: center;
     font-size: 36px;
     font-weight: 700;
-    color: #2d3748;
+    color: #33322e22e;
     margin-bottom: 50px;
 }
 
@@ -272,19 +272,19 @@ nav a:hover {
 
 .feature-card h3 {
     font-size: 22px;
-    color: #2d3748;
+    color: #33322e22e;
     margin-bottom: 15px;
 }
 
 .feature-card p {
-    color: #718096;
+    color: #6d6a61;
     line-height: 1.8;
 }
 
 /* スクリーンショット */
 .screenshots {
     padding: 80px 0;
-    background-color: #f7fafc;
+    background-color: #fbfaf6;
 }
 
 .carousel-container {
@@ -300,8 +300,8 @@ nav a:hover {
     height: 48px;
     border-radius: 50%;
     background-color: white;
-    border: 2px solid #e2e8f0;
-    color: #4a5568;
+    border: 2px solid #e2dfd4;
+    color: #6d6a61;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -312,11 +312,11 @@ nav a:hover {
 }
 
 .carousel-nav:hover {
-    background-color: #1976d2;
-    border-color: #1976d2;
+    background-color: #2f7d5c;
+    border-color: #2f7d5c;
     color: white;
     transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+    box-shadow: 0 4px 12px rgba(47, 125, 92, 0.3);
 }
 
 .carousel-nav:active {
@@ -366,33 +366,33 @@ nav a:hover {
 
 .screenshot-item h3 {
     font-size: 18px;
-    color: #2d3748;
+    color: #33322e22e;
     margin-bottom: 8px;
     font-weight: 600;
 }
 
 .screenshot-item p {
     font-size: 14px;
-    color: #718096;
+    color: #6d6a61;
     line-height: 1.6;
 }
 
 .screenshot-placeholder {
     width: 250px;
     height: 500px;
-    background-color: #e2e8f0;
+    background-color: #e2dfd4;
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #a0aec0;
+    color: #97948a;
     font-size: 14px;
 }
 
 /* プライバシー重視 */
 .privacy-section {
     padding: 80px 20px;
-    background-color: #edf2f7;
+    background-color: #f3f1e9;
     text-align: center;
 }
 
@@ -412,20 +412,20 @@ nav a:hover {
 
 .privacy-box h2 {
     font-size: 28px;
-    color: #2d3748;
+    color: #33322e22e;
     margin-bottom: 20px;
 }
 
 .privacy-box p {
-    color: #718096;
+    color: #6d6a61;
     font-size: 16px;
     line-height: 1.8;
 }
 
 /* フッター */
 footer {
-    background-color: #2d3748;
-    color: #e2e8f0;
+    background-color: #33322e22e;
+    color: #e2dfd4;
     padding: 40px 20px;
     text-align: center;
 }
@@ -435,7 +435,7 @@ footer {
 }
 
 .footer-links a {
-    color: #e2e8f0;
+    color: #e2dfd4;
     text-decoration: none;
     margin: 0 15px;
     font-size: 14px;
@@ -446,7 +446,7 @@ footer {
 }
 
 .copyright {
-    color: #a0aec0;
+    color: #97948a;
     font-size: 14px;
 }
 
@@ -532,7 +532,7 @@ footer {
 
 .privacy-content h1 {
     font-size: 28px;
-    color: #333;
+    color: #33322e;
     margin-bottom: 30px;
     border-bottom: 2px solid #eee;
     padding-bottom: 10px;
@@ -540,10 +540,10 @@ footer {
 
 .privacy-content h2 {
     font-size: 22px;
-    color: #333;
+    color: #33322e;
     margin-top: 40px;
     margin-bottom: 20px;
-    border-left: 5px solid #1976d2;
+    border-left: 5px solid #2f7d5c;
     padding-left: 15px;
 }
 
@@ -567,20 +567,20 @@ footer {
 }
 
 .privacy-content th {
-    background-color: #f7fafc;
+    background-color: #fbfaf6;
     font-weight: 600;
-    color: #2d3748;
+    color: #33322e22e;
 }
 
 .privacy-content .emphasis {
     font-weight: bold;
-    color: #1976d2;
+    color: #2f7d5c;
 }
 
 .privacy-content .note {
-    background-color: #ebf4ff;
+    background-color: #e7f0ea;
     padding: 20px;
-    border-left: 4px solid #1976d2;
+    border-left: 4px solid #2f7d5c;
     margin: 20px 0;
     border-radius: 4px;
 }
