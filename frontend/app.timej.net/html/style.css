@@ -57,7 +57,7 @@ nav a:hover {
 
 /* ヒーローセクション */
 .hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2196f3 0%, #0d47a1 100%);
     color: white;
     text-align: center;
     padding: 80px 20px;
@@ -134,7 +134,7 @@ nav a:hover {
 }
 
 .testing-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2196f3 0%, #0d47a1 100%);
     border-radius: 12px;
     padding: 35px;
     margin-top: 30px;
@@ -151,7 +151,7 @@ nav a:hover {
 .test-button {
     display: inline-block;
     background-color: white;
-    color: #667eea;
+    color: #1976d2;
     padding: 14px 32px;
     border-radius: 8px;
     text-decoration: none;
@@ -204,7 +204,7 @@ nav a:hover {
 
 .step-number {
     background-color: white;
-    color: #667eea;
+    color: #1976d2;
     font-size: 20px;
     font-weight: 700;
     width: 36px;
@@ -312,11 +312,11 @@ nav a:hover {
 }
 
 .carousel-nav:hover {
-    background-color: #667eea;
-    border-color: #667eea;
+    background-color: #1976d2;
+    border-color: #1976d2;
     color: white;
     transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
 }
 
 .carousel-nav:active {
@@ -543,7 +543,7 @@ footer {
     color: #333;
     margin-top: 40px;
     margin-bottom: 20px;
-    border-left: 5px solid #667eea;
+    border-left: 5px solid #1976d2;
     padding-left: 15px;
 }
 
@@ -574,13 +574,13 @@ footer {
 
 .privacy-content .emphasis {
     font-weight: bold;
-    color: #667eea;
+    color: #1976d2;
 }
 
 .privacy-content .note {
     background-color: #ebf4ff;
     padding: 20px;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid #1976d2;
     margin: 20px 0;
     border-radius: 4px;
 }
