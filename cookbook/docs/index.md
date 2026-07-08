@@ -41,7 +41,7 @@ AI革命によって、個人が「ビルダー」として自立していく時
 
 ## 🤝 貢献
 
-このCookbookは、コミュニティと共に成長していきます。新しいレシピの提案、誤字脱字の修正、より良い説明のアイデアなど、どんな小さな貢献も大歓迎です。[GitHubリポジトリ](https://github.com/timej/timej)へIssueやPull Requestをお気軽にお送りください。
+このCookbookは、コミュニティと共に成長していきます。新しいレシピの提案、誤字脱字の修正、より良い説明のアイデアなど、どんな小さな貢献も大歓迎です。[GitHubリポジトリ](https://github.com/aiseed-dev/timej)へIssueやPull Requestをお気軽にお送りください。
 
 ## 📜 ライセンス
 
