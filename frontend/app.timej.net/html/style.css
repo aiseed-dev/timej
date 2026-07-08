@@ -80,23 +80,27 @@ nav a:hover {
     display: flex;
     gap: 15px;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
 }
 
-.badge-placeholder {
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 12px 24px;
-    border-radius: 8px;
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.3s;
+.store-badges a {
+    display: block;
+    line-height: 0;
+    transition: opacity 0.3s;
 }
 
-.badge-placeholder:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
+.store-badges a:hover {
+    opacity: 0.8;
+}
+
+/* Apple のバッジは余白なし、Google Play のバッジは画像内に余白を含むため高さを変えて視覚的に揃える */
+.badge-appstore {
+    height: 54px;
+}
+
+.badge-gplay {
+    height: 80px;
 }
 
 /* Testing Notice Section */
