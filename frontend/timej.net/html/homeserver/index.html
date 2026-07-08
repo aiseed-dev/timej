@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="OSS AI開発における自宅サーバーの優位性。コスト、プライバシー、自由度の観点から、なぜ自宅サーバーを選ぶのか。">
+    <meta name="description" content="「AIをどう使うか」から考える。Linux PCから始めれば、同じPCがそのまま自宅AIサーバーになる。OSS AIを自由に使い倒すための構成と始め方。">
     <title>OSS AI × 自宅サーバー | timej.net</title>
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../style.css?v=1.0.0" />
     <meta property="og:title" content="OSS AI × 自宅サーバー | timej.net">
-    <meta property="og:description" content="APIコストからの解放、データの完全な支配。OSS AI時代における自宅サーバーの可能性。">
+    <meta property="og:description" content="「AIをどう使うか」から考える。Linux PCなら、サーバーもすぐ立てられる。">
     <meta property="og:image" content="https://timej.net/og-image.jpg">
     <meta property="og:url" content="https://timej.net/homeserver/">
-    <meta name="twitter:card" content="summary_large_image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9FLQ963JXM"></script>
     <script>
@@ -43,16 +43,43 @@
     <!-- ヒーローセクション -->
     <section class="hero" style="background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);">
         <div class="container">
-            <h1>OSS AI × 自宅サーバー<br>開発の自由を取り戻す</h1>
+            <h1>OSS AI × 自宅サーバー<br>Linux PCから始める</h1>
             <p>
-                APIの従量課金やレート制限に縛られない。<br>
-                自宅サーバーこそが、個人開発者がAIを使い倒すための最強の基盤です。
+                「AIをどう使うか」から考える。<br>
+                Linuxなら、同じPCがそのままAIサーバーになります。
             </p>
         </div>
     </section>
 
-    <!-- メリットセクション -->
+    <!-- 使い方起点セクション -->
     <section class="philosophy">
+        <div class="container">
+            <h2 class="section-title">「AIをどう使うか」から考える</h2>
+            <p class="section-subtitle">
+                道具選びより先に、使い方。考えていくと、Linux PCに行き着きます
+            </p>
+
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <h3><span class="philosophy-icon">🤔</span> 使い方が決まると、環境が決まる</h3>
+                    <p>チャットで聞くだけならブラウザで十分。でも「手元の書類を自動処理したい」「コードを書かせたい」「常時動かしたい」— 自分の使い方が見えてくると、AIを自由に動かせる環境が欲しくなります。</p>
+                </div>
+
+                <div class="philosophy-card">
+                    <h3><span class="philosophy-icon">🪟</span> Windows PCの問題</h3>
+                    <p>AIツールの多くはLinux前提で、WindowsではWSL2を挟む二重構造になりがち。さらにWindows(Home/Pro)はクライアントOSであり、ライセンス上サーバー用途には大きな制限があります。機能的にも規約的にも壁が多いのです。</p>
+                </div>
+
+                <div class="philosophy-card">
+                    <h3><span class="philosophy-icon">🐧</span> Linuxなら、すぐサーバーが立つ</h3>
+                    <p>Linuxは無料で、サーバー用途の制限もありません。手元のPCにインストールして、SSHとDocker、Ollamaを入れれば、その日のうちに自宅AIサーバーが動き始めます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- メリットセクション -->
+    <section class="philosophy" style="background-color: #ffffff;">
         <div class="container">
             <h2 class="section-title">なぜ自宅サーバーなのか？</h2>
             <p class="section-subtitle">
@@ -67,8 +94,8 @@
                 </div>
 
                 <div class="philosophy-card">
-                    <h3><span class="philosophy-icon">🔒</span> データの完全なプライバシー</h3>
-                    <p>ローカルで動作するOSS AIなら、データが外部に送信されることはありません。開発中の未公開データや、個人的な情報を扱う場合でも、漏洩のリスクをゼロにできます。</p>
+                    <h3><span class="philosophy-icon">🚀</span> 制限のない自由な実験</h3>
+                    <p>「検閲なし」のモデルや、特定のタスクに特化した微調整（Fine-tuning）モデルなど、商用APIでは提供されていない多様なモデルを自由に試すことができます。</p>
                 </div>
 
                 <div class="philosophy-card">
@@ -77,8 +104,8 @@
                 </div>
 
                 <div class="philosophy-card">
-                    <h3><span class="philosophy-icon">🚀</span> 制限のない自由な実験</h3>
-                    <p>「検閲なし」のモデルや、特定のタスクに特化した微調整（Fine-tuning）モデルなど、商用APIでは提供されていない多様なモデルを自由に試すことができます。</p>
+                    <h3><span class="philosophy-icon">🔒</span> データの完全なプライバシー</h3>
+                    <p>ローカルで動作するOSS AIなら、データが外部に送信されることはありません。開発中の未公開データや、個人的な情報を扱う場合でも、漏洩のリスクをゼロにできます。</p>
                 </div>
 
                 <div class="philosophy-card">
@@ -263,7 +290,7 @@
                             2</span>
                         OSとソフトウェアのセットアップ
                     </h3>
-                    <p style="margin-bottom: 15px;">Ubuntu Server 22.04 LTSをインストールし、基本的な環境を整えます。</p>
+                    <p style="margin-bottom: 15px;">DebianなどのLinuxをインストールし、基本的な環境を整えます。</p>
                     <ul class="project-features">
                         <li>Docker & Docker Composeのインストール</li>
                         <li>Ollamaのセットアップ（LLM推論エンジン）</li>
@@ -366,7 +393,7 @@
                     <div style="margin-top: 30px;">
                         <h4 style="font-size: 18px; margin-bottom: 15px; color: #2d3748;">Software Stack</h4>
                         <ul class="project-features">
-                            <li><strong>OS:</strong> Ubuntu Server 22.04 LTS</li>
+                            <li><strong>OS:</strong> Debian 13</li>
                             <li><strong>Container:</strong> Docker & Docker Compose</li>
                             <li><strong>AI Runtime:</strong> Ollama (LLM Inference), Python</li>
                             <li><strong>Database:</strong> PostgreSQL + PostGIS</li>
