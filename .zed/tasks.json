@@ -1,0 +1,48 @@
+[
+  {
+    "label": "⓪ 初回準備 ── .venv を作って cf-publish を入れる",
+    "command": "python3 -m venv .venv && .venv/bin/pip install -r requirements.txt && echo '準備できました'",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "reveal": "always"
+  },
+  {
+    "label": "① プレビュー timej.net ── http://localhost:5043",
+    "command": "python3 -m http.server 5043 --directory frontend/timej.net/html",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": true,
+    "reveal": "always"
+  },
+  {
+    "label": "② プレビュー app.timej.net ── http://localhost:5042",
+    "command": "python3 -m http.server 5042 --directory frontend/app.timej.net/html",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": true,
+    "reveal": "always"
+  },
+  {
+    "label": "③ お試し公開 timej.net ── preview URL に上げる",
+    "command": ".venv/bin/cf-publish frontend/timej.net/html --project timej-net --branch preview",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "reveal": "always"
+  },
+  {
+    "label": "④ お試し公開 app.timej.net ── preview URL に上げる",
+    "command": ".venv/bin/cf-publish frontend/app.timej.net/html --project app-timej-net --branch preview",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "reveal": "always"
+  },
+  {
+    "label": "⑤ 本番公開 timej.net",
+    "command": ".venv/bin/cf-publish frontend/timej.net/html --project timej-net --branch main",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "reveal": "always"
+  },
+  {
+    "label": "⑥ 本番公開 app.timej.net",
+    "command": ".venv/bin/cf-publish frontend/app.timej.net/html --project app-timej-net --branch main",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "reveal": "always"
+  }
+]
