@@ -7,15 +7,13 @@ timej.net の公開サイト。
 
 ## cookbook(timej.net/cookbook/)
 
-`frontend/timej.net/html/cookbook/` は
-[ai-x-flutter/cookbook](https://github.com/ai-x-flutter/cookbook) のビルド成果物の凍結コピー。
-原稿の更新は cookbook リポジトリで行い、以下で再生成してコピーする:
+原稿とビルド一式は [cookbook/](cookbook/) にある(旧 ai-x-flutter/cookbook を取り込み)。
+`frontend/timej.net/html/cookbook/` はそのビルド成果物の凍結コピー。原稿を直したら:
 
 ```bash
-cd ../cookbook          # ai-x-flutter/cookbook のクローン
-python3 build.py        # 要: pip install markdown
-rm -rf ../timej/frontend/timej.net/html/cookbook
-cp -r site ../timej/frontend/timej.net/html/cookbook
+.venv/bin/python cookbook/build.py
+rm -rf frontend/timej.net/html/cookbook
+cp -r cookbook/site frontend/timej.net/html/cookbook
 ```
 
 ## 公開(Cloudflare Pages)

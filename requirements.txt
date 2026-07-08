@@ -1,3 +1,6 @@
 # 公開の道具(Cloudflare Pages へのデプロイ)
 # PyPI 公開後はこの行を「cf-publish」だけにする
 cf-publish @ https://github.com/aiseed-dev/cf-publish/archive/main.tar.gz
+
+# cookbook のビルド(cookbook/build.py)
+markdown

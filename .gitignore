@@ -32,3 +32,6 @@ env/
 # Temp files
 *.tmp
 *.temp
+
+# cookbook のビルド生成物(公開物は frontend/timej.net/html/cookbook/ の凍結コピー)
+cookbook/site/
