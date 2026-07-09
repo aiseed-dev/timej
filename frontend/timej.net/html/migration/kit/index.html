@@ -78,9 +78,12 @@
 <h2 id="_2">三つの世界の、どこが問題か</h2>
 <h3 id="microsoft-365">Microsoft 365</h3>
 <ul>
-<li><strong>やめられない構造</strong> — 認証(Entra ID)・メール(Exchange Online)・文書共有
-  (SharePoint / OneDrive)にはローカルの代替が提供されず、
-  解約はこの全部を同時に移すことを意味します</li>
+<li><strong>認証(Entra ID)が閉じ込めの本丸</strong> — 「誰であるか」の確認そのもの、
+  つまり文書・メール・端末・業務アプリすべての入口を外部クラウドに預ける形になります。
+  ローカルの代替は提供されず、新しいシステムを足すときも Entra ID への統合が前提。
+  認証を握られているため、個々の部品だけを別の道具に替えることができません</li>
+<li><strong>メールと文書共有も同じ構造</strong> — Exchange Online、SharePoint / OneDrive にも
+  ローカルの代替がなく、解約は認証・メール・共有を同時に移すことを意味します</li>
 <li><strong>費用が人数と期間に比例し続ける</strong> — 席数課金・従量課金は何年払っても所有に至らず、
   料金改定にも従うほかありません</li>
 <li><strong>データが独自の入れ物に入る</strong> — SharePoint リストや Teams のやり取りは
