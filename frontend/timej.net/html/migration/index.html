@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Microsoft 365・業務システム・CMS/スマートフォンという閉じた世界から、OSSとAIで組織のITを自分の手に取り戻す。設計20万円・実装10万円からの移行支援。">
-    <title>組織のITを、自分の手に | timej.net</title>
+    <meta name="description" content="組織のITを開いた土台へ移すためのツール一式。三つの閉じた世界の問題、AIによる接続、amigのパイプライン、様式+メール受付の問い合わせ設計を詳しく説明します。">
+    <title>移行ツール aiseed-migration-kit の詳しい説明 | timej.net</title>
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../style.css?v=1.0.0" />
-    <meta property="og:title" content="組織のITを、自分の手に | timej.net">
-    <meta property="og:description" content="Microsoft 365・業務システム・CMS/スマートフォンという閉じた世界から、OSSとAIで組織のITを自分の手に取り戻す。設計20万円・実装10万円からの移行支援。">
+    <meta property="og:title" content="移行ツール aiseed-migration-kit の詳しい説明 | timej.net">
+    <meta property="og:description" content="組織のITを開いた土台へ移すためのツール一式。三つの閉じた世界の問題、AIによる接続、amigのパイプライン、様式+メール受付の問い合わせ設計を詳しく説明します。">
     <meta property="og:image" content="https://timej.net/og-image.jpg">
     <meta property="og:url" content="https://timej.net/migration/">
     <meta property="og:type" content="website">
@@ -42,7 +42,6 @@
                 <nav class="main-nav">
                     <a href="../#projects">アプリ</a>
                     <a href="../cookbook/">AI×Flutter</a>
-                    <a href="../homeserver/">自宅AIサーバー</a>
                     <a href="../migration/">IT移行</a>
                     <a href="../packages/">パッケージ</a>
                     <a href="../dyslexia/">ディスレクシア</a>
@@ -52,149 +51,285 @@
         </div>
     </header>
 
-    <!-- ヒーロー -->
-    <section class="hero">
-        <div class="container">
-            <h1>組織のITを、自分の手に</h1>
-            <p>
-                Microsoft 365・業務システム・CMS/スマートフォン——三つの閉じた世界から、<br>
-                OSS と AI で、所有できて・監査できて・引き継げる形へ。<br>
-                <strong>設計 20万円・実装 10万円から。</strong>
-            </p>
-        </div>
-    </section>
-
-    <!-- なぜ今できるのか -->
-    <section class="philosophy">
-        <div class="container">
-            <h2 class="section-title">なぜ、今できるのか</h2>
-            <p class="section-subtitle">
-                OSS はもともと無料でした。塞いでいたのは、組み立てと維持の労力です
-            </p>
-
-            <div class="philosophy-grid">
-                <div class="philosophy-card">
-                    <h3><span class="philosophy-icon">🔓</span> 三つの閉じた世界</h3>
-                    <p>文書・メールはMicrosoft 365の席数課金に、業務は独自形式のパッケージに、市民・顧客との接点(公開Web・スマホ)はCMSのライセンスと保守に。それぞれが閉じ、データは外に出しにくく、境界のたびに手作業の転記が生まれています。</p>
-                </div>
-
-                <div class="philosophy-card">
-                    <h3><span class="philosophy-icon">🤖</span> AIが労力を担う</h3>
-                    <p>メールサーバーも、git も、文書編集も、OSS の部品は昔からあります。組み立て・移行・保守の労力が壁でした。いまは AI がその労力を担い、人に残るのは確認と判断だけ。だから桁違いに安くなります。</p>
-                </div>
-
-                <div class="philosophy-card">
-                    <h3><span class="philosophy-icon">🗝️</span> 出られる仕組みにする</h3>
-                    <p>置き換え先を新しい檻にはしません。データは Markdown・YAML・SQL、処理は Python——少数の公開標準だけで組むので、部品は差し替えられ、この仕組み自体からも出られます。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 費用の比較 -->
-    <section class="philosophy">
-        <div class="container">
-            <h2 class="section-title">費用の桁が変わります</h2>
-            <p class="section-subtitle">
-                100人規模の組織の概算です(公開価格からの試算)
-            </p>
-
-            <div class="philosophy-grid">
-                <div class="philosophy-card">
-                    <h3>これまで</h3>
-                    <p>Microsoft 365(E3級)は100人で年間500万円超、5年で約2,700万円。加えて保守・ヘルプデスクの委託が年数百万円、システム開発を頼めば1件数百万〜数千万円。契約が切れれば、手元には何も残りません。</p>
-                </div>
-
-                <div class="philosophy-card">
-                    <h3>この方式</h3>
-                    <p>ソフトはすべて OSS(継続ライセンス料なし)。構築は設計20万円+実装10万円から。運用は自組織の担当者が回せる形で納品します(手順書・研修つき)。費用は利用者数に比例しません。</p>
-                </div>
-
-                <div class="philosophy-card">
-                    <h3>残るもの</h3>
-                    <p>設計書・ソースコード・テスト・手順書がすべて git 上の資産として組織に残ります。担当者が読める・直せる・引き継げる。外部委託と違い、支出が知識と資産に変わります。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 提供内容 -->
-    <section class="philosophy">
-        <div class="container">
-            <h2 class="section-title">提供するもの</h2>
-            <p class="section-subtitle">
-                売るのは「保証」ではなく、検証できる形の成果物です
-            </p>
-
-            <div class="philosophy-grid">
-                <div class="philosophy-card">
-                    <h3>📋 設計 — 20万円</h3>
-                    <p>半日、業務の話を伺います(誰が更新するのか・何がその場しのぎのExcelになっているか・止まったら誰が困るか)。納品は、決定事項と理由を記録した設計書と、実現可能性を示す動く検証実装。読んで検証できる形でお渡しします。</p>
-                </div>
-
-                <div class="philosophy-card">
-                    <h3>⚙️ 実装 — 10万円</h3>
-                    <p>承認された設計書に沿って実装します。納品はテストが通るソースコード一式と操作手順書。設計書が仕様なので、内容の食い違いはその場で確認できます。</p>
-                </div>
-
-                <div class="philosophy-card">
-                    <h3>🎓 導入・研修 — 時間制</h3>
-                    <p>実サーバーへの導入と、担当者が日常運用を一巡できるまでの研修は、環境に依存するため時間制で別建てです。目標は「当方への依存を残さない」こと。引き継ぎまでが納品です。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 方式の特徴 -->
-    <section class="philosophy">
-        <div class="container">
-            <h2 class="section-title">方式の要点</h2>
-            <p class="section-subtitle">
-                設計書はすべて公開しています。読んでから判断できます
-            </p>
-
-            <div class="philosophy-grid">
-                <div class="philosophy-card">
-                    <h3>🏠 データは建物の中に</h3>
-                    <p>個人情報・内部文書は機関内のサーバーに置き、外部クラウドに出しません。公開サイトだけを静的HTMLとして外に出します(動的なCMSがないので、公開面のパッチ運用も消えます)。</p>
-                </div>
-
-                <div class="philosophy-card">
-                    <h3>🔍 AIはランタイムに置かない</h3>
-                    <p>AI は構築・移行時の道具です。出力されたコードと文書は人が確認して git に凍結し、日々の処理経路には AI を残しません。動くものはすべて、読める・検査できる普通のコードです。</p>
-                </div>
-
-                <div class="philosophy-card">
-                    <h3>📖 実物が公開されています</h3>
-                    <p>移行キット(<a href="kit/">aiseed-migration-kit — 詳しい説明はこちら</a>)、研修管理システム(seminar-kit)、配信ツール(cf-publish)は GitHub で公開中。このサイト自体も同じ方式(静的HTML・外部依存なし)で作られています。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 連絡先 -->
-    <section class="philosophy">
-        <div class="container">
-            <h2 class="section-title">ご相談</h2>
-            <p class="section-subtitle">
-                公設試験研究機関・支援機関・中小企業の、具体的な困りごとから
-            </p>
-            <div class="philosophy-grid">
-                <div class="philosophy-card">
-                    <h3>まず見る</h3>
-                    <p>設計の考え方と実物は <a href="https://github.com/aiseed-dev" target="_blank" rel="noopener">GitHub (aiseed-dev)</a> と <a href="https://aiseed.dev" target="_blank" rel="noopener">aiseed.dev</a> で公開しています。設計書(DESIGN.md)を読んでいただくのが一番早い説明です。</p>
-                </div>
-                <div class="philosophy-card">
-                    <h3>相談する</h3>
-                    <!-- TODO: 連絡手段(メール様式 or フォーム)はユーザー決定待ち -->
-                    <p>ご相談の窓口は準備中です。それまでは aiseed.dev の案内をご覧ください。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    
-
+<div class="container prose">
+<h1 id="aiseed-migration-kit">移行ツール aiseed-migration-kit</h1>
+<p><a href="https://github.com/aiseed-dev/aiseed-migration-kit">aiseed-migration-kit</a> は、
+組織のIT——公開Web・文書・メール・業務——を、
+<strong>git・SQL・メール・OnlyOffice・静的公開という開いた土台</strong>へ移すためのツール一式です。
+<code>amig</code> というコマンドが移行の各段階を支援します。ライセンスは AGPL-3.0。</p>
+<p>現在の実装範囲は移行の入口にあたる<strong>公開Web(脱CMS: 静的化と Cloudflare Pages 配信)と
+問い合わせ(申込様式+メール受付)</strong>です。業務システム・文書・メール側の設計は
+リポジトリの DESIGN.md に、実装例は <a href="https://github.com/aiseed-dev/seminar-kit">seminar-kit</a> にあります。</p>
+<h2 id="_1">設計の考え方 — 三つの閉じた世界を、開かれた世界に</h2>
+<p>組織の情報環境は、三つの閉じた世界に分かれてきました。</p>
+<ul>
+<li><strong>Microsoft 365</strong> — 文書・メール・会議に加え、認証やデータの置き場所まで。席数課金の外部クラウド</li>
+<li><strong>業務システム</strong> — 基幹・業務パッケージ。独自形式・独自APIとベンダー保守契約</li>
+<li><strong>CMS/スマートフォン</strong> — 市民・顧客との接点。CMSのライセンス・保守・脆弱性対応と、
+  アプリ開発・ストア審査の負担</li>
+</ul>
+<p>それぞれが独自形式と契約で閉じているため、データは外に出しにくく、
+世界の境界をまたぐたびに転記と受け渡しが生じます。業務の分断と属人化の正体です。
+まず、それぞれの世界のどこが問題なのかを具体的に見ます。</p>
+<h2 id="_2">三つの世界の、どこが問題か</h2>
+<h3 id="microsoft-365">Microsoft 365</h3>
+<h4 id="_3">認証の縛り</h4>
+<ul>
+<li><strong>認証(Entra ID)が開発技術まで縛る</strong> — 組織の認証を Entra ID に置くと、
+  業務システムは Entra ID 統合が前提になり、C# / .NET・SQL Server という
+  Microsoft の開発技術一式が事実上の指定になります。認証を通すために、
+  プログラミング言語やデータベースという本来自由なはずの技術選定まで
+  奪われる構図です。それでいて、その一式で作った業務システムと
+  Microsoft 365(文書・メール・共有)との連携が良いわけではなく、
+  システムの境界には結局、手作業の転記が残ります。
+  認証を握られているため、個々の部品だけを別の道具に替えることもできません</li>
+<li><strong>Windows でも Microsoft アカウントの強制が進む</strong> — Windows 11 の初期設定は
+  原則として Microsoft アカウントとインターネット接続が必須になり、
+  ローカルアカウントで済ませる回避手段は更新のたびに塞がれてきました。
+  そしてアカウント側に問題が起きると——パスワードと二段階認証の喪失、
+  不審と判定されたロック——PC へのサインインに支障が出るだけでなく、
+  Microsoft アカウントに保管された BitLocker 回復キーを取り出せず、
+  手元の PC の中のデータごと失うことがあります。組織の Entra ID と同じ
+  「認証を外部に預ける」構図が、個人の PC でも既定になっています</li>
+</ul>
+<h4 id="_4">自動化の袋小路</h4>
+<ul>
+<li><strong>安全なローカルの選択肢がない</strong> — Office の自動化には
+  VBA・JavaScript(Office Scripts)・Python(Python in Excel)が用意されていますが、
+  <strong>ローカルの Office で動くのは VBA だけ</strong>。Office Scripts と Python in Excel は
+  Microsoft 365 のクラウド側でしか実行されません。これは技術的な制約ではありません——
+  JavaScript をサンドボックスで安全にローカル実行する技術は、ブラウザが毎日
+  何十億台で実証しているとおり確立しています。ローカル版が提供されないのは
+  技術の限界ではなく、提供側の選択です。そして肝心の VBA には<strong>サンドボックスがありません</strong>——
+  文書に埋め込まれたコードが、利用者の権限そのままでファイル・ネットワーク・OS を
+  操作できます。「ファイルを開く=コードが実行される」経路と合わさって
+  マクロウイルスの温床となり、いまや使用禁止の推奨対象です。しかも VBA や
+  Power Automate で作られた自動化は、作った担当者にしか直せず監査もしにくい——
+  属人化の温床でもあります。安全に自動化したければクラウドへ、という誘導が
+  ここにも働いています(本キットの様式設計が
+  「外部の Python+サンドボックス内の JavaScript」なのは、この袋小路への回答です)</li>
+</ul>
+<h4 id="ai">組み込みAIのリスク</h4>
+<ul>
+<li><strong>内蔵された Copilot が新しい攻撃面になる</strong> — Copilot は利用者が読める
+  文書・メール全体を読みます。そのため、細工したメール1通で内部情報を外部へ
+  送り出させる攻撃が現実に成立しました
+  (<a href="https://thehackernews.com/2025/06/zero-click-ai-vulnerability-exposes.html">EchoLeak / CVE-2025-32711</a>、
+  CVSS 9.3、ゼロクリック、2025年6月修正)。その後も Copilot の情報漏えい脆弱性は
+  継続的に見つかっています(2026年5〜6月にも CVE-2026-26129 / 26164 / 42824 など複数)。
+  「回答にリンクを出すな」と指示するだけで監査ログに痕跡を残さずファイルへ
+  アクセスできた事例も報告されました。さらに、誤って「組織全体」に共有された
+  ファイルを Copilot は正規の情報として回答に使うため、一つの設定ミスが
+  AIで検索可能な漏えいに増幅されます。クラウド完結のサービスであるため、
+  修正のタイミングも検査の可否も提供側に委ねるほかありません</li>
+<li><strong>Microsoft Graph — 全データに繋がる一本の窓口</strong> — Graph はメール・ファイル・
+  予定・利用者情報のすべてへ繋がる単一の API です。アプリに与える権限の粒度は粗く、
+  たとえばアプリ権限の Mail.Read は「全員の全メール」に届きます。
+  同意させたアプリ一つ、漏れたトークン一つが組織全体への窓口になり、
+  Graph を攻撃の指令経路(C2)に使うマルウェアも実際に報告されています</li>
+<li><strong>Agent 365 — その窓口に AI エージェントを常駐させる</strong> — AI エージェントに
+  Entra 上の身元(Agent ID)を与え、Graph 経由でデータへの常時アクセスを持たせる
+  仕組みです。Microsoft 自身が「エージェントの乱立(agent sprawl)」「過剰権限」
+  「持ち主不明のエージェント」を管理すべきリスクとして挙げています。
+  そしてその管理の答えは Entra・Defender・Purview の追加サービス——
+  閉じた世界の中で生まれた問題を、閉じた世界の追加契約で抑える構図が一段深まります</li>
+<li><strong>AIの中身と品質を選べない</strong> — AI の答えの質はモデルで決まりますが、
+  Copilot ではどのモデルに処理されるかを利用者は選べず、切り替えの時期も
+  提供側次第です。Microsoft の自社モデル(MAI)は、これまでのところ公開の
+  比較評価で先頭集団に入っていません。つまり組み込みAIの品質は
+  「その時点で最良のAI」ではなく「バンドルされたAI」の水準に固定されます。
+  AI を独立した道具として使う構成なら、モデルはいつでも最良のものに
+  差し替えられます——本キットが AI を製品への組み込みではなく
+  開発時の道具として使う理由の一つです</li>
+</ul>
+<h4 id="_5">データの軽視</h4>
+<ul>
+<li><strong>構造化データへの対応が弱い</strong> — Microsoft 365 の中心は文書(Word・Excel・
+  PowerPoint)で、スキーマを持つ構造化データの置き場所が標準にはありません。
+  現実には Excel が台帳・名簿・申込管理のデータベース代わりになりますが、
+  セルには型も制約もなく、列がずれても値が重複しても黙って壊れます。
+  SharePoint リストや Teams のやり取りも標準形式での取り出しが難しく、
+  決定や資料は流れて消えます。本格的に構造化しようとすると Dataverse や
+  Power Platform という別課金の製品群が必要になり、データベースの基本である
+  SQL は、この世界のどこにも標準では含まれていません。
+  そしてシステム間のデータ交換は、今でも CSV や固定長テキスト(txt)です——
+  スキーマも型も持たず、列の位置や桁の位置と暗黙の了解だけに頼る形式で、
+  Excel で開けば先頭の 0 が消え、番号が日付に化け、誰も気づかないまま壊れます。
+  Word の様式も同じです——見た目は整っていても、データとしては構造のない
+  ただの文章(txt)で、受け取った側は人が読んで転記するほかありません。
+  本キットがデータを Markdown / YAML / Parquet(自己記述でスキーマを持つ形式)に置き、
+  蓄積を SQL にして、CSV を境界に使わないのは、この欠落の裏返しです</li>
+</ul>
+<h4 id="_6">契約の構造</h4>
+<ul>
+<li><strong>やめられず、値上げを断れない</strong> — Exchange Online、SharePoint / OneDrive には
+  ローカルの代替がなく、解約は認証・メール・共有を同時に移すことを意味します。
+  席数課金は何年払っても所有に至りません。しかも実際に、個人向けは Copilot の
+  組み込みとともに約43%の値上げ(2025年2月、年14,900円→21,300円)、法人向けも
+  「AI標準搭載」を理由に約12〜17%の値上げ(2026年7月、Business Basic $6→$7 等)が
+  行われました。サブスクリプションには「今の機能のまま今の価格で使い続ける」という
+  選択肢がなく、AI が不要でも、値上げに従うか移行するかの二択になります。
+  この値上げは一過性とは考えにくい構造があります——Microsoft は AI 向け
+  データセンターに年間10兆円を超える規模の投資を公表しており、
+  その回収経路は製品の利用料以外にありません。投資が続く限り、
+  「AI搭載」を理由とする改定は繰り返されると見るのが自然です</li>
+</ul>
+<h3 id="_7">業務システム</h3>
+<ul>
+<li><strong>認証の選択を迫られる</strong> — 組織が Microsoft 365 にいると、業務システムが
+  Entra ID を使わなければ連携は難しくなります——シングルサインオンが効かず、
+  アカウントは二重管理になり、利用者の追加・削除も別々の作業になる。
+  かといって Entra ID に合わせれば、上で述べた縛り(開発技術の事実上の指定)を
+  業務システムがそのまま引き受けます。どちらを選んでも、業務システムの認証が
+  自分たちの要件ではなくベンダーの構図で決まってしまいます</li>
+<li><strong>作らせれば高額になる</strong> — SIer への発注は人月単価の積み上げで、
+  小さな業務システムでも数百万円規模になりがちです。多重下請けの構造では、
+  実際に作る人と発注者の間に何層もの伝言と管理費が挟まり、
+  費用の多くが開発そのもの以外に消えます。納品後も年額の保守費が続きます。
+  そもそも「DXで業務を効率化しましょう」と勧める IT 産業自身が、
+  ソフトウェアを人月で数える手作りで生産しています。
+  作り手の生産性が変わらないまま、顧客の効率化だけが安く手に入ることはありません</li>
+<li><strong>SaaS を借りても高額になりやすい</strong> — 一人あたり月額の課金は人数と年月に
+  比例して積み上がり、機能は上位プランに小出しにされ、値上げを断る手段は
+  ありません。業務ごとに別の SaaS を契約していくと、一つずつは安くても
+  束では大きな固定費になります。そしてデータはサービスの中にあり、
+  やめるときに全部を持ち出せるとは限りません</li>
+<li><strong>人が入力装置になっている</strong> — それだけ費用をかけても、業務システムの多くは
+  結局「人が画面に手で打ち込む」ことで動いています。紙の書類を Excel に打ち直し、
+  メールの内容を業務システムへ転記し、システムAの画面を見ながらシステムBに入力する。
+  Office 365 の職場はその典型で、1日の大半を PC の画面を見て
+  入力作業に費やす人が珍しくありません。出力側も同じです——月次バッチのたびに
+  帳票が大量に紙へ印刷され、綴じられ、確認のために紙がめくられる。
+  データはシステムの中にあるのに、人が使う段になると紙へ戻すのです。
+  システム同士が繋がっていないため、
+  人間が接続装置の役割を担わされている——手書きが手打ちに変わっただけで、
+  それを「デジタル化」と呼んできたのです</li>
+<li><strong>データが独自形式・独自APIの中にある</strong> — 取り出すにも他システムと繋ぐにも
+  個別開発が要り、システムの境界のたびに手作業の転記が生じます</li>
+<li><strong>変更のたびにベンダー保守契約</strong> — 小さな画面や様式の変更にも見積り・発注・納期が要り、
+  業務の変化に追従できません</li>
+<li><strong>寿命をベンダーが握る</strong> — 製品の販売終了・サポート終了・撤退で、
+  業務ごと作り直しになります</li>
+</ul>
+<h3 id="cms">CMS/スマートフォン</h3>
+<ul>
+<li><strong>組織のITから完全に切り離された島</strong> — WordPress に代表される CMS は、
+  Microsoft 365 とも業務システムとも繋がっていません。組織の認証(Entra ID)は
+  組織の内側のための仕組みで、不特定多数が訪れる公開Webへ晒す設計には
+  なっておらず、インターネット側の負荷と攻撃には耐えられません。
+  境界の内側をあれほど強く縛る認証が、公開Webには届かない——結果として
+  CMS は独自のアカウントと独自の編集画面を持つ三つ目の世界になり、
+  Word の文書も業務システムのデータも、人がコピーして貼り直すことでしか
+  公開Webに届きません。これは偶然ではありません——Microsoft 自身、
+  かつて SharePoint にあった公開Webサイト機能を2015年に廃止して以来、
+  この領域の製品を持っていません。スマートフォンからの撤退
+  (Windows Phone、2017年終息)は有名ですが、Web からの撤退は
+  あまり意識されていません。組織を縛る世界が、市民や顧客が実際にいる場所
+  ——スマホと Web——を覆っていない。この落差が、閉じた世界の問題を
+  いっそう大きくしています</li>
+<li><strong>公開サイトなのに常時攻撃対象</strong> — 動的なCMSはサーバーとプログラムを常時稼働させるため、
+  脆弱性対応とバージョン更新が終わりません</li>
+<li><strong>プラグインの積み木</strong> — フォームも検索も後付けプラグイン頼みで、
+  本体更新のたびに壊れるリスクを抱えます</li>
+<li><strong>編集に版管理・承認がない</strong> — 「ログインして直す」だけでは、
+  誰がいつ何を変えたか辿れず、間違いを戻せません</li>
+<li><strong>扱えない業務が「仮の手段」に流れる</strong> — 申込・予約・依頼は担当PCの
+  その場しのぎの Excel・紙・メールへ押し出され、分断と属人化を生みます</li>
+</ul>
+<p>三つに共通するのは、<strong>データと業務の形を道具の側が決めてしまう</strong>こと。
+そして、その世界の境界を埋めているのが<strong>人間の手作業</strong>だということです。</p>
+<h2 id="_8">繋ぎ役の交代 — それが今</h2>
+<p>これまで、三つの世界を繋いできたのは人間でした——画面を見ながらの転記、
+CSV の受け渡し、紙の帳票。繋ぐコードを書かせれば高額で、
+書ける人も足りなかったからです。</p>
+<p><strong>それらを接続するコードを、AI が書けるようになった。それが今です。</strong>
+AI は閉じた世界の独自形式を読み解き、開いた形式(Markdown / YAML / SQL)への
+変換を書き、OSS の部品同士を繋ぐコードを書きます。三つの世界に欠けていた
+「境界を越える力」が、初めて現実の道具になりました。
+実例は既にあります——<a href="../packages/">cf-publish</a> は Python の世界と
+Cloudflare Pages を繋ぎ、<a href="../packages/">CJKフレンドリー三部作</a> は
+日本語と Markdown・組版・SVG 描画を繋ぐ。どれも AI と協働して書かれ、
+実際の製品の中で毎日動いている「接続するコード」です。</p>
+<p>こうして三つの世界は、<strong>一つの開いた土台</strong>(git・SQL・メール・OnlyOffice・静的公開)に
+置き換わります——内容は Markdown+git で版管理・承認し、受付は様式(xlsx)を
+唯一の定義とする機械可読な経路にし、必要な業務だけ認証・DBを備えたアプリにする。
+AI が書いた接続は人が確認し、コードとして git に凍結するので、
+日々の運用に AI は残りません(AI は道具として使い、成果物を残す)。
+公開Web側から見れば「CMS移行キット」、文書・メール側から見れば
+「Microsoft 365 移行キット」——同じ道具の、顔が違うだけです。</p>
+<p>ただし全業務を無条件に移すのではなく、業務ごとに要否で水準を選びます。
+単独・小規模のサイトなら「静的化まで」で十分な場合も多く、
+その判断が移行のいちばん最初の仕事です。</p>
+<h2 id="_9">閉じた世界をつくらない — 公開標準でつなぐ</h2>
+<p>移行の目的は、別の閉じた世界(自前スタックへの新しいロックイン)への
+引っ越しではありません。部品は少数の公開標準で疎結合につなぎます。</p>
+<ul>
+<li><strong>データ</strong> = Markdown / YAML / JSON / Parquet(自己記述でスキーマがある形式)</li>
+<li><strong>問い合わせ・蓄積</strong> = SQL(実装は PostgreSQL・SQLite。製品ではなく SQL にコミット)</li>
+<li><strong>処理</strong> = Python、<strong>体裁</strong> = テンプレート(Jinja2)</li>
+</ul>
+<p>自己記述で、AIが扱えて、多くの道具が読める形式だから、部品は差し替えられ、
+データはツールより長生きし、<strong>この仕組み自体からも出られます</strong>。
+檻から出ることと、出た先を檻にしないこと——その両方が「開放」です。</p>
+<h2 id="amig">amig のパイプライン</h2>
+<p>移行は一発変換ではなく、<strong>人が確認・修正できる段階</strong>に分かれています。</p>
+<pre><code class="language-bash">amig new sites/mysite            # 1. サイトの雛形を作る(site.yaml を編集)
+amig ingest sites/mysite ~/data  # 2. 元データ(CMSの書き出しHTML等)を取り込む
+amig classify sites/mysite       # 3. 記事/一覧に分類 — 結果は人が直せる
+amig convert sites/mysite        # 4. 記事を content/*.md へ機械変換(下書き)
+amig build sites/mysite          # 5. dist/ に静的サイトを生成
+amig publish sites/mysite        # 6. Cloudflare Pages へ配信(運用判断で実行)
+</code></pre>
+<p>要点は3つあります。</p>
+<ol>
+<li><strong>内容の正は <code>content/</code> の Markdown+frontmatter</strong> — CMS のデータベースではなく、
+   git で版管理できるテキストがサイトの本体になります</li>
+<li><strong><code>convert</code> は既存の .md を上書きしない</strong> — 機械変換はあくまで下書きで、
+   人が仕上げた原稿を壊しません(<code>--force</code> を明示したときだけ上書き)</li>
+<li><strong><code>publish</code> は自動では走らない</strong> — 公開はいつも運用側の判断で実行します</li>
+</ol>
+<p>配信は <a href="../packages/">cf-publish</a>、日本語Markdownの解釈は
+<a href="../packages/">mdit-py-cjk-friendly</a> と、同じ思想の小さな部品を組み合わせています。</p>
+<h2 id="xlsx">問い合わせ設計 — 様式(xlsx)+メール受付</h2>
+<p>本キットは <strong>Webフォームを作りません</strong>。サーバー側に受付処理を持つと、
+それ自体が保守と攻撃面になるからです。かわりに、昔ながらの「様式」を
+機械可読にして使います。</p>
+<pre><code class="language-bash">amig forms sites/mysite            # 様式 xlsx を生成(公開サイトに載る)
+amig mailin sites/mysite --once    # 受付メールを担当フォルダへ振り分け
+</code></pre>
+<ul>
+<li><strong>様式が唯一のフォーム定義</strong> — site.yaml に書いた一つの定義から様式を生成し、
+  「Webからダウンロード」「印刷して手書き」「メール添付で提出」「機械読み取り」の
+  全チャネルを同じ様式が兼ねます</li>
+<li><strong>VBA を使わない</strong> — 処理は外部の Python、入力補助は OnlyOffice の
+  サンドボックス内 JavaScript に分離し、「ファイルを開く=コードが実行される」
+  という経路を設計から無くしています</li>
+<li><strong>受付アドレスはページ本文に書かず、様式の中にだけ</strong>置きます(ボット収集対策)。
+  様式由来でないメールには自動返信しないので、スパムへの逆流も起きません</li>
+<li>受付の状態管理は <strong>IMAP フォルダそのもの</strong>(INBOX=未着手 / staff/担当 / pending=未処理)。
+  専用の管理画面を作らず、普段のメールソフトで運用できます</li>
+</ul>
+<h2 id="_10">共同編集と認証</h2>
+<ul>
+<li>内容の共同編集は <strong>Forgejo(git)</strong> を土台に、エディタは Zed などを想定。
+  提案→レビュー→承認という本格の編集プロセスが、公開Webにもそのまま使えます</li>
+<li>認証は層で分けます — <strong>編集層は Forgejo の内蔵認証</strong>、業務アプリ層は
+  <strong>PocketBase</strong> で職員・会員を role 分離。一つの巨大な認証基盤に集約しません</li>
+</ul>
+<h2 id="_11">どこまで移すかは選べる</h2>
+<p>運用形態が構成を決めます。公開Webの静的化だけなら、サーバーの常時運用は不要で
+Cloudflare Pages の無料枠に収まります。問い合わせを足すならメールの受け口、
+業務アプリまで移すなら機関内サーバー——と、<strong>引き受けられる運用の水準に合わせて</strong>
+段階的に選べる構成です。</p>
+<h2 id="linux">動かす場所 — Linux の自宅サーバー</h2>
+<p>移行した道具を動かし続ける場所には、Linux の自宅サーバーという選択肢があります。
+AI を使えば構築も運用ももう難しくなく、常時稼働のコストは
+自宅サーバー ＜ VPS・クラウド ＜ 大手クラウド の順です。
+「AIをどう使うか」から始まるこの話は、<a href="../homeserver/">自宅AIサーバーのページ</a> にまとめています。</p>
+<hr />
+<p>他のパッケージとの関係は <a href="../packages/">OSSパッケージ紹介</a> へ。</p>
+<p>→ <a href="https://github.com/aiseed-dev/aiseed-migration-kit">GitHub: aiseed-dev/aiseed-migration-kit</a></p>
+</div>
 
     <!-- フッター -->
     <footer>
@@ -207,7 +342,6 @@
                 <div class="footer-links">
                     <a href="../#projects">アプリ</a>
                     <a href="../cookbook/">AI×Flutter</a>
-                    <a href="../homeserver/">自宅サーバー</a>
                     <a href="../migration/">IT移行</a>
                     <a href="../packages/">パッケージ</a>
                     <a href="../dyslexia/">ディスレクシア</a>

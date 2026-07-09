@@ -3,7 +3,7 @@
 
 # 開発から生まれたOSSパッケージ
 
-このサイトも、世界時計アプリも、[IT移行の支援](../migration/)も、AIと協働する開発で作っています。
+このサイトも、世界時計アプリも、[IT移行の道具](../migration/)も、AIと協働する開発で作っています。
 その過程で「無いと困る」道具を小さなパッケージに切り出し、
 [GitHub (aiseed-dev)](https://github.com/aiseed-dev) で公開しています。
 どれも机上の作品ではなく、**実際の製品の中で毎日動いているもの**です。
@@ -141,9 +141,8 @@ amig publish sites/mysite        # Cloudflare Pages へ配信
 - 問い合わせは申込様式(xlsx)+メール受付で、Webフォームは作らない
 - 配信は上の cf-publish、Markdown解釈は mdit-py-cjk-friendly を利用
 
-移行ツールとしての詳しい説明(設計の考え方・パイプライン・問い合わせ設計)は
-[aiseed-migration-kit の詳しい説明](../migration/kit/)に、
-移行支援そのものの案内は [IT移行のページ](../migration/) にあります。
+移行ツールとしての詳しい説明(三つの閉じた世界・AIによる接続・パイプライン・
+問い合わせ設計)は [aiseed-migration-kit の詳しい説明](../migration/) にあります。
 
 → [GitHub: aiseed-dev/aiseed-migration-kit](https://github.com/aiseed-dev/aiseed-migration-kit)
 
