@@ -1687,7 +1687,7 @@ async function apiCall() {
 ↓
 
 【05章 / Chef's Specials】本格開発へ
-- Cursor + Claude
+- Claude Code
 - Flutter
 - CI/CD
 ```
@@ -1750,7 +1750,7 @@ async function apiCall() {
 **本格開発への準備が整ったら:**
 
 📘 **05章（Chef's Specials）へ**
-- Cursor + Claude で効率開発
+- Claude Code で効率開発
 - Flutter でマルチプラットフォーム
 - MCP を組み込んだ本格アプリ
 - コミュニティ駆動開発

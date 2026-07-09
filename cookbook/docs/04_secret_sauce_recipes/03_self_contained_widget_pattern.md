@@ -387,7 +387,7 @@ void _increment() { }
 Future<void> _fetchData() async { }
 ```
 
-## Cursorでの活用
+## Claude Codeでの活用
 
 ### プロンプト例
 

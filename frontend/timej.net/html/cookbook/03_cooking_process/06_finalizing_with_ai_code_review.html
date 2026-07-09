@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>レシピ#3-6: Cursor + Claudeによる最終コードレビューと品質向上 - AI x Flutter Cookbook</title>
+<title>レシピ#3-6: Claude Codeによる最終コードレビューと品質向上 - AI x Flutter Cookbook</title>
 <link rel="stylesheet" href="../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
 </head>
@@ -39,24 +39,24 @@
 </ul></details>
 <details open><summary>3. 料理のプロセス</summary><ul>
 <li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
-<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
-<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
-<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
-<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
-<li class="current"><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Claude Codeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Claude Codeで実装するロジックと状態管理</a></li>
+<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Claude Codeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Claude CodeでAPI通信を実装する</a></li>
+<li class="current"><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Claude Codeによる最終コードレビューと品質向上</a></li>
 <li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
 <li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
 <li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
 <li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
 </ul></details>
 <details><summary>4. 秘伝のソース</summary><ul>
-<li><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li><a href="../04_secret_sauce_recipes/01_claude_code_workflow.html">#4-1 Claude Codeを使った効率的な開発ワークフロー</a></li>
 <li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
 <li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
 <li><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
-<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Claude Codeでシンプルなアプリを作る</a></li>
 <li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
-<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Claude Codeで完全なTODOアプリを作る</a></li>
 <li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
 <li><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
 </ul></details>
@@ -97,17 +97,17 @@
 <li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
 </ul></details>
 <details><summary>9. 設計とプロトタイピング</summary><ul>
-<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Claude Codeでプロダクトの「魂」を設計する</a></li>
 <li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
 <li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
-<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Claude Code時代のキャリアパスを設計する</a></li>
 </ul></details>
     </nav>
   </aside>
   <main class="content">
-<h1 id="3-6-cursor-claude">レシピ#3-6: Cursor + Claudeによる最終コードレビューと品質向上</h1>
+<h1 id="3-6-claude-code">レシピ#3-6: Claude Codeによる最終コードレビューと品質向上</h1>
 <p>おめでとうございます！あなたのアプリは、UI、ロジック、データ保存といった主要な機能を備え、完成に近づいています。しかし、料理が完成しても、キッチンが散らかったままではプロの仕事とは言えません。</p>
-<p>このレシピでは、開発の最終段階として、<strong>Cursor + Claude</strong>を「厳格なコードレビュワー」兼「親切なテクニカルライター」として活用し、アプリケーション全体の品質を向上させる方法を学びます。</p>
+<p>このレシピでは、開発の最終段階として、<strong>Claude Code</strong>を「厳格なコードレビュワー」兼「親切なテクニカルライター」として活用し、アプリケーション全体の品質を向上させる方法を学びます。</p>
 <hr />
 <h2 id="1">1. コードの「健康診断」：静的解析とフォーマット</h2>
 <p>まず、コードがFlutterの作法に沿ってきれいに書かれているか、基本的な健康診断を行います。</p>
@@ -123,22 +123,22 @@
     <code>flutter analyze</code>は、コードをスキャンし、潜在的なバグや非効率な書き方を指摘してくれる、優秀な「自動診断ツール」です。
     <code>bash
     flutter analyze</code>
-    もし、何らかの警告（<code>info</code>, <code>warning</code>）が表示されたら、その内容を<strong>Cursor + Claude</strong>に尋ねてみましょう。</p>
+    もし、何らかの警告（<code>info</code>, <code>warning</code>）が表示されたら、その内容を<strong>Claude Code</strong>に尋ねてみましょう。</p>
 </li>
 </ol>
 <blockquote>
-<p><strong>💬 Cursor活用プロンプト (静的解析エラーの解説)</strong></p>
+<p><strong>💬 Claude Code活用プロンプト (静的解析エラーの解説)</strong></p>
 <p><code>flutter analyze</code>を実行したら、以下の警告が表示されました。</p>
 <p><code>info: prefer_const_constructors</code></p>
 <p>この警告は何を意味していますか？また、どうすれば修正できますか？初心者にでも分かるように説明してください。</p>
 </blockquote>
 <hr />
-<h2 id="2-cursor-claude">2. Cursor + Claudeによるリファクタリング提案</h2>
-<p>コードは動きますが、もっと効率的で、もっと読みやすい書き方があるかもしれません。<strong>Cursor + Claude</strong>にコード全体をレビューさせ、改善点を提案してもらいましょう。</p>
+<h2 id="2-claude-code">2. Claude Codeによるリファクタリング提案</h2>
+<p>コードは動きますが、もっと効率的で、もっと読みやすい書き方があるかもしれません。<strong>Claude Code</strong>にコード全体をレビューさせ、改善点を提案してもらいましょう。</p>
 <h3 id="_1">例：巨大なウィジェットの分割</h3>
 <p>開発が進むと、特定のウィジェット（特に画面全体を表すウィジェット）が肥大化しがちです。</p>
 <blockquote>
-<p><strong>💬 Cursor活用プロンプト (リファクタリング依頼)</strong></p>
+<p><strong>💬 Claude Code活用プロンプト (リファクタリング依頼)</strong></p>
 <p>あなたは、クリーンで保守性の高いFlutterコードを書くエキスパートです。</p>
 <p>私の<code>home_screen.dart</code>のコードは、1つの<code>build</code>メソッドの中にロジックが集中し、長くなってしまいました。</p>
 <p>【<strong>レビューしてほしいコード</strong>】
@@ -148,12 +148,12 @@
 例えば、UI部品を別の<code>StatelessWidget</code>に切り出す、ロジックをServiceクラスに移動するなど、可読性と再利用性を高める観点でお願いします。</p>
 </blockquote>
 <hr />
-<h2 id="3-cursor-claude">3. Cursor + Claudeによるテストコードの自動生成</h2>
+<h2 id="3-claude-code">3. Claude Codeによるテストコードの自動生成</h2>
 <p>手動での動作確認は重要ですが、アプリが大きくなるにつれて限界がきます。ユニットテストは、コードの各部品が正しく動作することを自動で保証してくれるセーフティネットです。</p>
 <h3 id="_2">例：ロジック部分のユニットテスト作成</h3>
 <p>状態管理を担う<code>MemoService</code>のロジックが、意図通りに動くかをテストしてみましょう。</p>
 <blockquote>
-<p><strong>💬 Cursor活用プロンプト (テストコード生成)</strong></p>
+<p><strong>💬 Claude Code活用プロンプト (テストコード生成)</strong></p>
 <p>あなたはFlutterのテスト作成の専門家です。</p>
 <p><code>MemoService</code>クラスに対して、<code>flutter_test</code>を使ったユニットテストのコードを生成してください。</p>
 <p>【<strong>テスト対象のコード</strong>】
@@ -166,11 +166,11 @@
 </blockquote>
 <p>「このテストを<code>test/memo_service_test.dart</code>として作成して」と依頼すれば、エージェントが直接ファイルを作成してくれます。あとはターミナルで<code>flutter test</code>を実行すれば、いつでもロジックの健全性を自動でチェックできます。</p>
 <hr />
-<h2 id="4-cursor-claude">4. Cursor + Claudeによるドキュメンテーション</h2>
+<h2 id="4-claude-code">4. Claude Codeによるドキュメンテーション</h2>
 <p>最後に、未来の自分や他の開発者のために、コードの「取扱説明書」を残しておきましょう。</p>
 <h3 id="doc">例：公開するクラスやメソッドへのDocコメント追加</h3>
 <blockquote>
-<p><strong>💬 Cursor活用プロンプト (Docコメント生成)</strong></p>
+<p><strong>💬 Claude Code活用プロンプト (Docコメント生成)</strong></p>
 <p>あなたは分かりやすい技術文書を書くのが得意なテクニカルライターです。</p>
 <p><code>MemoService</code>クラスと、その公開メソッドである<code>addMemo</code>, <code>removeMemo</code>に対して、他の開発者が使い方をすぐに理解できるように、Dartの公式スタイルガイドに従ったDocコメントを生成してください。</p>
 <p>各メソッドが何をするのか、どんな引数を取るのかを簡潔に説明してください。</p>

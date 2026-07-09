@@ -30,7 +30,7 @@ AI革命によって、個人が「ビルダー」として自立していく時
 1. **[キッチンの準備](01_the_kitchen/01_setting_up_flutter.md)** — 開発環境とAIツールのセットアップ
 2. **[Flutterの重要概念](02_core_concepts/00_introduction.md)** — アプリの「骨格」となる考え方
 3. **[料理のプロセス](03_cooking_process/01_simple_project_structure_with_ai.md)** — AIと共に1つのアプリをゼロから完成させ、ストアに届けるまで
-4. **[秘伝のソース](04_secret_sauce_recipes/01_cursor_workflow.md)** — AIフレンドリーな設計パターンとベストプラクティス
+4. **[秘伝のソース](04_secret_sauce_recipes/01_claude_code_workflow.md)** — AIフレンドリーな設計パターンとベストプラクティス
 5. **[シェフの特別料理](05_chefs_specials/00_introduction.md)** — AI連携・リアルタイム・マルチプラットフォームの本格ケーススタディ
 6. **[他のシェフとの協業](06_collaboration/01_fork_and_clone.md)** — オープンソース貢献、BYOA開発、MCP
 7. **[救急箱](07_troubleshooting/01_fix_gradle_metadata_error.md)** — 困った時のトラブルシューティング

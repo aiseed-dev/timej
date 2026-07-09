@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>レシピ#4-1: Cursorを使った効率的な開発ワークフロー - AI x Flutter Cookbook</title>
+<title>レシピ#4-1: Claude Codeを使った効率的な開発ワークフロー - AI x Flutter Cookbook</title>
 <link rel="stylesheet" href="../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
 </head>
@@ -39,24 +39,24 @@
 </ul></details>
 <details><summary>3. 料理のプロセス</summary><ul>
 <li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
-<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
-<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
-<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
-<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
-<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Claude Codeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Claude Codeで実装するロジックと状態管理</a></li>
+<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Claude Codeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Claude CodeでAPI通信を実装する</a></li>
+<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Claude Codeによる最終コードレビューと品質向上</a></li>
 <li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
 <li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
 <li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
 <li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
 </ul></details>
 <details open><summary>4. 秘伝のソース</summary><ul>
-<li class="current"><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li class="current"><a href="../04_secret_sauce_recipes/01_claude_code_workflow.html">#4-1 Claude Codeを使った効率的な開発ワークフロー</a></li>
 <li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
 <li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
 <li><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
-<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Claude Codeでシンプルなアプリを作る</a></li>
 <li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
-<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Claude Codeで完全なTODOアプリを作る</a></li>
 <li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
 <li><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
 </ul></details>
@@ -97,34 +97,33 @@
 <li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
 </ul></details>
 <details><summary>9. 設計とプロトタイピング</summary><ul>
-<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Claude Codeでプロダクトの「魂」を設計する</a></li>
 <li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
 <li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
-<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Claude Code時代のキャリアパスを設計する</a></li>
 </ul></details>
     </nav>
   </aside>
   <main class="content">
-<h1 id="4-1-cursor">レシピ#4-1: Cursorを使った効率的な開発ワークフロー</h1>
+<h1 id="4-1-claude-code">レシピ#4-1: Claude Codeを使った効率的な開発ワークフロー</h1>
 <h2 id="_1">はじめに</h2>
-<p>Section 3では、AIを使った基本的な開発プロセスを学びました。このセクションでは、より実践的に、<strong>Cursor + Claude</strong>を使った効率的な開発方法を学びます。</p>
+<p>Section 3では、AIを使った基本的な開発プロセスを学びました。このセクションでは、より実践的に、<strong>Claude Code</strong>を使った効率的な開発方法を学びます。</p>
 <p>ここで紹介する「AIに任せやすい設計」は、ビルダーが一人で開発を回し、作ったものを<strong>人に届けるまでのスピード</strong>を落とさないための秘伝でもあります。</p>
-<h2 id="cursor">Cursorでの開発フロー</h2>
-<h3 id="1">1. プロジェクトを開く</h3>
+<h2 id="claude-code">Claude Codeでの開発フロー</h2>
+<h3 id="1">1. プロジェクトで起動する</h3>
 <pre><code class="language-bash"># プロジェクトディレクトリに移動
 cd ~/Development/ai-x-flutter/my_app
 
-# Cursorでプロジェクトを開く
-cursor .
+# Claude Codeを起動
+claude
 </code></pre>
+<p>ターミナルに対話画面が開きます。以後は日本語で指示するだけで、Claude Codeがファイルを読み、編集し、<code>flutter run</code> などのコマンドも実行してくれます。</p>
 <h3 id="2-ai">2. AIモデルを選択</h3>
-<p><strong>重要:</strong> Cursorの設定でメインモデルを<strong>Claude Sonnet 4.5</strong>に設定します。</p>
-<p><strong>理由:</strong>
-- Flutterのツリー構造理解が最も優れている
-- 大規模コードの一貫性が高い
-- 破壊的な変更が少ない
-- エラーが出にくい</p>
-<p><strong>避けるべき:</strong> Geminiをコード生成に使うのは避ける（書き換えが大きい、依存関係を壊しやすい）</p>
+<p>Claude Codeでは <code>/model</code> コマンドでモデルを切り替えられます。</p>
+<p><strong>使い分けの目安:</strong>
+- <strong>Opus</strong> — 設計判断・大きな実装・難しいバグ調査
+- <strong>Sonnet</strong> — 日常の実装・小さな修正(高速で安定)</p>
+<p><strong>避けるべき:</strong> コード生成を他社の不安定なモデルに任せること(書き換えが大きい、依存関係を壊しやすい)</p>
 <h3 id="3">3. 効果的なプロンプトの書き方</h3>
 <h4 id="_2">❌ 悪い例</h4>
 <pre><code>TODOアプリを作って
@@ -166,27 +165,30 @@ cursor .
 - ◯◯の機能を追加しようとした
 - △△のボタンを押したら発生
 </code></pre>
-<h2 id="cursor_1">Cursorの便利な機能</h2>
-<h3 id="1-cmdkctrlk">1. Cmd+K（Ctrl+K）: インライン編集</h3>
-<p>コードの一部を選択して<code>Cmd+K</code>を押すと、その部分だけを編集できます。</p>
-<p><strong>使用例:</strong></p>
-<pre><code class="language-dart">// この部分を選択して Cmd+K
-Widget build(BuildContext context) {
-  return Container(
-    child: Text('Hello'),
-  );
-}
-
-// プロンプト: &quot;このWidgetをカード風のデザインにして&quot;
+<p>Claude Code自身が <code>flutter analyze</code> や <code>flutter test</code> を実行してエラーを確認しながら直せるのが、エディタ型ツールとの大きな違いです。</p>
+<h2 id="claude-code_1">Claude Codeの便利な機能</h2>
+<h3 id="1_1">1. ファイル名で参照</h3>
+<p>ファイル名を書くだけで、そのファイルを読んで作業してくれます。</p>
+<pre><code>main.dart のコードと一貫性を保ちながら、
+新しい設定画面 lib/screens/settings_page.dart を作成してください
 </code></pre>
-<h3 id="2-cmdlctrll">2. Cmd+L（Ctrl+L）: チャット</h3>
-<p>AIとの対話画面を開きます。設計相談や質問に使います。</p>
-<h3 id="3_1">3. @ファイル名: 特定のファイルを参照</h3>
-<pre><code>@main.dart のコードと一貫性を保ちながら、
-新しい設定画面を作成してください
+<h3 id="2">2. コマンドの実行まで任せる</h3>
+<pre><code>flutter test を実行して、失敗したテストがあれば直してください
 </code></pre>
-<h3 id="4-composer">4. Composer: 複数ファイルの編集</h3>
-<p>複数のファイルを同時に編集する必要がある場合に使います。</p>
+<p>編集 → 実行 → 確認 → 修正のループを、Claude Codeが一人で回します。</p>
+<h3 id="3-claudemd">3. CLAUDE.md: プロジェクトの約束事を覚えさせる</h3>
+<p>プロジェクト直下に <code>CLAUDE.md</code> を置くと、起動のたびに自動で読み込まれます。</p>
+<pre><code class="language-markdown"># CLAUDE.md
+- Flutter 3.27 / Dart 3.6 / Material Design 3
+- 状態管理は StatefulWidget（Riverpod等は使わない）
+- 小さな自己完結型Widgetパターンで書く
+</code></pre>
+<p>毎回同じ前提を伝え直す必要がなくなります。</p>
+<h3 id="4-clear">4. /clear: 話題を切り替える</h3>
+<p>一つのタスクが終わったら <code>/clear</code> で会話を新しくします。長い会話を引きずらないことが、精度とコスト(トークン)の両方に効きます。</p>
+<h3 id="5-git">5. Gitもそのまま頼める</h3>
+<pre><code>ここまでの変更をコミットしてください。メッセージは日本語で。
+</code></pre>
 <h2 id="_4">実践的なワークフロー例</h2>
 <h3 id="step-1">Step 1: アプリのアイデアを整理</h3>
 <p>まずWeb版Claudeなどで設計を相談：</p>
@@ -199,13 +201,13 @@ Widget build(BuildContext context) {
 個人開発なので、できるだけシンプルな構成にしたいです。
 アーキテクチャの提案をお願いします。
 </code></pre>
-<h3 id="step-2-cursor">Step 2: Cursorでプロジェクト作成</h3>
+<h3 id="step-2-claude-code">Step 2: プロジェクト作成とClaude Code起動</h3>
 <pre><code class="language-bash">flutter create kakeibo_app
 cd kakeibo_app
-cursor .
+claude
 </code></pre>
 <h3 id="step-3">Step 3: データ構造を決める</h3>
-<p>Cursorで以下のようにプロンプト：</p>
+<p>Claude Codeで以下のようにプロンプト：</p>
 <pre><code>家計簿アプリのデータ構造を設計してください。
 
 必要な情報:
@@ -265,12 +267,12 @@ cursor .
    - インデントの統一
 </code></pre>
 <h2 id="_5">ベストプラクティス</h2>
-<h3 id="1_1">1. 小さく始める</h3>
+<h3 id="1_2">1. 小さく始める</h3>
 <p>最初から完璧を目指さず、まず動くものを作ります。</p>
 <pre><code>✅ まず: 基本機能だけの動くアプリ
 ❌ 最初から: 完璧な設計 + 全機能
 </code></pre>
-<h3 id="2">2. 段階的に改善</h3>
+<h3 id="2_1">2. 段階的に改善</h3>
 <pre><code>Step 1: メモリ内のデータ
 Step 2: SharedPreferencesで永続化
 Step 3: SQLiteで高度な検索
@@ -288,6 +290,7 @@ Step 3: SQLiteで高度な検索
 - Dart 3.6
 - Material Design 3
 </code></pre>
+<p>前提はプロンプトに書くより、<code>CLAUDE.md</code> に書いておくのが確実です。</p>
 <h2 id="_6">よくある問題と解決策</h2>
 <h3 id="1-ai">問題1: AIが古い書き方を提案</h3>
 <p><strong>解決策:</strong></p>
@@ -297,24 +300,24 @@ Step 3: SQLiteで高度な検索
 - 最新のナビゲーション
 - 非推奨APIを使わない
 </code></pre>
-<h3 id="2_1">問題2: 不要な複雑さ</h3>
+<h3 id="2_2">問題2: 不要な複雑さ</h3>
 <p><strong>解決策:</strong></p>
 <pre><code>このコードをシンプルにしてください。
 - 不要な抽象化を削除
 - 使われていないクラス/メソッドを削除
 - より直感的な実装に変更
 </code></pre>
-<h3 id="3_2">問題3: 依存関係の問題</h3>
+<h3 id="3_1">問題3: 依存関係の問題</h3>
 <p><strong>解決策:</strong></p>
 <pre><code>pubspec.yamlの依存関係を最小限にしてください。
 本当に必要なパッケージだけを残し、
 不要なものは標準ライブラリで代替してください。
 </code></pre>
 <h2 id="_7">まとめ</h2>
-<p>Cursor + Claudeでの開発フロー：</p>
+<p>Claude Codeでの開発フロー：</p>
 <ol>
 <li><strong>アイデア整理</strong> - Web版Claudeで設計相談</li>
-<li><strong>プロジェクト作成</strong> - Flutter create + Cursor起動</li>
+<li><strong>プロジェクト作成</strong> - flutter create + claude 起動</li>
 <li><strong>データ構造設計</strong> - シンプルなクラス定義</li>
 <li><strong>画面作成</strong> - 段階的に機能追加</li>
 <li><strong>リファクタリング</strong> - コードの整理と分割</li>
@@ -324,7 +327,7 @@ Step 3: SQLiteで高度な検索
 - 小さく始める
 - 段階的に改善
 - 外部パッケージは最小限
-- バージョンを明示
+- 前提は CLAUDE.md に書く
 - AIを信頼しすぎない（必ず確認）</p>
 <p>次のレシピでは、なぜRiverpodなどの複雑な状態管理ライブラリを避けるべきかを解説します。</p>
 <p>➡️ <strong>次のレシピへ:</strong> <a href="./02_why_avoid_riverpod.html"><code>02_why_avoid_riverpod.md</code></a></p>

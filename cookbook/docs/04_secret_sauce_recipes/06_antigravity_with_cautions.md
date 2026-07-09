@@ -139,7 +139,7 @@ Google Antigravityの特徴：
 
 ### ✅ 現時点で推奨
 
-**Cursor + Claude** を使いましょう。
+**Claude Code** を使いましょう。
 
 理由：
 - 安定性が圧倒的に高い
@@ -161,7 +161,7 @@ Google Antigravityの特徴：
 - 学習には向かない
 
 **推奨アプローチ:**
-1. 今はCursor + Claudeで開発
+1. 今はClaude Codeで開発
 2. Antigravityのアップデートを注視
 3. 安定版がリリースされたら再検討
 4. 技術的興味があれば実験用途で試す
@@ -182,7 +182,7 @@ Google Antigravityの特徴：
 - ❌ 本番開発には不向き
 
 **推奨:**
-- ✅ Cursor + Claudeを使う
+- ✅ Claude Codeを使う
 - △ 実験用途なら試してもOK
 - ⚠️ 必ずGit管理
 - ⚠️ バックアップ必須
@@ -190,8 +190,8 @@ Google Antigravityの特徴：
 **重要なメッセージ:**
 「Antigravityは素晴らしいビジョンを持っています。
 しかし、現時点では実用レベルに達していません。
-学習や本格的な開発には、安定したCursorを使いましょう。」
+学習や本格的な開発には、安定したClaude Codeを使いましょう。」
 
-次のレシピでは、Cursorを使って実践的なTODOアプリを作ります。
+次のレシピでは、Claude Codeを使って実践的なTODOアプリを作ります。
 
 ➡️ **次のレシピへ:** [`07_building_todo_app.md`](./07_building_todo_app.md)

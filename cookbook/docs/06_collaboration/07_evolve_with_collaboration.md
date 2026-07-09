@@ -1548,7 +1548,7 @@ Phase 4: 共有機能 ⏳（予定）
 
 ```
 【ツール】
-Cursor + Claude で本格開発
+Claude Code で本格開発
 - AI統合エディタで効率化
 - プロジェクト固有の知識統合
 - チーム開発のベストプラクティス
@@ -1592,7 +1592,7 @@ Step 2: コラボで進化させる（この章）
 
 Step 3: 本格開発へ（05章）
 └─ 必要になったら
-└─ Cursor + Claude + Flutter
+└─ Claude Code + Flutter
 └─ マルチプラットフォーム展開
 ```
 
@@ -1682,7 +1682,7 @@ Step 3: 本格開発へ（05章）
 
 **📘 05_chefs_specials/**
 - PM能力がある非開発者向け
-- Cursor + Claude での本格開発
+- Claude Code での本格開発
 - 7つの実践的ケーススタディ
 
 **📘 GitHub Discussions**

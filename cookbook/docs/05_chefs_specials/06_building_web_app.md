@@ -2,7 +2,7 @@
 
 ## このケーススタディで作るもの
 
-**Cursor + Claude**を使って、ブラウザで動作するFlutter Webアプリを作り、Firebase HostingやGitHub Pagesにデプロイします。
+**Claude Code**を使って、ブラウザで動作するFlutter Webアプリを作り、Firebase HostingやGitHub Pagesにデプロイします。
 
 **機能:**
 - ✅ レスポンシブなWebレイアウト
@@ -84,7 +84,7 @@ my_web_app/
 
 ### go_routerのセットアップ
 
-**Cursorに以下をリクエスト:**
+**Claude Codeに以下をリクエスト:**
 
 ```
 pubspec.yamlに以下のパッケージを追加してください：
@@ -94,7 +94,7 @@ pubspec.yamlに以下のパッケージを追加してください：
 
 ### ルーティング設定
 
-**Cursorに以下をリクエスト:**
+**Claude Codeに以下をリクエスト:**
 
 ```
 go_routerを使って、以下のルートを設定してください：
@@ -164,7 +164,7 @@ class MyApp extends StatelessWidget {
 
 ### レスポンシブなナビゲーション
 
-**Cursorに以下をリクエスト:**
+**Claude Codeに以下をリクエスト:**
 
 ```
 以下の仕様でナビゲーションバーを作成してください：
@@ -246,7 +246,7 @@ class HomePage extends StatelessWidget {
 
 ### index.htmlのメタタグ設定
 
-**Cursorに以下をリクエスト:**
+**Claude Codeに以下をリクエスト:**
 
 ```
 web/index.htmlに以下のSEO設定を追加してください：
@@ -296,7 +296,7 @@ web/index.htmlに以下のSEO設定を追加してください：
 
 ### manifest.jsonの設定
 
-**Cursorに以下をリクエスト:**
+**Claude Codeに以下をリクエスト:**
 
 ```
 web/manifest.jsonをPWA対応にカスタマイズしてください：
@@ -446,7 +446,7 @@ git push -f origin gh-pages
 
 ### ビルドサイズの最適化
 
-**Cursorに以下をリクエスト:**
+**Claude Codeに以下をリクエスト:**
 
 ```
 以下のパフォーマンス最適化を実施してください：

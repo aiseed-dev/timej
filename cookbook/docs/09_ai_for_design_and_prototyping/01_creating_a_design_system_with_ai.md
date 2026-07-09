@@ -210,7 +210,7 @@ textTheme: ThemeData.light().textTheme.copyWith(
 このように、各コンポーネントのデザイン原則をAIと一緒に定義することで、アプリ全体に一貫性のある見た目と操作性を与えることができます。
 
 👉 デザインが固まったら、「このテーマを `lib/theme/app_theme.dart` として作成し、`lib/main.dart` の `MaterialApp` に組み込んで」とエージェントに依頼しましょう。
-Cursor / Claude Codeなら、ファイルの作成から`main.dart`への組み込みまでを直接行ってくれます。
+Claude Code / Claude Codeなら、ファイルの作成から`main.dart`への組み込みまでを直接行ってくれます。
 あなたのプロジェクト構成に合わせて、適切な形で反映してくれるはずです。
 
 ---

@@ -2,7 +2,7 @@
 
 ## このケーススタディで作るもの
 
-**Cursor + Claude**を使って、Windows、macOS、Linuxで動作する本格的なデスクトップアプリを作ります。
+**Claude Code**を使って、Windows、macOS、Linuxで動作する本格的なデスクトップアプリを作ります。
 
 **機能:**
 - ✅ ウィンドウのカスタマイズ（サイズ、タイトル）
@@ -79,7 +79,7 @@ my_desktop_app/
 
 ### 依存関係の追加
 
-**Cursorに以下をリクエスト:**
+**Claude Codeに以下をリクエスト:**
 
 ```
 pubspec.yamlに以下のパッケージを追加してください：
@@ -90,7 +90,7 @@ pubspec.yamlに以下のパッケージを追加してください：
 
 ### ウィンドウの初期設定
 
-**Cursorに以下をリクエスト:**
+**Claude Codeに以下をリクエスト:**
 
 ```
 main.dartでウィンドウマネージャーを初期化し、
@@ -150,7 +150,7 @@ class MyApp extends StatelessWidget {
 
 ### サイドバー + メインコンテンツのレイアウト
 
-**Cursorに以下をリクエスト:**
+**Claude Codeに以下をリクエスト:**
 
 ```
 デスクトップらしいレイアウトを作成してください：
@@ -258,7 +258,7 @@ class _HomePageState extends State<HomePage> {
 
 ### ファイルの開く/保存ダイアログ
 
-**Cursorに以下をリクエスト:**
+**Claude Codeに以下をリクエスト:**
 
 ```
 file_pickerを使って、以下の機能を実装してください：
@@ -366,7 +366,7 @@ class _FilesPageState extends State<FilesPage> {
 
 ### ショートカットキーの追加
 
-**Cursorに以下をリクエスト:**
+**Claude Codeに以下をリクエスト:**
 
 ```
 以下のキーボードショートカットを実装してください：
@@ -441,7 +441,7 @@ class QuitAppIntent extends Intent {
 
 ### コンテキストメニューの実装
 
-**Cursorに以下をリクエスト:**
+**Claude Codeに以下をリクエスト:**
 
 ```
 右クリックでコンテキストメニューを表示する機能を実装してください。
@@ -557,7 +557,7 @@ flutter build linux --release
 
 ### Windows: Inno Setupを使用
 
-**Cursorに以下をリクエスト:**
+**Claude Codeに以下をリクエスト:**
 
 ```
 Inno Setupスクリプトのテンプレートを作成してください。

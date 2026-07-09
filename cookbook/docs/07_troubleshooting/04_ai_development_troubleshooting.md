@@ -1,6 +1,6 @@
 # トラブルシューティング#7-4: AIとの開発で起こる典型的なトラブルと対処法
 
-AI（Cursor + Claude、Claude Codeなど）を使ったFlutter開発では、従来の開発とは異なる特有のトラブルに遭遇することがあります。このガイドでは、よくある問題とその対処法を解説します。
+AI（Claude Code、Claude Codeなど）を使ったFlutter開発では、従来の開発とは異なる特有のトラブルに遭遇することがあります。このガイドでは、よくある問題とその対処法を解説します。
 
 ---
 
@@ -28,7 +28,7 @@ TODOアプリを作成してください。
 
 **方法2: @Docsで公式ドキュメントを参照させる**
 
-Cursor/Claude Codeで：
+Claude Code/Claude Codeで：
 ```
 @Docs Flutter 公式ドキュメント
 最新のNavigator 2.0を使ったルーティングを実装してください。
@@ -124,7 +124,7 @@ flutter pub get
 
 **方法1: エラーメッセージをそのままAIに見せる**
 
-Cursorで：
+Claude Codeで：
 ```
 以下のエラーが出ています。修正してください：
 
@@ -237,7 +237,7 @@ git reset --hard HEAD
 
 **方法2: 変更範囲を限定する**
 
-Cursorで：
+Claude Codeで：
 ```
 @lib/home_page.dart のみを修正してください。
 他のファイルは変更しないでください。
@@ -245,7 +245,7 @@ Cursorで：
 
 **方法3: Composerで変更内容をプレビュー**
 
-Cursor Composer（Ctrl+I）を使うと：
+Claude Code Composer（Ctrl+I）を使うと：
 1. AIが変更案を提示
 2. **Accept/Rejectで承認/拒否できる**
 3. 部分的に承認することも可能
@@ -321,7 +321,7 @@ Step 2: ボタン押下時の処理を追加してください。
 
 ---
 
-## トラブル7: Cursorが正しいファイルを参照していない
+## トラブル7: Claude Codeが正しいファイルを参照していない
 
 ### 症状
 
@@ -331,7 +331,7 @@ Step 2: ボタン押下時の処理を追加してください。
 
 ### 原因
 
-- Cursorのインデックスが古い
+- Claude Codeのインデックスが古い
 - @マークで明示的に指定していない
 - プロジェクトが大きすぎてコンテキストに入りきらない
 
@@ -345,26 +345,17 @@ Step 2: ボタン押下時の処理を追加してください。
 これらのファイルを参照して、統一感のあるUIにしてください。
 ```
 
-**方法2: Cursorのインデックスを再構築**
+**方法2: Claude Codeのインデックスを再構築**
 
 ```
-Cmd+Shift+P (Mac) / Ctrl+Shift+P (Windows)
-→ "Cursor: Reindex"
+/clear で会話をリセットしてから、対象ファイルを明示して依頼し直す
 ```
 
 **方法3: プロジェクトをシンプルに保つ**
 
 - 不要なファイルは削除
-- `.cursorignore`で除外設定
-- ビルド生成物（build/）を除外
-
-**.cursorignore の例:**
-```
-build/
-.dart_tool/
-*.g.dart
-*.freezed.dart
-```
+- ビルド生成物（build/ や .dart_tool/、*.g.dart）は読ませない
+- 「lib/ 配下だけを見てください」のように範囲を明示する
 
 ---
 
@@ -415,7 +406,7 @@ StatefulWidgetとsetStateで実装してください。
 
 ### 症状
 
-- Cursorの応答が遅い
+- Claude Codeの応答が遅い
 - Composerが固まる
 - 生成途中で止まる
 
@@ -423,14 +414,14 @@ StatefulWidgetとsetStateで実装してください。
 
 - プロジェクトが大きすぎる
 - ネットワーク遅延
-- Cursorのキャッシュ問題
+- Claude Codeのキャッシュ問題
 
 ### 対処法
 
 **方法1: モデルを変更**
 
 - **Claude Opus 4.5** → **Claude Sonnet 4.5**（高速）
-- Cursor Settings > Model で変更
+- Claude Code Settings > Model で変更
 
 **方法2: コンテキストを減らす**
 
@@ -439,17 +430,10 @@ StatefulWidgetとsetStateで実装してください。
 @lib/home_page.dart のみを見て修正してください。
 ```
 
-**方法3: Cursorを再起動**
+**方法3: 会話をリセットして再起動**
 
 ```bash
-# Cursorを完全に終了して再起動
-```
-
-**方法4: キャッシュをクリア**
-
-```
-Cmd+Shift+P / Ctrl+Shift+P
-→ "Developer: Reload Window"
+# /clear で会話をリセット、直らなければ /exit で終了して claude を再起動
 ```
 
 ---
@@ -590,6 +574,6 @@ AIは強力なパートナーですが、完璧ではありません。上記の
 
 **関連レシピ:**
 - [#1-2: AI開発ツールの導入](../01_the_kitchen/02_ai_development_tools.md)
-- [#4-1: Cursorを使った効率的な開発ワークフロー](../04_secret_sauce_recipes/01_cursor_workflow.md)
+- [#4-1: Claude Codeを使った効率的な開発ワークフロー](../04_secret_sauce_recipes/01_claude_code_workflow.md)
 
 ➡️ **次のセクションへ:** [セクション8: BFFとサーバーサイドDart](../08_backend_for_frontend_with_ai/01_why_dart_for_backend.md)

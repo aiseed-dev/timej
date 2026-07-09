@@ -119,11 +119,11 @@ flutter devices
 flutter run
 ```
 
-**方法2: Cursorから**
+**方法2: Claude Codeから**
 
-Cursorの内蔵ターミナルで：
-```bash
-flutter run
+Claude Codeに頼む：
+```
+flutter run でSimulatorに起動してください
 ```
 
 **動作確認：**
@@ -318,11 +318,11 @@ Xcode 14.0 or greater is required
 
 ## Step 7: AIにiOS開発を手伝ってもらう
 
-### CursorでiOS固有の問題を解決
+### Claude CodeでiOS固有の問題を解決
 
 **例1: iOS特有のエラー**
 
-Cursor Chat（Ctrl+L）で：
+Claude Codeで：
 ```
 以下のiOSビルドエラーが出ています。修正方法を教えてください：
 

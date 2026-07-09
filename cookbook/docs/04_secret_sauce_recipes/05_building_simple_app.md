@@ -1,8 +1,8 @@
-# レシピ#4-5: Cursor + Claudeでシンプルなアプリを作る
+# レシピ#4-5: Claude Codeでシンプルなアプリを作る
 
 ## はじめに
 
-これまで学んだ内容を実践します。Cursor + Claudeを使って、シンプルだけど実用的なアプリを作りましょう。
+これまで学んだ内容を実践します。Claude Codeを使って、シンプルだけど実用的なアプリを作りましょう。
 
 ## 今回作るアプリ: メモアプリ
 
@@ -29,10 +29,10 @@
 ```bash
 flutter create memo_app
 cd memo_app
-cursor .
+claude
 ```
 
-## Step 2: データ構造を設計（Cursorに依頼）
+## Step 2: データ構造を設計（Claude Codeに依頼）
 
 **プロンプト:**
 ```

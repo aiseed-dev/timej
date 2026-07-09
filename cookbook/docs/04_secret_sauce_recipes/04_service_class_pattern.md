@@ -451,7 +451,7 @@ final mockClient = MockClient();
 final service = NewsService(httpClient: mockClient);
 ```
 
-## Cursorでの活用
+## Claude Codeでの活用
 
 ### プロンプト例
 
@@ -510,6 +510,6 @@ API / Database / SharedPreferences
 - デバッグしやすい
 - AIが理解しやすい
 
-次のレシピでは、CursorとClaudeを使って実際にアプリを作ります。
+次のレシピでは、Claude Codeを使って実際にアプリを作ります。
 
 ➡️ **次のレシピへ:** [`05_building_simple_app.md`](./05_building_simple_app.md)

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>レシピ#3-2: Cursor + Claudeと対話しながらUIを構築する - AI x Flutter Cookbook</title>
+<title>レシピ#3-2: Claude Codeと対話しながらUIを構築する - AI x Flutter Cookbook</title>
 <link rel="stylesheet" href="../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
 </head>
@@ -39,24 +39,24 @@
 </ul></details>
 <details open><summary>3. 料理のプロセス</summary><ul>
 <li><a href="../03_cooking_process/01_simple_project_structure_with_ai.html">#3-1 AIと決めるシンプルなプロジェクト構成</a></li>
-<li class="current"><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Cursor + Claudeと対話しながらUIを構築する</a></li>
-<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Cursor + Claudeで実装するロジックと状態管理</a></li>
-<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Cursor + Claudeでデータ永続化を実装する</a></li>
-<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Cursor + ClaudeでAPI通信を実装する</a></li>
-<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Cursor + Claudeによる最終コードレビューと品質向上</a></li>
+<li class="current"><a href="../03_cooking_process/02_building_ui_with_ai.html">#3-2 Claude Codeと対話しながらUIを構築する</a></li>
+<li><a href="../03_cooking_process/03_implementing_logic_with_ai.html">#3-3 Claude Codeで実装するロジックと状態管理</a></li>
+<li><a href="../03_cooking_process/04_implementing_persistence_with_ai.html">#3-4 Claude Codeでデータ永続化を実装する</a></li>
+<li><a href="../03_cooking_process/05_api_integration_with_ai.html">#3-5 Claude CodeでAPI通信を実装する</a></li>
+<li><a href="../03_cooking_process/06_finalizing_with_ai_code_review.html">#3-6 Claude Codeによる最終コードレビューと品質向上</a></li>
 <li><a href="../03_cooking_process/07_manual_release_and_publication.html">#3-7 手動でのリリースとストア公開</a></li>
 <li><a href="../03_cooking_process/08_ci_cd_with_github_actions_android.html">#3-8 Androidビルドの自動化 with GitHub Actions</a></li>
 <li><a href="../03_cooking_process/09_ci_cd_with_github_actions_ios.html">#3-9 iOSビルドの自動化 with GitHub Actions</a></li>
 <li><a href="../03_cooking_process/10_ci_cd_with_xcode_cloud.html">#3-10 Xcode Cloudで実現するiOSアプリの完全自動ビルド</a></li>
 </ul></details>
 <details><summary>4. 秘伝のソース</summary><ul>
-<li><a href="../04_secret_sauce_recipes/01_cursor_workflow.html">#4-1 Cursorを使った効率的な開発ワークフロー</a></li>
+<li><a href="../04_secret_sauce_recipes/01_claude_code_workflow.html">#4-1 Claude Codeを使った効率的な開発ワークフロー</a></li>
 <li><a href="../04_secret_sauce_recipes/02_why_avoid_riverpod.html">#4-2 なぜRiverpodを避けるべきか - 個人開発 × AI時代の状態管理</a></li>
 <li><a href="../04_secret_sauce_recipes/03_self_contained_widget_pattern.html">#4-3 自己完結型Widgetパターン</a></li>
 <li><a href="../04_secret_sauce_recipes/04_service_class_pattern.html">#4-4 Serviceクラスパターン - ビジネスロジックの分離</a></li>
-<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Cursor + Claudeでシンプルなアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/05_building_simple_app.html">#4-5 Claude Codeでシンプルなアプリを作る</a></li>
 <li><a href="../04_secret_sauce_recipes/06_antigravity_with_cautions.html">#4-6 Google Antigravityを試す（注意点付き）</a></li>
-<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Cursorで完全なTODOアプリを作る</a></li>
+<li><a href="../04_secret_sauce_recipes/07_building_todo_app.html">#4-7 実践 - Claude Codeで完全なTODOアプリを作る</a></li>
 <li><a href="../04_secret_sauce_recipes/08_building_api_app.html">#4-8 実践 - APIを使ったニュースアプリを作る</a></li>
 <li><a href="../04_secret_sauce_recipes/09_reducing_token_consumption.html">#4-9 AIのトークン消費を抑える実践テクニック</a></li>
 </ul></details>
@@ -97,28 +97,28 @@
 <li><a href="../08_backend_for_frontend_with_ai/07_deploying_dart_backend_with_ai.html">#8-7 AIとデプロイするDartバックエンド (Cloud Run編)</a></li>
 </ul></details>
 <details><summary>9. 設計とプロトタイピング</summary><ul>
-<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Cursor + Claudeでプロダクトの「魂」を設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/00_introduction.html">導入：Claude Codeでプロダクトの「魂」を設計する</a></li>
 <li><a href="../09_ai_for_design_and_prototyping/01_creating_a_design_system_with_ai.html">#9-1 AIと創るデザインシステム</a></li>
 <li><a href="../09_ai_for_design_and_prototyping/02_generating_personas_and_user_stories.html">#9-2 AIと定義するユーザーペルソナとユーザーストーリー</a></li>
-<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Cursor + Claude時代のキャリアパスを設計する</a></li>
+<li><a href="../09_ai_for_design_and_prototyping/03_ai_x_flutter_career_path.html">#9-3 Claude Code時代のキャリアパスを設計する</a></li>
 </ul></details>
     </nav>
   </aside>
   <main class="content">
-<h1 id="3-2-cursor-claudeui">レシピ#3-2: Cursor + Claudeと対話しながらUIを構築する</h1>
-<p>プロジェクトの骨組みとなるフォルダ構成が決まりました。次は、ユーザーが直接目にする「画面（UI）」を、<strong>Cursor + Claude</strong>と対話しながら効率的に作り上げていきましょう。</p>
+<h1 id="3-2-claude-codeui">レシピ#3-2: Claude Codeと対話しながらUIを構築する</h1>
+<p>プロジェクトの骨組みとなるフォルダ構成が決まりました。次は、ユーザーが直接目にする「画面（UI）」を、<strong>Claude Code</strong>と対話しながら効率的に作り上げていきましょう。</p>
 <p>このレシピでは、前のレシピで決めた<code>screens/home_screen.dart</code>を例に、ゼロからUIを構築していくプロセスを体験します。</p>
 <h2 id="_1">ゴール</h2>
 <ul>
-<li><strong>Cursor + Claude</strong>にUIの定型的なコードを生成させ、開発者はデザインの微調整に集中する。</li>
+<li><strong>Claude Code</strong>にUIの定型的なコードを生成させ、開発者はデザインの微調整に集中する。</li>
 <li>自然言語での指示から、具体的なFlutterウィジェットのコードを生成させる。</li>
 <li>既存のUIを、対話を通じて反復的に改善していく。</li>
 </ul>
 <hr />
-<h2 id="step-1-cursor-claude">Step 1: 画面の「骨格」をCursor + Claudeに作らせる</h2>
-<p>まずは、画面の最も基本的な構造（骨格）をCursor + Claudeに作ってもらいます。</p>
+<h2 id="step-1-claude-code">Step 1: 画面の「骨格」をClaude Codeに作らせる</h2>
+<p>まずは、画面の最も基本的な構造（骨格）をClaude Codeに作ってもらいます。</p>
 <blockquote>
-<p><strong>💬 Cursor活用プロンプト (画面の骨格作成)</strong></p>
+<p><strong>💬 Claude Code活用プロンプト (画面の骨格作成)</strong></p>
 <p>あなたは、FlutterのMaterial Designに精通したUIデザイナーです。</p>
 <p><code>home_screen.dart</code> というファイルに、写真メモアプリのホーム画面を作成します。
 以下の要件を満たす、<strong><code>StatelessWidget</code></strong> の基本的なコードを生成してください。</p>
@@ -153,12 +153,12 @@ class HomeScreen extends StatelessWidget {
   }
 }
 </code></pre>
-<p>「このコードを<code>lib/screens/home_screen.dart</code>に作成し、<code>lib/main.dart</code>から呼び出すように変更して」とCursor / Claude Codeに依頼しましょう。エージェントが直接ファイルを作成・編集してくれるので、すぐに画面の骨格を確認できます。</p>
+<p>「このコードを<code>lib/screens/home_screen.dart</code>に作成し、<code>lib/main.dart</code>から呼び出すように変更して」とClaude Code / Claude Codeに依頼しましょう。エージェントが直接ファイルを作成・編集してくれるので、すぐに画面の骨格を確認できます。</p>
 <hr />
-<h2 id="step-2-uicursor-claude">Step 2: UI部品（ウィジェット）をCursor + Claudeに作らせる</h2>
-<p>次に、ホーム画面に表示する「メモ1件分」のカードUIを、再利用可能な部品としてCursor + Claudeに作ってもらいます。これは、<code>widgets/memo_card.dart</code>に配置する想定です。</p>
+<h2 id="step-2-uiclaude-code">Step 2: UI部品（ウィジェット）をClaude Codeに作らせる</h2>
+<p>次に、ホーム画面に表示する「メモ1件分」のカードUIを、再利用可能な部品としてClaude Codeに作ってもらいます。これは、<code>widgets/memo_card.dart</code>に配置する想定です。</p>
 <blockquote>
-<p><strong>💬 Cursor活用プロンプト (カスタムウィジェット作成)</strong></p>
+<p><strong>💬 Claude Code活用プロンプト (カスタムウィジェット作成)</strong></p>
 <p>次に、ホーム画面のリストに表示する、メモ1件分のカードUIを作成します。
 <code>memo_card.dart</code> というファイルに、以下の要件を満たす<strong><code>StatelessWidget</code></strong>を作成してください。</p>
 <p><strong>要件:</strong>
@@ -171,12 +171,12 @@ class HomeScreen extends StatelessWidget {
 <p><strong>なぜこれが良いのか？</strong>
 *   <strong>関心の分離:</strong> 画面全体（<code>HomeScreen</code>）と、その中の部品（<code>MemoCard</code>）を別々に作ることで、コードが整理されます。
 *   <strong>再利用性:</strong> <code>MemoCard</code>は、検索結果画面など、他の画面でも再利用できる可能性があります。
-*   <strong>具体的な指示:</strong> サイズ（100x100）やウィジェット名（<code>Card</code>, <code>Row</code>, <code>Column</code>）を具体的に指示することで、<strong>Cursor + Claude</strong>はより的確なコードを生成します。</p>
+*   <strong>具体的な指示:</strong> サイズ（100x100）やウィジェット名（<code>Card</code>, <code>Row</code>, <code>Column</code>）を具体的に指示することで、<strong>Claude Code</strong>はより的確なコードを生成します。</p>
 <hr />
 <h2 id="step-3-ui">Step 3: UIを組み立て、対話で改善する</h2>
 <p>UIの骨格と部品が揃ったので、これらを組み合わせてホーム画面を完成させ、さらに対話で見た目を改善していきます。</p>
 <blockquote>
-<p><strong>💬 Cursor活用プロンプト (UIの組み立てと改善)</strong></p>
+<p><strong>💬 Claude Code活用プロンプト (UIの組み立てと改善)</strong></p>
 <p>ありがとう。<code>MemoCard</code>が完成しました。</p>
 <p>最初のプロンプトで作成した <code>HomeScreen</code> の<code>body</code>部分を、以下のように修正してください。</p>
 <p><strong>要件:</strong>
@@ -186,12 +186,12 @@ class HomeScreen extends StatelessWidget {
 </blockquote>
 <p>この指示で、リスト表示の基本的な形が完成します。さらに、ここから見た目を微調整していきます。</p>
 <blockquote>
-<p><strong>💬 Cursor活用プロンプト (微調整)</strong></p>
+<p><strong>💬 Claude Code活用プロンプト (微調整)</strong></p>
 <p>いい感じです。リストの見た目をもう少しきれいにしたいです。</p>
 <p><code>HomeScreen</code>の<code>Scaffold</code>の背景色を、少し温かみのある白（<code>Color(0xFFF5F5F5)</code>）に変更してください。
 また、<code>AppBar</code>の<code>elevation</code>（影）を<code>0</code>にして、よりフラットなデザインにしてください。</p>
 </blockquote>
-<p>このように、「<strong>Cursor + Claudeに作らせる → 確認する → 対話で微調整する</strong>」という短いサイクルを繰り返すことで、デザインツールを触るように、コーディングを進めることができます。これが、<strong>Cursor + Claude</strong>駆動UI開発の醍醐味です。</p>
+<p>このように、「<strong>Claude Codeに作らせる → 確認する → 対話で微調整する</strong>」という短いサイクルを繰り返すことで、デザインツールを触るように、コーディングを進めることができます。これが、<strong>Claude Code</strong>駆動UI開発の醍醐味です。</p>
   </main>
 </div>
 <footer class="site-footer">
