@@ -86,14 +86,22 @@
   Microsoft 365(文書・メール・共有)との連携が良いわけではなく、
   システムの境界には結局、手作業の転記が残ります。
   認証を握られているため、個々の部品だけを別の道具に替えることもできません</li>
+<li><strong>自動化に安全なローカルの選択肢がない</strong> — Office の自動化には
+  VBA・JavaScript(Office Scripts)・Python(Python in Excel)が用意されていますが、
+  <strong>ローカルの Office で動くのは VBA だけ</strong>。Office Scripts と Python in Excel は
+  Microsoft 365 のクラウド側でしか実行されません。そして肝心の VBA は
+  「ファイルを開く=コードが実行される」という構造的なセキュリティ問題を抱え、
+  いまや使用禁止の推奨対象です。安全に自動化したければクラウドへ——
+  という誘導がここにも働いています(本キットの様式設計が
+  「外部の Python+サンドボックス内の JavaScript」なのは、この袋小路への回答です)</li>
 <li><strong>メールと文書共有も同じ構造</strong> — Exchange Online、SharePoint / OneDrive にも
   ローカルの代替がなく、解約は認証・メール・共有を同時に移すことを意味します</li>
 <li><strong>費用が人数と期間に比例し続ける</strong> — 席数課金・従量課金は何年払っても所有に至らず、
   料金改定にも従うほかありません</li>
 <li><strong>データが独自の入れ物に入る</strong> — SharePoint リストや Teams のやり取りは
   標準形式での取り出しが難しく、決定や資料が流れて消え、後から辿れません</li>
-<li><strong>自動化が属人化する</strong> — VBA / Power Automate は作った担当者にしか直せず、
-  何が動いているかの監査もしにくい</li>
+<li><strong>自動化が属人化する</strong> — VBA / Power Automate で作られた自動化は
+  作った担当者にしか直せず、何が動いているかの監査もしにくい</li>
 </ul>
 <h3 id="_3">業務システム</h3>
 <ul>
