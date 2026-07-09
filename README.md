@@ -2,8 +2,22 @@
 
 timej.net の公開サイト。
 
-- `frontend/timej.net/html` — timej.net(AIとの暮らし方)
+- `frontend/timej.net/html` — timej.net(アプリと開発レシピ)
 - `frontend/app.timej.net/html` — app.timej.net(世界時計アプリのランディングページ)
+
+## timej.net のページを直す・増やす
+
+原稿は `frontend/timej.net/src/`(.md または本文だけの .html)、
+共通の骨格は `frontend/timej.net/web/template.html`、デザインの正本は `web/style.css`。
+直したら再ビルドで `html/` に反映する(設計は [DESIGN.md](DESIGN.md)):
+
+```bash
+.venv/bin/python frontend/timej.net/build.py   # リンク検査込み
+```
+
+ページ追加は `src/<name>/index.md` を1つ置くだけ(先頭に `<!-- title: … -->` と
+`<!-- description: … -->`)。`html/cookbook/` と `html/dyslexia/` はビルド対象外の
+静的ツリーなので直接触る。
 
 ## cookbook(timej.net/cookbook/)
 

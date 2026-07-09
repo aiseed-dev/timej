@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="サイトやアプリをAIと協働で作る中で生まれた5つのOSSパッケージ。cf-publish、mdit-py-cjk-friendly、washi-md、flutter_svg_cjk_friendly、aiseed-migration-kit。">
+    <title>開発から生まれたOSSパッケージ | timej.net</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css?v=1.0.0" />
+    <meta property="og:title" content="開発から生まれたOSSパッケージ | timej.net">
+    <meta property="og:description" content="サイトやアプリをAIと協働で作る中で生まれた5つのOSSパッケージ。cf-publish、mdit-py-cjk-friendly、washi-md、flutter_svg_cjk_friendly、aiseed-migration-kit。">
+    <meta property="og:image" content="https://timej.net/og-image.jpg">
+    <meta property="og:url" content="https://timej.net/packages/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9FLQ963JXM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-9FLQ963JXM');
+    </script>
+</head>
+
+<body>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a class="logo" href="../">
+                    <img src="../app_icon.svg" alt="timej.netアイコン" class="logo-icon">
+                    timej.net
+                </a>
+                <button class="hamburger" aria-label="メニュー">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="main-nav">
+                    <a href="../#projects">アプリ</a>
+                    <a href="../cookbook/">AI×Flutter</a>
+                    <a href="../homeserver/">自宅AIサーバー</a>
+                    <a href="../migration/">IT移行</a>
+                    <a href="../packages/">パッケージ</a>
+                    <a href="../dyslexia/">ディスレクシア</a>
+                    <a href="../#about">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+<div class="container prose">
+<h1 id="oss">開発から生まれたOSSパッケージ</h1>
+<p>このサイトも、世界時計アプリも、<a href="../migration/">IT移行の支援</a>も、AIと協働する開発で作っています。
+その過程で「無いと困る」道具を小さなパッケージに切り出し、
+<a href="https://github.com/aiseed-dev">GitHub (aiseed-dev)</a> で公開しています。
+どれも机上の作品ではなく、<strong>実際の製品の中で毎日動いているもの</strong>です。</p>
+<p>方針は一貫しています——大きなフレームワークに頼らず、
+一つの問題を確実に解く小さな道具を作る。
+AIと協働する開発では、依存が少なくシンプルな道具ほど正確に扱えるからです
+(この考え方は <a href="../cookbook/">AI x Flutter Cookbook</a> に詳しく書いています)。</p>
+<hr />
+<h2 id="cf-publish-pythoncloudflare-pages">cf-publish — PythonだけでCloudflare Pagesへ配信</h2>
+<p>静的サイトを Cloudflare Pages へ Direct Upload する公式手段は wrangler で、
+Node.js のツールチェーン一式が必要になります。ビルドパイプラインが Python
+(あるいは「ただのフォルダ」)のとき、一度のHTTP会話のためには大掛かりすぎる——
+それが出発点です。</p>
+<p>cf-publish は同じアップロードプロトコルを<strong>約300行のPython</strong>で実装しています
+(依存は <code>httpx</code> と <code>blake3</code> の2つだけ)。</p>
+<pre><code class="language-bash">pip install cf-publish
+export CLOUDFLARE_API_TOKEN=...    # 「Cloudflare Pages: Edit」権限のトークン
+export CLOUDFLARE_ACCOUNT_ID=...
+cf-publish ./public --project my-site
+</code></pre>
+<ul>
+<li><strong>内容アドレスの差分アップロード</strong> — wrangler と同じ方式でファイルをハッシュし、
+  変更のないファイルは再送しない(2回目以降のデプロイが速い)</li>
+<li>429/5xx への<strong>リトライと指数バックオフ</strong>、並列アップロード</li>
+<li>Pages の制限(1ファイル25MiB・2万ファイル)を送信前に<strong>事前検証</strong></li>
+<li><code>_headers</code> / <code>_redirects</code> を wrangler と同じ方法でデプロイに添付
+  (静的ファイルとして上げると効かない、という罠を踏まない)</li>
+</ul>
+<p>この timej.net 自身も cf-publish で配信しています。</p>
+<p>→ <a href="https://github.com/aiseed-dev/cf-publish">GitHub: aiseed-dev/cf-publish</a>(PyPI公開は準備中)</p>
+<hr />
+<h2 id="mdit-py-cjk-friendly-markdown">mdit-py-cjk-friendly — Markdownを日本語フレンドリーに</h2>
+<p>CommonMark は空白で単語を区切る言語を前提に設計されているため、
+日本語のMarkdownでは有名な問題が2つ起きます。</p>
+<ol>
+<li><strong>文中改行が半角スペースになる</strong> — 長い文を途中で改行すると、
+   描画後の文中に不要な空白が入る</li>
+<li><strong>全角約物に隣接した強調が効かない</strong> — <code>**「重要」**です</code> と書くと
+   強調にならず、リテラルの <code>**</code> がそのまま残る</li>
+</ol>
+<p>mdit-py-cjk-friendly は <a href="https://github.com/executablebooks/markdown-it-py">markdown-it-py</a>
+のプラグインとして、この2つをパーサレベルで解決します。</p>
+<pre><code class="language-python">from markdown_it import MarkdownIt
+from mdit_py_cjk_friendly import cjk_friendly
+
+md = MarkdownIt(&quot;commonmark&quot;).use(cjk_friendly)
+md.render(&quot;これは**「重要」**です。&quot;)
+# &lt;p&gt;これは&lt;strong&gt;「重要」&lt;/strong&gt;です。&lt;/p&gt;
+</code></pre>
+<p>強調の挙動は <a href="https://github.com/tats-u/markdown-cjk-friendly">CommonMark CJK-friendly 仕様ドラフト</a>
+の考え方に従った markdown-it-py 向けの独立実装で、
+<code>.use()</code> したパーサ以外の挙動は一切変えません。</p>
+<p>→ <a href="https://github.com/aiseed-dev/mdit-py-cjk-friendly">GitHub: aiseed-dev/mdit-py-cjk-friendly</a>(PyPI公開は準備中)</p>
+<hr />
+<h2 id="washi-md-markdownhtml-pdf">washi-md — Markdownから美しい日本語文書(HTML / PDF)</h2>
+<p>Markdown から、日本語らしく組版された文書をコマンド一つで作ります。
+横書きのビジネス文書から、縦書きの小説、原稿用紙まで。</p>
+<pre><code class="language-bash">washi report.md          # → report.html(組版済み・自己完結・1ファイル)
+washi report.md --pdf    # → report.pdf も出力(Chromeヘッドレス印刷)
+</code></pre>
+<ul>
+<li><strong>フォントはUD系を最優先</strong> — モリサワUD(あれば)→ BIZ UD → ヒラギノ/Noto の順で
+  フォールバック。<code>--embed-fonts</code> で BIZ UD を埋め込めば相手の環境でも同じ見た目に</li>
+<li><strong>日本語組版CSSを同梱</strong> — 本文は明朝・両端揃え・段落頭一字下げ、
+  行頭禁則、約物の行頭詰め、句読点のぶら下げ</li>
+<li><strong>CJKフレンドリーなMarkdown解釈</strong> — 上の mdit-py-cjk-friendly を内蔵</li>
+<li><strong>印刷/PDF対応</strong> — A4・余白・ページ番号、表や見出しのページまたぎ抑止</li>
+<li><strong>縦書き(<code>--vertical</code>)と原稿用紙(<code>--genko</code>)</strong></li>
+</ul>
+<p>→ <a href="https://github.com/aiseed-dev/washi-md">GitHub: aiseed-dev/washi-md</a>(PyPI公開は準備中)</p>
+<hr />
+<h2 id="flutter_svg_cjk_friendly-fluttersvg">flutter_svg_cjk_friendly — FlutterのSVGで日本語が豆腐になる問題を直す</h2>
+<p><a href="https://pub.dev/packages/flutter_svg">flutter_svg</a> は、CSSの font-family <strong>リスト</strong>
+(<code>font-family: 'BIZ UDGothic', 'Noto Sans CJK JP', sans-serif</code> —
+matplotlib はじめ多くのツールが出力する標準形)を、引用符もカンマも含めた
+単一のフォント名として扱います。実在のフォントに一致しないため、
+日本語テキストは豆腐(□)になります。</p>
+<pre><code class="language-dart">import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg_cjk_friendly/flutter_svg_cjk_friendly.dart';
+
+SvgPicture.string(cjkFriendlySvg(svg));
+</code></pre>
+<p><code>cjkFriendlySvg</code> が全ての font-family をパースして正規化し、
+アプリに同梱したフォントを優先させることもできます。
+flutter_svg が無視してしまう<strong>縦書きテキスト</strong>(<code>writing-mode</code>)の展開にも対応。
+実在の統計チャート(人口ピラミッド)で検証し、回帰テストで結果を固定しています。</p>
+<p>→ <a href="https://github.com/aiseed-dev/flutter_svg_cjk_friendly">GitHub: aiseed-dev/flutter_svg_cjk_friendly</a>(pub.dev公開は準備中)</p>
+<hr />
+<h2 id="aiseed-migration-kit-it">aiseed-migration-kit — 組織のITを開いた土台へ移すツール一式</h2>
+<p>CMS・グループウェア・業務システムという「閉じた世界」から、
+git・SQL・メール・静的公開という開いた土台へ移行するためのキットです。
+<code>amig</code> コマンドが移行のパイプラインを段階ごとに支援します。</p>
+<pre><code class="language-bash">amig new sites/mysite            # サイトの雛形を作る
+amig ingest sites/mysite ~/data  # 元データ(HTML等)を取り込む
+amig classify sites/mysite       # 記事/一覧に分類(結果は人が直せる)
+amig convert sites/mysite        # Markdownへ機械変換(下書き)
+amig build sites/mysite          # dist/ を生成
+amig publish sites/mysite        # Cloudflare Pages へ配信
+</code></pre>
+<ul>
+<li>内容の正は <strong>Markdown+frontmatter を git で版管理</strong> — 特定の道具に囲い込まれない</li>
+<li><code>convert</code> は既存の .md を上書きしない(人が仕上げた原稿を守る)</li>
+<li>問い合わせは申込様式(xlsx)+メール受付で、Webフォームは作らない</li>
+<li>配信は上の cf-publish、Markdown解釈は mdit-py-cjk-friendly を利用</li>
+</ul>
+<p>この道具を使った移行支援そのものについては <a href="../migration/">IT移行のページ</a> をどうぞ。</p>
+<p>→ <a href="https://github.com/aiseed-dev/aiseed-migration-kit">GitHub: aiseed-dev/aiseed-migration-kit</a></p>
+<hr />
+<h2 id="_1">パッケージ同士の関係</h2>
+<p>5つはばらばらの作品ではなく、一つの開発スタイルの部品です。</p>
+<ul>
+<li><strong>washi-md</strong> と <strong>aiseed-migration-kit</strong> は <strong>mdit-py-cjk-friendly</strong> の上に立ち、</li>
+<li><strong>aiseed-migration-kit</strong> の配信は <strong>cf-publish</strong> が担い、</li>
+<li><strong>flutter_svg_cjk_friendly</strong> はアプリ側で同じ「CJKフレンドリー」の思想を担います。</li>
+</ul>
+<p>そしてどれも、このサイト・統計チャート・移行案件という実際の現場で毎日動いています。
+「AIに道具を作らせて、作った道具で仕事をする」——
+<a href="../homeserver/">自宅AIサーバー</a>や <a href="../cookbook/">Cookbook</a> で書いている開発スタイルの、
+これが実物です。</p>
+</div>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">timej.net</span>
+                    <p>アプリと開発レシピ</p>
+                </div>
+                <div class="footer-links">
+                    <a href="../#projects">アプリ</a>
+                    <a href="../cookbook/">AI×Flutter</a>
+                    <a href="../homeserver/">自宅サーバー</a>
+                    <a href="../migration/">IT移行</a>
+                    <a href="../packages/">パッケージ</a>
+                    <a href="../dyslexia/">ディスレクシア</a>
+                    <a href="../#about">About</a>
+                    <a href="../privacy/">プライバシーポリシー</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScf1__3fN4du4SqSRI9HF69W3YvZRFnYyB9WXO0ack_4hmsRw/viewform?usp=dialog"
+                        target="_blank" rel="noopener noreferrer">お問い合わせ</a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 timej.net. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ハンバーガーメニューの制御
+        const hamburger = document.querySelector('.hamburger');
+        const mainNav = document.querySelector('.main-nav');
+        const body = document.body;
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            body.classList.toggle('menu-open');
+        });
+
+        // メニューリンククリック時にメニューを閉じる
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            });
+        });
+
+        // オーバーレイクリック時にメニューを閉じる
+        document.addEventListener('click', (e) => {
+            if (body.classList.contains('menu-open') &&
+                !mainNav.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

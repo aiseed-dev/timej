@@ -22,6 +22,12 @@
     "reveal": "always"
   },
   {
+    "label": "🏗️ timej.net再ビルド ── 原稿(src/)+テンプレートからHTMLを作り直す",
+    "command": ".venv/bin/python frontend/timej.net/build.py",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "reveal": "always"
+  },
+  {
     "label": "🍳 cookbook再ビルド ── 原稿(cookbook/docs)からHTMLを作り直す",
     "command": ".venv/bin/python cookbook/build.py && rm -rf frontend/timej.net/html/cookbook && cp -r cookbook/site frontend/timej.net/html/cookbook && echo '反映しました'",
     "cwd": "$ZED_WORKTREE_ROOT",
