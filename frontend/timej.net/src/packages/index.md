@@ -141,7 +141,9 @@ amig publish sites/mysite        # Cloudflare Pages へ配信
 - 問い合わせは申込様式(xlsx)+メール受付で、Webフォームは作らない
 - 配信は上の cf-publish、Markdown解釈は mdit-py-cjk-friendly を利用
 
-この道具を使った移行支援そのものについては [IT移行のページ](../migration/) をどうぞ。
+移行ツールとしての詳しい説明(設計の考え方・パイプライン・問い合わせ設計)は
+[aiseed-migration-kit の詳しい説明](../migration/kit/)に、
+移行支援そのものの案内は [IT移行のページ](../migration/) にあります。
 
 → [GitHub: aiseed-dev/aiseed-migration-kit](https://github.com/aiseed-dev/aiseed-migration-kit)
 

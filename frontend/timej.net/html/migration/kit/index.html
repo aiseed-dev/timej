@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="組織のITを開いた土台へ移すためのツール一式。amigコマンドのパイプライン、Markdown+gitによる版管理、様式(xlsx)+メール受付の問い合わせ設計を詳しく説明します。">
+    <title>移行ツール aiseed-migration-kit の詳しい説明 | timej.net</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../style.css?v=1.0.0" />
+    <meta property="og:title" content="移行ツール aiseed-migration-kit の詳しい説明 | timej.net">
+    <meta property="og:description" content="組織のITを開いた土台へ移すためのツール一式。amigコマンドのパイプライン、Markdown+gitによる版管理、様式(xlsx)+メール受付の問い合わせ設計を詳しく説明します。">
+    <meta property="og:image" content="https://timej.net/og-image.jpg">
+    <meta property="og:url" content="https://timej.net/migration/kit/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9FLQ963JXM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-9FLQ963JXM');
+    </script>
+</head>
+
+<body>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a class="logo" href="../../">
+                    <img src="../../app_icon.svg" alt="timej.netアイコン" class="logo-icon">
+                    timej.net
+                </a>
+                <button class="hamburger" aria-label="メニュー">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="main-nav">
+                    <a href="../../#projects">アプリ</a>
+                    <a href="../../cookbook/">AI×Flutter</a>
+                    <a href="../../homeserver/">自宅AIサーバー</a>
+                    <a href="../../migration/">IT移行</a>
+                    <a href="../../packages/">パッケージ</a>
+                    <a href="../../dyslexia/">ディスレクシア</a>
+                    <a href="../../#about">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+<div class="container prose">
+<h1 id="aiseed-migration-kit">移行ツール aiseed-migration-kit</h1>
+<p><a href="https://github.com/aiseed-dev/aiseed-migration-kit">aiseed-migration-kit</a> は、
+組織のIT——公開Web・文書・メール・業務——を、
+<strong>git・SQL・メール・OnlyOffice・静的公開という開いた土台</strong>へ移すためのツール一式です。
+<code>amig</code> というコマンドが移行の各段階を支援します。ライセンスは AGPL-3.0。</p>
+<p>現在の実装範囲は移行の入口にあたる<strong>公開Web(脱CMS: 静的化と Cloudflare Pages 配信)と
+問い合わせ(申込様式+メール受付)</strong>です。業務システム・文書・メール側の設計は
+リポジトリの DESIGN.md に、実装例は <a href="https://github.com/aiseed-dev/seminar-kit">seminar-kit</a> にあります。</p>
+<h2 id="_1">設計の考え方 — 「仮」を本格にする</h2>
+<p>CMS を使う組織では、CMS 本体で扱えない業務が「仮の手段」へ押し出されがちです。
+申込は後付けのフォームプラグイン、依頼や予約は担当PCの<strong>その場しのぎの Excel</strong>・紙・メール、
+内容の編集は「ログインして直す」だけで、承認も版管理もない——
+業務が分断し、担当者に属人化する構図です。</p>
+<p>本キットは、この仮の回避策を一つずつ本格の形に引き上げます。</p>
+<table>
+<thead>
+<tr>
+<th>仮の手段</th>
+<th>本格の形</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ログインして直す(履歴なし)</td>
+<td>内容を <strong>Markdown+git</strong> で版管理・共同編集・承認</td>
+</tr>
+<tr>
+<td>後付けフォーム・代表メール</td>
+<td><strong>様式(xlsx)を唯一の定義</strong>とする機械可読な受付経路</td>
+</tr>
+<tr>
+<td>その場しのぎのExcel・紙</td>
+<td>認証・DBを備えた業務アプリ(必要な業務だけ)</td>
+</tr>
+</tbody>
+</table>
+<p>狙いはコスト削減以上に、<strong>所有・統合・監査できる形にすること</strong>です。
+ただし全業務を無条件に本格化するのではなく、業務ごとに要否で水準を選びます。
+単独・小規模のサイトなら「静的化まで」で十分な場合も多く、
+その判断から支援するのが <a href="../">IT移行の支援</a> です。</p>
+<h2 id="_2">閉じた世界をつくらない — 公開標準でつなぐ</h2>
+<p>移行の目的は、別の閉じた世界(自前スタックへの新しいロックイン)への
+引っ越しではありません。部品は少数の公開標準で疎結合につなぎます。</p>
+<ul>
+<li><strong>データ</strong> = Markdown / YAML / JSON / Parquet(自己記述でスキーマがある形式)</li>
+<li><strong>問い合わせ・蓄積</strong> = SQL(実装は PostgreSQL・SQLite。製品ではなく SQL にコミット)</li>
+<li><strong>処理</strong> = Python、<strong>体裁</strong> = テンプレート(Jinja2)</li>
+</ul>
+<p>自己記述で、AIが扱えて、多くの道具が読める形式だから、部品は差し替えられ、
+データはツールより長生きし、<strong>この仕組み自体からも出られます</strong>。
+檻から出ることと、出た先を檻にしないこと——その両方が「開放」です。</p>
+<h2 id="amig">amig のパイプライン</h2>
+<p>移行は一発変換ではなく、<strong>人が確認・修正できる段階</strong>に分かれています。</p>
+<pre><code class="language-bash">amig new sites/mysite            # 1. サイトの雛形を作る(site.yaml を編集)
+amig ingest sites/mysite ~/data  # 2. 元データ(CMSの書き出しHTML等)を取り込む
+amig classify sites/mysite       # 3. 記事/一覧に分類 — 結果は人が直せる
+amig convert sites/mysite        # 4. 記事を content/*.md へ機械変換(下書き)
+amig build sites/mysite          # 5. dist/ に静的サイトを生成
+amig publish sites/mysite        # 6. Cloudflare Pages へ配信(運用判断で実行)
+</code></pre>
+<p>要点は3つあります。</p>
+<ol>
+<li><strong>内容の正は <code>content/</code> の Markdown+frontmatter</strong> — CMS のデータベースではなく、
+   git で版管理できるテキストがサイトの本体になります</li>
+<li><strong><code>convert</code> は既存の .md を上書きしない</strong> — 機械変換はあくまで下書きで、
+   人が仕上げた原稿を壊しません(<code>--force</code> を明示したときだけ上書き)</li>
+<li><strong><code>publish</code> は自動では走らない</strong> — 公開はいつも運用側の判断で実行します</li>
+</ol>
+<p>配信は <a href="../../packages/">cf-publish</a>、日本語Markdownの解釈は
+<a href="../../packages/">mdit-py-cjk-friendly</a> と、同じ思想の小さな部品を組み合わせています。</p>
+<h2 id="xlsx">問い合わせ設計 — 様式(xlsx)+メール受付</h2>
+<p>本キットは <strong>Webフォームを作りません</strong>。サーバー側に受付処理を持つと、
+それ自体が保守と攻撃面になるからです。かわりに、昔ながらの「様式」を
+機械可読にして使います。</p>
+<pre><code class="language-bash">amig forms sites/mysite            # 様式 xlsx を生成(公開サイトに載る)
+amig mailin sites/mysite --once    # 受付メールを担当フォルダへ振り分け
+</code></pre>
+<ul>
+<li><strong>様式が唯一のフォーム定義</strong> — site.yaml に書いた一つの定義から様式を生成し、
+  「Webからダウンロード」「印刷して手書き」「メール添付で提出」「機械読み取り」の
+  全チャネルを同じ様式が兼ねます</li>
+<li><strong>VBA を使わない</strong> — 処理は外部の Python、入力補助は OnlyOffice の
+  サンドボックス内 JavaScript に分離し、「ファイルを開く=コードが実行される」
+  という経路を設計から無くしています</li>
+<li><strong>受付アドレスはページ本文に書かず、様式の中にだけ</strong>置きます(ボット収集対策)。
+  様式由来でないメールには自動返信しないので、スパムへの逆流も起きません</li>
+<li>受付の状態管理は <strong>IMAP フォルダそのもの</strong>(INBOX=未着手 / staff/担当 / pending=未処理)。
+  専用の管理画面を作らず、普段のメールソフトで運用できます</li>
+</ul>
+<h2 id="_3">共同編集と認証</h2>
+<ul>
+<li>内容の共同編集は <strong>Forgejo(git)</strong> を土台に、エディタは Zed などを想定。
+  提案→レビュー→承認という本格の編集プロセスが、公開Webにもそのまま使えます</li>
+<li>認証は層で分けます — <strong>編集層は Forgejo の内蔵認証</strong>、業務アプリ層は
+  <strong>PocketBase</strong> で職員・会員を role 分離。一つの巨大な認証基盤に集約しません</li>
+</ul>
+<h2 id="_4">どこまで移すかは選べる</h2>
+<p>運用形態が構成を決めます。公開Webの静的化だけなら、サーバーの常時運用は不要で
+Cloudflare Pages の無料枠に収まります。問い合わせを足すならメールの受け口、
+業務アプリまで移すなら機関内サーバー——と、<strong>引き受けられる運用の水準に合わせて</strong>
+段階的に選べる構成です。</p>
+<hr />
+<p>移行支援そのものの案内(費用・進め方)は <a href="../">IT移行のページ</a> へ。
+他のパッケージとの関係は <a href="../../packages/">OSSパッケージ紹介</a> へ。</p>
+<p>→ <a href="https://github.com/aiseed-dev/aiseed-migration-kit">GitHub: aiseed-dev/aiseed-migration-kit</a></p>
+</div>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">timej.net</span>
+                    <p>アプリと開発レシピ</p>
+                </div>
+                <div class="footer-links">
+                    <a href="../../#projects">アプリ</a>
+                    <a href="../../cookbook/">AI×Flutter</a>
+                    <a href="../../homeserver/">自宅サーバー</a>
+                    <a href="../../migration/">IT移行</a>
+                    <a href="../../packages/">パッケージ</a>
+                    <a href="../../dyslexia/">ディスレクシア</a>
+                    <a href="../../#about">About</a>
+                    <a href="../../privacy/">プライバシーポリシー</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScf1__3fN4du4SqSRI9HF69W3YvZRFnYyB9WXO0ack_4hmsRw/viewform?usp=dialog"
+                        target="_blank" rel="noopener noreferrer">お問い合わせ</a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 timej.net. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ハンバーガーメニューの制御
+        const hamburger = document.querySelector('.hamburger');
+        const mainNav = document.querySelector('.main-nav');
+        const body = document.body;
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            body.classList.toggle('menu-open');
+        });
+
+        // メニューリンククリック時にメニューを閉じる
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            });
+        });
+
+        // オーバーレイクリック時にメニューを閉じる
+        document.addEventListener('click', (e) => {
+            if (body.classList.contains('menu-open') &&
+                !mainNav.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
