@@ -86,6 +86,14 @@
   Microsoft 365(文書・メール・共有)との連携が良いわけではなく、
   システムの境界には結局、手作業の転記が残ります。
   認証を握られているため、個々の部品だけを別の道具に替えることもできません</li>
+<li><strong>Windows でも Microsoft アカウントの強制が進む</strong> — Windows 11 の初期設定は
+  原則として Microsoft アカウントとインターネット接続が必須になり、
+  ローカルアカウントで済ませる回避手段は更新のたびに塞がれてきました。
+  そしてアカウント側に問題が起きると——パスワードと二段階認証の喪失、
+  不審と判定されたロック——PC へのサインインに支障が出るだけでなく、
+  Microsoft アカウントに保管された BitLocker 回復キーを取り出せず、
+  手元の PC の中のデータごと失うことがあります。組織の Entra ID と同じ
+  「認証を外部に預ける」構図が、個人の PC でも既定になっています</li>
 <li><strong>自動化に安全なローカルの選択肢がない</strong> — Office の自動化には
   VBA・JavaScript(Office Scripts)・Python(Python in Excel)が用意されていますが、
   <strong>ローカルの Office で動くのは VBA だけ</strong>。Office Scripts と Python in Excel は
