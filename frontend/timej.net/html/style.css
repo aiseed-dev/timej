@@ -1229,3 +1229,11 @@ footer {
     border-left: 4px solid var(--primary-color);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
+
+.prose h4 {
+    font-size: 1.02rem;
+    color: var(--primary-dark);
+    margin-top: 36px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
