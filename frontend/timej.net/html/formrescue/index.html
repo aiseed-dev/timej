@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WordPressへの攻撃が増える中、問い合わせフォームのデータをCloudflareの受信箱経由で自分の端末に引き取り、侵入されても失うデータがない状態を作る仕組みの詳しい説明。プラグインは足さず、外します。">
+    <title>FormRescue - WordPressの問い合わせデータを、手元に引き取る | timej.net</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css?v=1.0.0" />
+    <meta property="og:title" content="FormRescue - WordPressの問い合わせデータを、手元に引き取る | timej.net">
+    <meta property="og:description" content="WordPressへの攻撃が増える中、問い合わせフォームのデータをCloudflareの受信箱経由で自分の端末に引き取り、侵入されても失うデータがない状態を作る仕組みの詳しい説明。プラグインは足さず、外します。">
+    <meta property="og:image" content="https://timej.net/og-image.jpg">
+    <meta property="og:url" content="https://timej.net/formrescue/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9FLQ963JXM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-9FLQ963JXM');
+    </script>
+</head>
+
+<body>
+
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a class="logo" href="../">
+                    <img src="../app_icon.svg" alt="timej.netアイコン" class="logo-icon">
+                    timej.net
+                </a>
+                <button class="hamburger" aria-label="メニュー">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="main-nav">
+                    <a href="../migration/">IT移行</a>
+                    <a href="../packages/">パッケージ</a>
+                    <a href="../#projects">アプリ</a>
+                    <a href="../cookbook/">AI×Flutter</a>
+                    <a href="../dyslexia/">ディスレクシア</a>
+                    <a href="../#about">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+<div class="container prose">
+<h1 id="formrescue-wordpress">FormRescue — WordPressの問い合わせデータを、手元に引き取る</h1>
+<p>FormRescue は、WordPressの問い合わせフォームに届いたデータを、
+<strong>Cloudflare上の小さな受信箱を経由して自分の端末に引き取る</strong>ための仕組みと
+管理アプリです。データを溜める場所をWordPressから切り離す(デカップリング)ことで、
+<strong>サイトに侵入されても、そこに失うデータがない状態</strong>を作ります。</p>
+<p>サイト全体を作り直す本格の移行(<a href="../migration/">aiseed-migration-kit</a>)の手前に、
+<strong>今日できる一歩</strong>として設計されています。</p>
+<h2 id="_1">なぜ今、問い合わせフォームなのか</h2>
+<p>WordPressは全ウェブサイトの約4割を占め、攻撃者にとって一つの脆弱性が
+数千万サイトに効く標的です。新規に発見された脆弱性は2024年の7,966件から
+2025年は11,334件へ42%増え(Patchstack)、その9割超はプラグイン由来。
+2025年上半期に見つかった脆弱性の57.6%は<strong>認証不要</strong>——訪問者が誰でも
+そのまま悪用できるものでした。</p>
+<p>そして攻撃は自動化され、AIによってさらに増えています。ガードレールの弱い
+オープンモデルが脆弱性の探索と攻撃コードの生成に使われ、脆弱性の公開から
+悪用までの時間は数時間単位に縮みました。パッチの適用速度で追いつく対策は、
+この増加と永久に追いかけっこになります。</p>
+<p>問い合わせフォームが狙われるのは、その背後に<strong>顧客データ</strong>(名前、メールアドレス、
+問い合わせ内容)が溜まっているからです。守り続けるのではなく、
+<strong>盗まれて困るものをWordPressの中から無くす</strong>——それがこの仕組みの答えです。</p>
+<h2 id="_2">方針 — プラグインを足さず、外す</h2>
+<p>よくある対策は「セキュリティプラグインを追加する」ですが、
+プラグインを入れれば脆弱性が付いてきます——例外はありません。
+実際、フォームデータの転送によく使われるプラグインには、認証不要で悪用可能な
+SSRF脆弱性が公表されたことがあります(CVE-2026-11395、CVSS 7.2)。
+守るために穴を足すのは本末転倒です。</p>
+<p>FormRescue の構成では、WordPressに加える変更は
+<strong>問い合わせフォームを素のHTMLフォームに差し替えるだけ</strong>。
+フォーム系プラグイン(CF7、CF7 to Webhook など)はむしろ<strong>外します</strong>。
+テーマ・PHPには触れず、カスタムHTMLブロックにフォームを一つ置くだけです。</p>
+<p>書き込みの門は、WordPressの中に置く鍵ではなく、
+<strong>送信ごとのTurnstileトークンをCloudflare Worker側で検証(siteverify)</strong>することで
+担います。破られる箱の中に長期の鍵を置かないので、
+WordPressが侵入されても受信箱を開ける鍵は漏れません。</p>
+<h2 id="_3">仕組み — 三つの場所</h2>
+<pre><code>[Webサイト]                    [Cloudflare]              [ローカルPC/スマホ]
+素のHTMLフォーム               Worker + D1               取得 → SQLite → 人が確認
+  + Turnstile → 直POST  ───→  POST /submit で一時保存 ←── GET /items / POST /ack
+                              (Turnstile検証)
+</code></pre>
+<ul>
+<li><strong>Webサイト(WordPress)</strong> — フォームの入力画面だけが残り、データは溜まりません。
+  送信はブラウザからCloudflareの受信箱へ直接届きます</li>
+<li><strong>Cloudflare(Worker + D1)</strong> — 受信箱。届いたものを届いたまま一時保存するだけで、
+  中身の解釈はしません。無料枠で足り、サイトのDNSを移す必要もありません</li>
+<li><strong>ローカル(管理アプリ FormRescue)</strong> — 受信箱からデータを<strong>取りに行き</strong>(プル型)、
+  端末の中のSQLiteに保存します。ローカル側に固定IP・開放ポート・常時稼働は不要で、
+  普通の回線のNAT裏で成立します</li>
+</ul>
+<p>要になる規則は一つです。<strong>受信箱からの削除は、人が内容を読んで「確認」したときだけ</strong>。
+自動削除も期限切れ削除もありません。取得の失敗や見落としで
+問い合わせが消える経路を、設計から無くしています。</p>
+<h2 id="formrescue">管理アプリ FormRescue</h2>
+<p>日常に使うのは管理アプリだけです。</p>
+<ul>
+<li><strong>一覧</strong> — 未確認 / 確認済み / 対応済み のフィルタで問い合わせを整理</li>
+<li><strong>確認</strong> — 内容を読んだ印。このとき受信箱側から削除され、
+  データは端末の中にだけ残ります</li>
+<li><strong>取得</strong> — 起動時・ボタン・数時間おきの自動取得。重複は自動で弾きます</li>
+<li><strong>バックアップ</strong> — 1日1回、30日分を端末内に保持</li>
+<li><strong>初回設定はQRコード</strong> — 受信箱の設置時に表示されるQRを読み取るだけ。
+  40文字超のトークンの手入力ミスという、いちばん現実的な失敗を消しています</li>
+</ul>
+<p>実装は二つあり、どちらも同じ仕様です。</p>
+<ul>
+<li><strong>Flutter版</strong> — 配布用の公開アプリ。デスクトップ(Linux)とAndroidの両方に出せます</li>
+<li><strong>Flet(Python)版</strong> — 自分で建てる人向け。仕様書からAIが実装します</li>
+</ul>
+<p>どちらも<strong>データも鍵も端末の外に出しません</strong>。クラウドに管理画面はなく、
+問い合わせデータが置かれるのは、Cloudflareの受信箱(確認までの一時保存)と
+あなたの端末の中だけです。</p>
+<h2 id="_4">守れるもの、守れないもの</h2>
+<p>正直に範囲を書きます。</p>
+<ul>
+<li><strong>守れる</strong> — 蓄積した問い合わせデータの機密性。WordPressが侵入されても、
+  そこにデータはもうありません。受信箱の鍵(PULL_TOKEN)も端末側にあり、
+  WordPressには置きません</li>
+<li><strong>限定的</strong> — 送信経路の完全性。Turnstileの検証が門になり、ボットの大量投稿と
+  実訪問者IPごとのレート制限が効きますが、WordPress自体の改ざん
+  (フォームの書き換え等)はWordPressの守備範囲のままです。
+  それを根元から消すのは静的化です</li>
+<li><strong>設計で対処</strong> — 受信箱の満杯。無料枠の上限に達しても読み取りと削除は動き、
+  ページング付きの取得でどれだけ溜まっても引き取れます。
+  日々の「確認」が受信箱を空け続ける運用そのものです</li>
+</ul>
+<h2 id="_5">静的化への地続き</h2>
+<p>この構成のフォームは、既に<strong>素のHTML + Turnstile + 直接POST</strong>です。
+将来サイトを静的HTMLに作り直しても(<a href="../migration/">移行キット</a>の領分)、
+フォームも受信箱も管理アプリもデータの引き取りも、<strong>一日も途切れずそのまま</strong>使えます。
+WordPressと一緒に捨てるものは、フォームを載せていたページの器だけです。</p>
+<p>つまり FormRescue は、独立した応急処置ではなく、
+<strong>最終形のフォーム設計を先取りする最初の一歩</strong>です。</p>
+<h2 id="_6">構築の流れ(概要)</h2>
+<ol>
+<li>Cloudflareアカウントを作る(無料・カード登録不要)。Turnstileウィジェットを作成</li>
+<li>受信箱(Worker + D1)を設置スクリプト(deploy.py)で一回デプロイ。
+   完了時にQRコードが表示される</li>
+<li>WordPressの問い合わせフォームを素のHTMLフォームに差し替え、
+   フォーム系プラグインを外す</li>
+<li>管理アプリでQRを読み取り、テスト送信が届くことを確認</li>
+</ol>
+<p>コードはすべて仕様書からAIが実装し、人が仕様と照合して確認します。
+かつてプロが1日以上かけた構築が、この形なら数時間で終わります。</p>
+<hr />
+<p>サイト全体の移行(脱CMS・文書・メール・業務)は <a href="../migration/">aiseed-migration-kit</a> へ。
+他の道具は <a href="../packages/">OSSパッケージ紹介</a> へ。</p>
+</div>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">timej.net</span>
+                    <p>組織のITを、自分の手に</p>
+                </div>
+                <div class="footer-links">
+                    <a href="../migration/">IT移行</a>
+                    <a href="../packages/">パッケージ</a>
+                    <a href="../#projects">アプリ</a>
+                    <a href="../cookbook/">AI×Flutter</a>
+                    <a href="../dyslexia/">ディスレクシア</a>
+                    <a href="../#about">About</a>
+                    <a href="../privacy/">プライバシーポリシー</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScf1__3fN4du4SqSRI9HF69W3YvZRFnYyB9WXO0ack_4hmsRw/viewform?usp=dialog"
+                        target="_blank" rel="noopener noreferrer">お問い合わせ</a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 timej.net. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ハンバーガーメニューの制御
+        const hamburger = document.querySelector('.hamburger');
+        const mainNav = document.querySelector('.main-nav');
+        const body = document.body;
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            body.classList.toggle('menu-open');
+        });
+
+        // メニューリンククリック時にメニューを閉じる
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            });
+        });
+
+        // オーバーレイクリック時にメニューを閉じる
+        document.addEventListener('click', (e) => {
+            if (body.classList.contains('menu-open') &&
+                !mainNav.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mainNav.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
