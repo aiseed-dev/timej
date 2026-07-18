@@ -35,3 +35,9 @@ env/
 
 # cookbook のビルド生成物(公開物は frontend/timej.net/html/cookbook/ の凍結コピー)
 cookbook/site/
+
+# timej.net のビルド生成物（src/ と web/assets から build.py で再生成できる）。
+# ただし html/dyslexia は手書きの静的ツリー（src なし）なので追跡を続ける。
+# app.timej.net/html と web/assets は「元」なので無視しない。
+frontend/timej.net/html/*
+!frontend/timej.net/html/dyslexia
