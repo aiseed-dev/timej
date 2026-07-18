@@ -49,4 +49,4 @@ GitHub Actions の各OSランナーで `flet build` を回し、成果物を
 `windows-latest`。署名鍵はシークレットに置く。手元に全OSを揃えなくて
 済むのが CI の利点。
 
-戻る: [ホーム](../index.md)
+次: [3-11 FilePicker](11_filepicker.md)
