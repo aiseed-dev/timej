@@ -12,7 +12,9 @@ iOS / Android / Web / デスクトップへ ── 一つの Python コードか
 
 ## このCookbookの立ち位置
 
-このCookbookは [aiseed.dev「AI時代の暮らし」](https://aiseed.dev/) の一部です。
+このCookbookは [AIネイティブな仕事の作法](https://aiseed.dev/ai-native-ways/)（構造）の、
+**アプリ層**の実践レシピです。「人が何を作るか・誰に届けるかを決め、コードはAIが書く」を、
+Fletで具体化します。
 
 | レイヤー | 道具 | 役割 |
 |---|---|---|
