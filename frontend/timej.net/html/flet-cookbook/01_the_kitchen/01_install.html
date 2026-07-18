@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flet をインストールして最初のアプリを動かす - AI x Flet Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flet Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/aiseed-dev/timej">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details open><summary>1. 台所の準備</summary><ul>
+<li class="current"><a href="../01_the_kitchen/01_install.html">Flet をインストールして最初のアプリを動かす</a></li>
+<li><a href="../01_the_kitchen/02_bundled_python.html">同梱Pythonとプロジェクト構成（flet build の勘所）</a></li>
+<li><a href="../01_the_kitchen/03_project_structure.html">プロジェクト構成と自己完結コントロール（AIに任せやすい形）</a></li>
+</ul></details>
+<details><summary>2. Fletの重要概念</summary><ul>
+<li><a href="../02_core_concepts/01_page_and_controls.html">#2-1 page と control、そして update</a></li>
+<li><a href="../02_core_concepts/02_state.html">#2-2 状態 — use_state / use_ref / use_effect</a></li>
+<li><a href="../02_core_concepts/03_navigation.html">#2-3 画面遷移（ルーターを使わず use_state で）</a></li>
+<li><a href="../02_core_concepts/04_theming.html">#2-4 テーマとフォント（日本語もきれいに）</a></li>
+</ul></details>
+<details><summary>3. 実戦レシピ</summary><ul>
+<li><a href="../03_recipes/01_migrating_085_to_086.html">#3-1 Flet 0.85 → 0.86 の移行と落とし穴</a></li>
+<li><a href="../03_recipes/02_ui_thread.html">#3-2 重い処理とUIスレッド（フリーズと無反応を防ぐ）</a></li>
+<li><a href="../03_recipes/03_external_process.html">#3-3 外部プロセスと連携する（Chrome・エディタ・ファイル）</a></li>
+<li><a href="../03_recipes/04_dialogs.html">#3-4 ダイアログ（確認・入力・API変更に注意）</a></li>
+<li><a href="../03_recipes/05_menus_and_shortcuts.html">#3-5 メニューバーとキーボードショートカット</a></li>
+<li><a href="../03_recipes/06_sqlite.html">#3-6 SQLite を手元に持つ（保存・スレッド・バックアップ）</a></li>
+<li><a href="../03_recipes/07_calling_python_pipeline.html">#3-7 Pythonのパイプラインを直接呼ぶ（Fletの真価）</a></li>
+<li><a href="../03_recipes/08_pull_sync.html">#3-8 プル型同期とデータ保全（順序を間違えない）</a></li>
+<li><a href="../03_recipes/09_xlsx.html">#3-9 xlsx を読み書きする（名簿・台帳の出力）</a></li>
+<li><a href="../03_recipes/10_distribution.html">#3-10 配布する（flet build）</a></li>
+<li><a href="../03_recipes/11_filepicker.html">#3-11 FilePicker（開く・保存・Web対応）</a></li>
+<li><a href="../03_recipes/12_text_editing.html">#3-12 テキスト編集の実戦（選択・挿入・Undo）</a></li>
+<li><a href="../03_recipes/13_notifications.html">#3-13 通知（プッシュ）とローカルなお知らせ</a></li>
+<li><a href="../03_recipes/14_responsive.html">#3-14 レスポンシブ（モバイルとデスクトップ両対応）</a></li>
+</ul></details>
+<details><summary>4. 救急箱</summary><ul>
+<li><a href="../04_troubleshooting/01_common_pitfalls.html">#4-1 よくある詰まりと直し方</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="flet">Flet をインストールして最初のアプリを動かす</h1>
+<h2 id="_1">インストール</h2>
+<pre><code class="language-bash">pip install &quot;flet[all]&quot;
+</code></pre>
+<p><code>[all]</code> はデスクトップ実行・Web配信・CLI（<code>flet</code> コマンド）を一式入れる。
+最小でよければ <code>pip install flet</code> だが、<code>flet run</code> や <code>flet build</code> を
+使うなら <code>[all]</code> が楽。</p>
+<h2 id="_2">最初のアプリ</h2>
+<p><code>main.py</code>:</p>
+<pre><code class="language-python">import flet as ft
+
+
+def main(page: ft.Page):
+    page.title = &quot;はじめての Flet&quot;
+    page.add(ft.Text(&quot;こんにちは、Flet&quot;))
+
+
+ft.run(main)
+</code></pre>
+<pre><code class="language-bash">flet run              # デスクトップウィンドウで開く
+flet run --web        # ブラウザで開く（http://localhost:8550 など）
+python main.py        # ft.run(main) を直接呼んでもよい
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title"><code>ft.app</code> ではなく <code>ft.run</code></p>
+<p>新しめの Flet は起動関数が <code>ft.run(main)</code>。古い記事の <code>ft.app(target=main)</code>
+も当面動くが、新規は <code>ft.run</code> で書く。</p>
+</div>
+<h2 id="web">Webサーバとして公開する</h2>
+<p>同じアプリを、同一LANのスマホからも開けるサーバにできる:</p>
+<pre><code class="language-python">import os
+port = int(os.environ.get(&quot;PORT&quot;, &quot;8550&quot;))
+ft.run(main, view=ft.AppView.WEB_BROWSER, port=port, host=&quot;0.0.0.0&quot;)
+</code></pre>
+<p><code>host="0.0.0.0"</code> で LAN 公開になる。<strong>無認証で公開される点に注意</strong>（社内・
+手元向け。外に出すなら前段に認証を置く）。</p>
+<h2 id="_3">どこで動くか</h2>
+<table>
+<thead>
+<tr>
+<th>ターゲット</th>
+<th>コマンド</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>デスクトップ</td>
+<td><code>flet run</code></td>
+<td>Windows / macOS / Linux</td>
+</tr>
+<tr>
+<td>ブラウザ</td>
+<td><code>flet run --web</code></td>
+<td>Python は手元で動く（サーバ側実行）</td>
+</tr>
+<tr>
+<td>モバイル/配布</td>
+<td><code>flet build apk</code> / <code>ipa</code> / …</td>
+<td><a href="02_bundled_python.html">1-2 同梱Python</a> 参照</td>
+</tr>
+</tbody>
+</table>
+<p>次: <a href="02_bundled_python.html">1-2 同梱Pythonとプロジェクト構成</a>。</p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

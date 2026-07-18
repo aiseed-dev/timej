@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レシピ#3-4: ダイアログ（確認・入力・API変更に注意） - AI x Flet Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flet Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/aiseed-dev/timej">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. 台所の準備</summary><ul>
+<li><a href="../01_the_kitchen/01_install.html">Flet をインストールして最初のアプリを動かす</a></li>
+<li><a href="../01_the_kitchen/02_bundled_python.html">同梱Pythonとプロジェクト構成（flet build の勘所）</a></li>
+<li><a href="../01_the_kitchen/03_project_structure.html">プロジェクト構成と自己完結コントロール（AIに任せやすい形）</a></li>
+</ul></details>
+<details><summary>2. Fletの重要概念</summary><ul>
+<li><a href="../02_core_concepts/01_page_and_controls.html">#2-1 page と control、そして update</a></li>
+<li><a href="../02_core_concepts/02_state.html">#2-2 状態 — use_state / use_ref / use_effect</a></li>
+<li><a href="../02_core_concepts/03_navigation.html">#2-3 画面遷移（ルーターを使わず use_state で）</a></li>
+<li><a href="../02_core_concepts/04_theming.html">#2-4 テーマとフォント（日本語もきれいに）</a></li>
+</ul></details>
+<details open><summary>3. 実戦レシピ</summary><ul>
+<li><a href="../03_recipes/01_migrating_085_to_086.html">#3-1 Flet 0.85 → 0.86 の移行と落とし穴</a></li>
+<li><a href="../03_recipes/02_ui_thread.html">#3-2 重い処理とUIスレッド（フリーズと無反応を防ぐ）</a></li>
+<li><a href="../03_recipes/03_external_process.html">#3-3 外部プロセスと連携する（Chrome・エディタ・ファイル）</a></li>
+<li class="current"><a href="../03_recipes/04_dialogs.html">#3-4 ダイアログ（確認・入力・API変更に注意）</a></li>
+<li><a href="../03_recipes/05_menus_and_shortcuts.html">#3-5 メニューバーとキーボードショートカット</a></li>
+<li><a href="../03_recipes/06_sqlite.html">#3-6 SQLite を手元に持つ（保存・スレッド・バックアップ）</a></li>
+<li><a href="../03_recipes/07_calling_python_pipeline.html">#3-7 Pythonのパイプラインを直接呼ぶ（Fletの真価）</a></li>
+<li><a href="../03_recipes/08_pull_sync.html">#3-8 プル型同期とデータ保全（順序を間違えない）</a></li>
+<li><a href="../03_recipes/09_xlsx.html">#3-9 xlsx を読み書きする（名簿・台帳の出力）</a></li>
+<li><a href="../03_recipes/10_distribution.html">#3-10 配布する（flet build）</a></li>
+<li><a href="../03_recipes/11_filepicker.html">#3-11 FilePicker（開く・保存・Web対応）</a></li>
+<li><a href="../03_recipes/12_text_editing.html">#3-12 テキスト編集の実戦（選択・挿入・Undo）</a></li>
+<li><a href="../03_recipes/13_notifications.html">#3-13 通知（プッシュ）とローカルなお知らせ</a></li>
+<li><a href="../03_recipes/14_responsive.html">#3-14 レスポンシブ（モバイルとデスクトップ両対応）</a></li>
+</ul></details>
+<details><summary>4. 救急箱</summary><ul>
+<li><a href="../04_troubleshooting/01_common_pitfalls.html">#4-1 よくある詰まりと直し方</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="3-4-api">レシピ#3-4: ダイアログ（確認・入力・API変更に注意）</h1>
+<p>ダイアログの出し方は Flet のバージョンで変わってきた。今の書き方と、
+古い記事との差を押さえる。</p>
+<h2 id="show_dialog-pop_dialog">今の出し方: show_dialog / pop_dialog</h2>
+<pre><code class="language-python">def edit_title(page, current):
+    field = ft.TextField(label=&quot;題名&quot;, value=current, autofocus=True)
+
+    def apply(e):
+        save_title(field.value)
+        page.pop_dialog()          # 閉じる
+        page.update()
+
+    dlg = ft.AlertDialog(
+        title=ft.Text(&quot;題名の編集&quot;),
+        content=field,
+        actions=[
+            ft.TextButton(&quot;キャンセル&quot;, on_click=lambda e: page.pop_dialog()),
+            ft.FilledButton(&quot;保存&quot;, on_click=apply),
+        ],
+    )
+    page.show_dialog(dlg)          # 開く
+    page.update()
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">古い記事の <code>page.dialog = ...; dlg.open = True</code> は避ける</p>
+<p>以前は <code>page.dialog</code> に代入して <code>open=True</code>／<code>page.open(dlg)</code>／
+<code>page.close(dlg)</code> という書き方があったが、今は <strong><code>page.show_dialog(dlg)</code> /
+<code>page.pop_dialog()</code></strong> を使う。古い書き方をコピーして「ダイアログが
+出ない・閉じない」で詰まるのは、この API の食い違いが原因のことが多い。</p>
+</div>
+<h2 id="_1">確認ダイアログ（はい/いいえ）</h2>
+<pre><code class="language-python">def confirm(page, message, on_yes):
+    def yes(e):
+        page.pop_dialog()
+        on_yes()
+
+    page.show_dialog(ft.AlertDialog(
+        title=ft.Text(&quot;確認&quot;),
+        content=ft.Text(message),
+        actions=[
+            ft.TextButton(&quot;いいえ&quot;, on_click=lambda e: page.pop_dialog()),
+            ft.FilledButton(&quot;はい&quot;, on_click=yes),
+        ],
+    ))
+    page.update()
+</code></pre>
+<h2 id="_2">別ダイアログに逃がす設計</h2>
+<p>本文編集の最中に「書誌情報（題名・著者）」のようなメタ情報をいじりたい
+とき、本文エリアに混ぜず<strong>別ダイアログ</strong>にすると、誤入力が本文に紛れない。
+編集画面が主・設定は従、という分離は実アプリで効く。</p>
+<p>次: <a href="05_menus_and_shortcuts.html">3-5 メニューとショートカット</a></p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

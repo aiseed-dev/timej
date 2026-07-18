@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レシピ#3-7: Pythonのパイプラインを直接呼ぶ（Fletの真価） - AI x Flet Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flet Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/aiseed-dev/timej">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. 台所の準備</summary><ul>
+<li><a href="../01_the_kitchen/01_install.html">Flet をインストールして最初のアプリを動かす</a></li>
+<li><a href="../01_the_kitchen/02_bundled_python.html">同梱Pythonとプロジェクト構成（flet build の勘所）</a></li>
+<li><a href="../01_the_kitchen/03_project_structure.html">プロジェクト構成と自己完結コントロール（AIに任せやすい形）</a></li>
+</ul></details>
+<details><summary>2. Fletの重要概念</summary><ul>
+<li><a href="../02_core_concepts/01_page_and_controls.html">#2-1 page と control、そして update</a></li>
+<li><a href="../02_core_concepts/02_state.html">#2-2 状態 — use_state / use_ref / use_effect</a></li>
+<li><a href="../02_core_concepts/03_navigation.html">#2-3 画面遷移（ルーターを使わず use_state で）</a></li>
+<li><a href="../02_core_concepts/04_theming.html">#2-4 テーマとフォント（日本語もきれいに）</a></li>
+</ul></details>
+<details open><summary>3. 実戦レシピ</summary><ul>
+<li><a href="../03_recipes/01_migrating_085_to_086.html">#3-1 Flet 0.85 → 0.86 の移行と落とし穴</a></li>
+<li><a href="../03_recipes/02_ui_thread.html">#3-2 重い処理とUIスレッド（フリーズと無反応を防ぐ）</a></li>
+<li><a href="../03_recipes/03_external_process.html">#3-3 外部プロセスと連携する（Chrome・エディタ・ファイル）</a></li>
+<li><a href="../03_recipes/04_dialogs.html">#3-4 ダイアログ（確認・入力・API変更に注意）</a></li>
+<li><a href="../03_recipes/05_menus_and_shortcuts.html">#3-5 メニューバーとキーボードショートカット</a></li>
+<li><a href="../03_recipes/06_sqlite.html">#3-6 SQLite を手元に持つ（保存・スレッド・バックアップ）</a></li>
+<li class="current"><a href="../03_recipes/07_calling_python_pipeline.html">#3-7 Pythonのパイプラインを直接呼ぶ（Fletの真価）</a></li>
+<li><a href="../03_recipes/08_pull_sync.html">#3-8 プル型同期とデータ保全（順序を間違えない）</a></li>
+<li><a href="../03_recipes/09_xlsx.html">#3-9 xlsx を読み書きする（名簿・台帳の出力）</a></li>
+<li><a href="../03_recipes/10_distribution.html">#3-10 配布する（flet build）</a></li>
+<li><a href="../03_recipes/11_filepicker.html">#3-11 FilePicker（開く・保存・Web対応）</a></li>
+<li><a href="../03_recipes/12_text_editing.html">#3-12 テキスト編集の実戦（選択・挿入・Undo）</a></li>
+<li><a href="../03_recipes/13_notifications.html">#3-13 通知（プッシュ）とローカルなお知らせ</a></li>
+<li><a href="../03_recipes/14_responsive.html">#3-14 レスポンシブ（モバイルとデスクトップ両対応）</a></li>
+</ul></details>
+<details><summary>4. 救急箱</summary><ul>
+<li><a href="../04_troubleshooting/01_common_pitfalls.html">#4-1 よくある詰まりと直し方</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="3-7-pythonflet">レシピ#3-7: Pythonのパイプラインを直接呼ぶ（Fletの真価）</h1>
+<p>これが Flet を選ぶ最大の理由。<strong>UIと業務ロジックが同じ Python・同じ
+プロセス</strong>なので、自分のデータ処理パイプラインを import して直接叩ける。
+サーバも API も、言語の切り替えも要らない。</p>
+<h2 id="import">そのまま import して呼ぶ</h2>
+<p>たとえば「テキスト → 変換 → プレビュー」を、変換ライブラリを直接呼んで
+実現する:</p>
+<pre><code class="language-python">from mypipeline import convert, to_html      # 自作の処理をそのまま import
+
+def on_preview(e):
+    busy.visible = True; page.update()
+
+    def work():
+        try:
+            doc = convert(editor.value)        # 重い変換
+            preview.value = to_html(doc)
+        except Exception as ex:
+            status.value = f&quot;変換に失敗: {ex}&quot;
+        finally:
+            busy.visible = False; page.update()
+
+    page.run_thread(work)                       # 重いのでスレッドへ（3-2）
+</code></pre>
+<p>Web アプリなら「フロントで入力 → API に POST → バックエンドで変換 →
+返す」の一往復が要るところを、Flet は<strong>関数呼び出し1回</strong>で済ませる。
+プロトタイプから実運用まで、この近さがそのまま速さになる。</p>
+<h2 id="_1">外部レンダラの結果を画像で見せる</h2>
+<p>自前で描けない高度な組版（縦書き・ルビ等）は、外部ツールにHTML→画像化
+させ、結果を <code>ft.Image</code> に流す。ヘッドレスChromeでスクリーンショットを
+撮り、base64 で埋め込む:</p>
+<pre><code class="language-python">import base64, subprocess, tempfile
+from pathlib import Path
+
+def render_png(html: str, w: int, h: int) -&gt; bytes:
+    chrome = find_chrome()                      # レシピ#3-3
+    with tempfile.TemporaryDirectory() as td:
+        p = Path(td) / &quot;p.html&quot;; png = Path(td) / &quot;p.png&quot;
+        p.write_text(html, encoding=&quot;utf-8&quot;)
+        subprocess.run(
+            [chrome, &quot;--headless&quot;, &quot;--disable-gpu&quot;,
+             &quot;--force-device-scale-factor=2&quot;,     # 2倍でくっきり
+             f&quot;--window-size={w},{h}&quot;, f&quot;--screenshot={png}&quot;,
+             p.resolve().as_uri()],
+            check=True, capture_output=True)
+        return png.read_bytes()
+
+def show_preview(html):
+    png = render_png(html, 794, 1123)            # A4相当
+    preview.src = &quot;data:image/png;base64,&quot; + base64.b64encode(png).decode()
+    page.update()
+</code></pre>
+<p><code>ft.Image(src="data:image/png;base64,...")</code> で外部レンダリング結果を
+表示できる。<code>ft.InteractiveViewer</code> で囲めば拡大・パンもつく。</p>
+<div class="admonition tip">
+<p class="admonition-title">薄いUI・重いロジックは外へ</p>
+<p>Flet 側は「入力を集め、結果を見せる」だけに徹し、変換・組版・生成は
+ライブラリや外部プロセスに委ねると、アプリが小さく保てる。UIと
+ロジックが同居できるのは利点だが、<strong>なんでもUIファイルに書かない</strong>。</p>
+</div>
+<p>次: <a href="08_pull_sync.html">3-8 プル型同期とデータ保全</a></p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

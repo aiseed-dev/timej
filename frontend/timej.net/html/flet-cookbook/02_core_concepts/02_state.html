@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>重要概念#2-2: 状態 — use_state / use_ref / use_effect - AI x Flet Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flet Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/aiseed-dev/timej">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. 台所の準備</summary><ul>
+<li><a href="../01_the_kitchen/01_install.html">Flet をインストールして最初のアプリを動かす</a></li>
+<li><a href="../01_the_kitchen/02_bundled_python.html">同梱Pythonとプロジェクト構成（flet build の勘所）</a></li>
+<li><a href="../01_the_kitchen/03_project_structure.html">プロジェクト構成と自己完結コントロール（AIに任せやすい形）</a></li>
+</ul></details>
+<details open><summary>2. Fletの重要概念</summary><ul>
+<li><a href="../02_core_concepts/01_page_and_controls.html">#2-1 page と control、そして update</a></li>
+<li class="current"><a href="../02_core_concepts/02_state.html">#2-2 状態 — use_state / use_ref / use_effect</a></li>
+<li><a href="../02_core_concepts/03_navigation.html">#2-3 画面遷移（ルーターを使わず use_state で）</a></li>
+<li><a href="../02_core_concepts/04_theming.html">#2-4 テーマとフォント（日本語もきれいに）</a></li>
+</ul></details>
+<details><summary>3. 実戦レシピ</summary><ul>
+<li><a href="../03_recipes/01_migrating_085_to_086.html">#3-1 Flet 0.85 → 0.86 の移行と落とし穴</a></li>
+<li><a href="../03_recipes/02_ui_thread.html">#3-2 重い処理とUIスレッド（フリーズと無反応を防ぐ）</a></li>
+<li><a href="../03_recipes/03_external_process.html">#3-3 外部プロセスと連携する（Chrome・エディタ・ファイル）</a></li>
+<li><a href="../03_recipes/04_dialogs.html">#3-4 ダイアログ（確認・入力・API変更に注意）</a></li>
+<li><a href="../03_recipes/05_menus_and_shortcuts.html">#3-5 メニューバーとキーボードショートカット</a></li>
+<li><a href="../03_recipes/06_sqlite.html">#3-6 SQLite を手元に持つ（保存・スレッド・バックアップ）</a></li>
+<li><a href="../03_recipes/07_calling_python_pipeline.html">#3-7 Pythonのパイプラインを直接呼ぶ（Fletの真価）</a></li>
+<li><a href="../03_recipes/08_pull_sync.html">#3-8 プル型同期とデータ保全（順序を間違えない）</a></li>
+<li><a href="../03_recipes/09_xlsx.html">#3-9 xlsx を読み書きする（名簿・台帳の出力）</a></li>
+<li><a href="../03_recipes/10_distribution.html">#3-10 配布する（flet build）</a></li>
+<li><a href="../03_recipes/11_filepicker.html">#3-11 FilePicker（開く・保存・Web対応）</a></li>
+<li><a href="../03_recipes/12_text_editing.html">#3-12 テキスト編集の実戦（選択・挿入・Undo）</a></li>
+<li><a href="../03_recipes/13_notifications.html">#3-13 通知（プッシュ）とローカルなお知らせ</a></li>
+<li><a href="../03_recipes/14_responsive.html">#3-14 レスポンシブ（モバイルとデスクトップ両対応）</a></li>
+</ul></details>
+<details><summary>4. 救急箱</summary><ul>
+<li><a href="../04_troubleshooting/01_common_pitfalls.html">#4-1 よくある詰まりと直し方</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="2-2-use_state-use_ref-use_effect">重要概念#2-2: 状態 — use_state / use_ref / use_effect</h1>
+<p><code>@ft.component</code> で書くとき、状態の道具は3つ。使い分けを間違えると
+「値が古いまま」「再描画されない」で詰まる。</p>
+<h2 id="use_state">use_state — 変わったら再描画してほしい値</h2>
+<pre><code class="language-python">@ft.component
+def Counter():
+    n, set_n = ft.use_state(0)
+    return ft.FilledButton(f&quot;{n}&quot;, on_click=lambda e: set_n(n + 1))
+</code></pre>
+<p><code>set_n(v)</code> で値を更新すると<strong>再描画される</strong>。関数を渡すと現在値から
+計算できる（複数更新が重なっても安全）:</p>
+<pre><code class="language-python">set_n(lambda cur: cur + 1)
+</code></pre>
+<h2 id="use_ref">use_ref — 再描画は要らない、でも最新を保持したい値</h2>
+<p><code>use_ref</code> は <code>.current</code> に値を持つ。<strong>更新しても再描画しない</strong>。
+「バックグラウンドのタスクハンドル」「実行中フラグ」「クロージャに
+最新値を見せたい」といった、UI に出さない状態に使う。</p>
+<pre><code class="language-python">@ft.component
+def Inbox():
+    busy = ft.use_ref(False)          # 表示に出さない実行中フラグ
+    timer = ft.use_ref(None)          # タイマータスクのハンドル
+    ...
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">effect のクロージャは初回の値を覚えている</p>
+<p>マウント時に1度だけ動く効果（下記 use_effect）の中から状態を読むと、
+<strong>初回レンダーのスナップショット</strong>を見てしまう。ループやタイマーから
+「今の値」を見たいときは、state ではなく <strong>ref</strong>（<code>.current</code>）を使う。
+これは実アプリで実際に踏む罠。</p>
+</div>
+<h2 id="use_effect">use_effect — マウント時の副作用と後始末</h2>
+<p>購読開始・タイマー起動・初回ロードなど。<code>dependencies=[]</code> で「マウント時に
+1回」、<code>cleanup</code> でアンマウント時の後始末を書く:</p>
+<pre><code class="language-python">@ft.component
+def Inbox():
+    timer = ft.use_ref(None)
+
+    async def setup():
+        timer.current = asyncio.create_task(periodic_loop())
+        await first_load()
+
+    def cleanup():
+        if timer.current:
+            timer.current.cancel()
+
+    ft.use_effect(setup, dependencies=[], cleanup=cleanup)
+    ...
+</code></pre>
+<h2 id="_1">使い分け早見</h2>
+<table>
+<thead>
+<tr>
+<th>欲しいもの</th>
+<th>道具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>変わったら画面を更新</td>
+<td><code>use_state</code></td>
+</tr>
+<tr>
+<td>保持するが再描画不要／最新をクロージャに見せる</td>
+<td><code>use_ref</code>（<code>.current</code>）</td>
+</tr>
+<tr>
+<td>マウント時の副作用＋後始末</td>
+<td><code>use_effect(setup, dependencies=[], cleanup=...)</code></td>
+</tr>
+</tbody>
+</table>
+<p>状態管理ライブラリは要らない。画面をまたぐ状態は、上位コンポーネントの
+<code>use_state</code> を関数で子に渡すだけで足りる。→ <a href="03_navigation.html">2-3 画面遷移</a></p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>

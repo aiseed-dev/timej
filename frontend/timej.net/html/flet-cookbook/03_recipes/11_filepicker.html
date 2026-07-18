@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レシピ#3-11: FilePicker（開く・保存・Web対応） - AI x Flet Cookbook</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../index.html">🍳 AI x Flet Cookbook</a>
+  <nav class="header-links">
+    <a href="https://aiseed.dev/" title="AI時代の暮らし">🌱 aiseed.dev</a>
+    <a href="https://github.com/aiseed-dev/timej">GitHub</a>
+  </nav>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+<a class="nav-home" href="../index.html">🍳 ホーム</a>
+<details><summary>1. 台所の準備</summary><ul>
+<li><a href="../01_the_kitchen/01_install.html">Flet をインストールして最初のアプリを動かす</a></li>
+<li><a href="../01_the_kitchen/02_bundled_python.html">同梱Pythonとプロジェクト構成（flet build の勘所）</a></li>
+<li><a href="../01_the_kitchen/03_project_structure.html">プロジェクト構成と自己完結コントロール（AIに任せやすい形）</a></li>
+</ul></details>
+<details><summary>2. Fletの重要概念</summary><ul>
+<li><a href="../02_core_concepts/01_page_and_controls.html">#2-1 page と control、そして update</a></li>
+<li><a href="../02_core_concepts/02_state.html">#2-2 状態 — use_state / use_ref / use_effect</a></li>
+<li><a href="../02_core_concepts/03_navigation.html">#2-3 画面遷移（ルーターを使わず use_state で）</a></li>
+<li><a href="../02_core_concepts/04_theming.html">#2-4 テーマとフォント（日本語もきれいに）</a></li>
+</ul></details>
+<details open><summary>3. 実戦レシピ</summary><ul>
+<li><a href="../03_recipes/01_migrating_085_to_086.html">#3-1 Flet 0.85 → 0.86 の移行と落とし穴</a></li>
+<li><a href="../03_recipes/02_ui_thread.html">#3-2 重い処理とUIスレッド（フリーズと無反応を防ぐ）</a></li>
+<li><a href="../03_recipes/03_external_process.html">#3-3 外部プロセスと連携する（Chrome・エディタ・ファイル）</a></li>
+<li><a href="../03_recipes/04_dialogs.html">#3-4 ダイアログ（確認・入力・API変更に注意）</a></li>
+<li><a href="../03_recipes/05_menus_and_shortcuts.html">#3-5 メニューバーとキーボードショートカット</a></li>
+<li><a href="../03_recipes/06_sqlite.html">#3-6 SQLite を手元に持つ（保存・スレッド・バックアップ）</a></li>
+<li><a href="../03_recipes/07_calling_python_pipeline.html">#3-7 Pythonのパイプラインを直接呼ぶ（Fletの真価）</a></li>
+<li><a href="../03_recipes/08_pull_sync.html">#3-8 プル型同期とデータ保全（順序を間違えない）</a></li>
+<li><a href="../03_recipes/09_xlsx.html">#3-9 xlsx を読み書きする（名簿・台帳の出力）</a></li>
+<li><a href="../03_recipes/10_distribution.html">#3-10 配布する（flet build）</a></li>
+<li class="current"><a href="../03_recipes/11_filepicker.html">#3-11 FilePicker（開く・保存・Web対応）</a></li>
+<li><a href="../03_recipes/12_text_editing.html">#3-12 テキスト編集の実戦（選択・挿入・Undo）</a></li>
+<li><a href="../03_recipes/13_notifications.html">#3-13 通知（プッシュ）とローカルなお知らせ</a></li>
+<li><a href="../03_recipes/14_responsive.html">#3-14 レスポンシブ（モバイルとデスクトップ両対応）</a></li>
+</ul></details>
+<details><summary>4. 救急箱</summary><ul>
+<li><a href="../04_troubleshooting/01_common_pitfalls.html">#4-1 よくある詰まりと直し方</a></li>
+</ul></details>
+    </nav>
+  </aside>
+  <main class="content">
+<h1 id="3-11-filepickerweb">レシピ#3-11: FilePicker（開く・保存・Web対応）</h1>
+<p>ファイルの入出力は、デスクトップと Web で挙動が違う。両対応の型を覚える。</p>
+<h2 id="filepicker">FilePicker を用意する</h2>
+<p>FilePicker は <code>page.overlay</code> に載せてから使う（0.86 系）:</p>
+<pre><code class="language-python">picker = ft.FilePicker()
+page.overlay.append(picker)
+page.update()
+</code></pre>
+<p><code>@ft.component</code> なら <code>use_ref</code> に持たせ、<code>page.services</code>/<code>overlay</code> へ
+登録してから使う（Service 系は登録前に呼ぶと落ちる ── <a href="01_migrating_085_to_086.html">3-1</a>）。</p>
+<h2 id="bytes">開く：bytes とパスの両対応</h2>
+<pre><code class="language-python">files = await picker.pick_files(
+    dialog_title=&quot;ファイルを選ぶ&quot;,
+    allowed_extensions=[&quot;txt&quot;, &quot;md&quot;],
+    file_type=ft.FilePickerFileType.CUSTOM,
+    with_data=True,                       # Web でも中身(bytes)を取る
+)
+if files:
+    f = files[0]
+    data = f.bytes if f.bytes is not None else Path(f.path).read_bytes()
+    text = data.decode(&quot;utf-8-sig&quot;)       # BOM も許容
+</code></pre>
+<ul>
+<li><strong>デスクトップ</strong>は <code>f.path</code>（実ファイルパス）が使える</li>
+<li><strong>Web</strong> は <code>f.path</code> が無く、<code>with_data=True</code> で得た <code>f.bytes</code> を使う</li>
+<li>「bytes があればそれ、無ければパスから読む」で一本化できる</li>
+</ul>
+<h2 id="src_bytes-web">保存：src_bytes で Web はダウンロードになる</h2>
+<pre><code class="language-python">data = text.encode(&quot;utf-8&quot;)
+path = await picker.save_file(
+    dialog_title=&quot;名前を付けて保存&quot;,
+    file_name=&quot;output.txt&quot;,
+    allowed_extensions=[&quot;txt&quot;],
+    file_type=ft.FilePickerFileType.CUSTOM,
+    src_bytes=data,                       # Web: これでブラウザDLになる
+)
+if path:
+    # デスクトップは実パスが返る。Web は &quot;upload...&quot; 等の擬似パス
+    if not str(path).startswith(&quot;upload&quot;):
+        Path(path).write_bytes(data)      # デスクトップは自分で書く
+</code></pre>
+<ul>
+<li><code>src_bytes</code> を渡すと <strong>Web ではブラウザのダウンロード</strong>として保存される</li>
+<li>デスクトップでは選ばれた実パスが返るので、そこへ自分で <code>write_bytes</code></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">往復は構造化形式で</p>
+<p>「開く→編集→保存→また開く」を繰り返す作業ファイルは、プレーン
+テキストだと設定（モード等）が失われる。保存は自前の構造化形式
+（JSON等）にして、提出用のプレーンテキストは「エクスポート」として
+別に書き出すと、往復で情報が欠けない。</p>
+</div>
+<p>次: <a href="12_text_editing.html">3-12 テキスト編集の実戦</a></p>
+  </main>
+</div>
+<footer class="site-footer">
+  <p>ドキュメント: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> ／
+     サンプルコード: <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></p>
+  <p><a href="https://aiseed.dev/">aiseed.dev「AI時代の暮らし」</a>プロジェクト — このサイトはClaudeと共に、Markdownと小さなPythonスクリプトだけで作られています。</p>
+</footer>
+</body>
+</html>
