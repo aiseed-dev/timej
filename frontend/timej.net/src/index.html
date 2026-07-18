@@ -56,6 +56,68 @@
                 </div>
             </div>
 
+            <!-- AISeed工房（pykobo） -->
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-header">
+                        <div class="project-icon-wrapper">
+                            <span class="project-icon">✍️</span>
+                        </div>
+                        <div class="project-title-area">
+                            <h3 class="project-title">AISeed工房（pykobo） - Pythonで動く日本語ワープロ</h3>
+                            <span class="project-status status-development">開発中</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        テキストで書き、組版で確かめ、紙とデータに出す——昔の日本語ワープロの現代版。
+                        青空文庫注記・AsciiDocで執筆でき、縦書き組版プレビューやEPUB/PDF出力を備えます。
+                        UIも変換も同じPythonなので、パイプラインを直接呼べます（Flet製）。
+                    </p>
+                    <ul class="project-features">
+                        <li><strong>日本語組版</strong> — 縦書きプレビュー・印刷・EPUB/PDF（pywashiに委譲）</li>
+                        <li><strong>執筆支援</strong> — ルビ・傍点・見出しの挿入、外部エディタ連携、表(xlsx)挿入</li>
+                        <li><strong>AI活用</strong> — 写真から書き起こし(VLM)・Claude校正</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="https://github.com/aiseed-dev/pykobo" class="btn btn-primary" target="_blank"
+                            rel="noopener noreferrer">
+                            <span class="btn-icon">💻</span> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文庫（bunko） -->
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-header">
+                        <div class="project-icon-wrapper">
+                            <span class="project-icon">📚</span>
+                        </div>
+                        <div class="project-title-area">
+                            <h3 class="project-title">文庫（bunko） - 青空文庫をUnicode構造化データに</h3>
+                            <span class="project-status status-active">公開中</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        青空文庫の正本（注記付きテキスト）を、構造化されたUnicodeデータに変換するPython
+                        ライブラリ（pybunko）とデータ資産。サーバなし・完全オフライン。外字も画像ではなく
+                        実Unicode文字で扱うので、選択・検索・読み上げが効きます。工房(pykobo)の土台です。
+                    </p>
+                    <ul class="project-features">
+                        <li><strong>唯一の中間表現</strong> — 正本→Document→JSON/SQLite/EPUB/公式XHTML/フォント</li>
+                        <li><strong>データ資産</strong> — 全17,335作品/981作家のメタ＋外字フォント（JIS X 0213全外字）</li>
+                        <li><strong>ゼロ依存コア</strong> — 標準ライブラリのみ・公式サーバーには触れない</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="https://github.com/aiseed-dev/bunko" class="btn btn-primary" target="_blank"
+                            rel="noopener noreferrer">
+                            <span class="btn-icon">💻</span> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             <!-- FormRescue -->
             <div class="project-card">
                 <div class="project-content">
